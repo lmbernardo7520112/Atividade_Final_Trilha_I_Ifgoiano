@@ -1,0 +1,18 @@
+[tool.ruff]
+# Excluir notebooks (células de notebook não respeitam line-length)
+# e referências do professor
+exclude = [
+    "Resposta_Trabalho_Trilha_I.ipynb",
+    "Template_Trabalho_Trilha_I.ipynb",
+    "notebooks/",
+    ".venv",
+]
+
+# Line length compatível com código Python legível
+line-length = 100
+
+[tool.ruff.lint]
+# Regras habilitadas
+select = ["E", "F", "W"]
+# E741: Ambiguous variable name — necessário para variáveis proposicionais (E, B, V, S, A, C, I)
+ignore = ["E741"]

@@ -1,0 +1,643 @@
+\documentclass[11pt]{article}
+
+    \usepackage[breakable]{tcolorbox}
+    \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+    
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % Keep aspect ratio if custom image width or height is specified
+    \setkeys{Gin}{keepaspectratio}
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    \let\Oldincludegraphics\includegraphics
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionFormat{nocaption}{}
+    \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+
+    \usepackage{iftex}
+    \ifPDFTeX
+        \usepackage[T1]{fontenc}
+        \IfFileExists{alphabeta.sty}{
+              \usepackage{alphabeta}
+          }{
+              \usepackage[mathletters]{ucs}
+              \usepackage[utf8x]{inputenc}
+          }
+    \else
+        \usepackage{fontspec}
+        \usepackage{unicode-math}
+    \fi
+
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics
+                         % to support a larger range
+    \makeatletter % fix for old versions of grffile with XeLaTeX
+    \@ifpackagelater{grffile}{2019/11/01}
+    {
+      % Do nothing on new versions
+    }
+    {
+      \def\Gread@@xetex#1{%
+        \IfFileExists{"\Gin@base".bb}%
+        {\Gread@eps{\Gin@base.bb}}%
+        {\Gread@@xetex@aux#1}%
+      }
+    }
+    \makeatother
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage{array}     % table support for pandoc >= 2.11.3
+    \usepackage{calc}      % table minipage width calculation for pandoc >= 2.11.1
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{soul}      % strikethrough (\st) support for pandoc >= 3.0.0
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % common color for the border for error outputs.
+    \definecolor{outerrorbackground}{HTML}{FFDFDF}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \makeatletter
+    \newsavebox\pandoc@box
+    \newcommand*\pandocbounded[1]{%
+      \sbox\pandoc@box{#1}%
+      % scaling factors for width and height
+      \Gscale@div\@tempa\textheight{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+      \Gscale@div\@tempb\linewidth{\wd\pandoc@box}%
+      % select the smaller of both
+      \ifdim\@tempb\p@<\@tempa\p@
+        \let\@tempa\@tempb
+      \fi
+      % scaling accordingly (\@tempa < 1)
+      \ifdim\@tempa\p@<\p@
+        \scalebox{\@tempa}{\usebox\pandoc@box}%
+      % scaling not needed, use as it is
+      \else
+        \usebox{\pandoc@box}%
+      \fi
+    }
+    \makeatother
+
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{Trabalho\_Trilha\_I\_AcolheMente\_PB}
+    
+    
+    
+    
+    
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\@namedef{PY@tok@w}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.61,0.40,0.00}{##1}}}
+\@namedef{PY@tok@k}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kt}{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\@namedef{PY@tok@o}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ow}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@nb}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nf}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.80,0.25,0.22}{##1}}}
+\@namedef{PY@tok@nv}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@no}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.46,0.46,0.00}{##1}}}
+\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.41,0.47,0.13}{##1}}}
+\@namedef{PY@tok@nt}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nd}{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@s}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sd}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.36,0.12}{##1}}}
+\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@ss}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sx}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@m}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@gh}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gu}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gd}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.52,0.00}{##1}}}
+\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{0.89,0.00,0.00}{##1}}}
+\@namedef{PY@tok@ge}{\let\PY@it=\textit}
+\@namedef{PY@tok@gs}{\let\PY@bf=\textbf}
+\@namedef{PY@tok@ges}{\let\PY@bf=\textbf\let\PY@it=\textit}
+\@namedef{PY@tok@gp}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@gt}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\@namedef{PY@tok@err}{\def\PY@bc##1{{\setlength{\fboxsep}{\string -\fboxrule}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}}
+\@namedef{PY@tok@kc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kd}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kr}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@bp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@fm}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@vc}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vg}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vi}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vm}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sa}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sb}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sc}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@dl}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s2}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sh}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s1}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@mb}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mf}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mh}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mi}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@il}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mo}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb.
+    \makeatletter
+        \newbox\Wrappedcontinuationbox
+        \newbox\Wrappedvisiblespacebox
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}}
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}}
+        \newcommand*\Wrappedcontinuationindent {3ex }
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox}
+        % Take advantage of the already applied Pygments mark-up to insert
+        % potential linebreaks for TeX processing.
+        %        {, <, #, %, $, ' and ": go to next line.
+        %        _, }, ^, &, >, - and ~: stay at end of broken line.
+        % Use of \textquotesingle for straight quote.
+        \newcommand*\Wrappedbreaksatspecials {%
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}%
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}%
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}%
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}%
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}%
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}%
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}%
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}%
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}%
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}%
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}%
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}%
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}%
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}%
+        }
+        % Some characters . , ; ? ! / are not pygmentized.
+        % This macro makes them "active" and they will insert potential linebreaks
+        \newcommand*\Wrappedbreaksatpunct {%
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}%
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}%
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}%
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}%
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}%
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}%
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}%
+            \catcode`\.\active
+            \catcode`\,\active
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active
+            \lccode`\~`\~
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+
+    % prompt
+    \makeatletter
+    \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
+    \makeatother
+    \newcommand{\prompt}[4]{
+        {\ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}}
+    }
+    
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+\begin{document}
+    
+    \maketitle
+    
+    
+
+    
+    \section{\texorpdfstring{Instituto Federal Goiano (IF Goiano)\#\#
+Pós-Graduação em Inteligência Artificial Aplicada\#\#\# Trabalho de
+Conclusão de Trilha de Aprendizagem: Trilha I\textbf{Título:}
+AcolheMente Escolar PB --- Motor de Inferência Lógico para Acolhimento
+em Saúde Mental Escolar\textbf{Aluno:} Leonardo Maximino
+Bernardo\textbf{Orientação:} Trilha I --- Lógica Proposicional, Sistemas
+Baseados em Conhecimento e Inferência por Resolução\textbf{Versão:}
+v0.3.0 (7 variáveis, 6 regras --- motor congelado por
+ADR-011)---}{Instituto Federal Goiano (IF Goiano)\#\# Pós-Graduação em Inteligência Artificial Aplicada\#\#\# Trabalho de Conclusão de Trilha de Aprendizagem: Trilha ITítulo: AcolheMente Escolar PB --- Motor de Inferência Lógico para Acolhimento em Saúde Mental EscolarAluno: Leonardo Maximino BernardoOrientação: Trilha I --- Lógica Proposicional, Sistemas Baseados em Conhecimento e Inferência por ResoluçãoVersão: v0.3.0 (7 variáveis, 6 regras --- motor congelado por ADR-011)---}}\label{instituto-federal-goiano-if-goiano-puxf3s-graduauxe7uxe3o-em-inteliguxeancia-artificial-aplicada-trabalho-de-conclusuxe3o-de-trilha-de-aprendizagem-trilha-ituxedtulo-acolhemente-escolar-pb-motor-de-inferuxeancia-luxf3gico-para-acolhimento-em-sauxfade-mental-escolaraluno-leonardo-maximino-bernardoorientauxe7uxe3o-trilha-i-luxf3gica-proposicional-sistemas-baseados-em-conhecimento-e-inferuxeancia-por-resoluuxe7uxe3oversuxe3o-v0.3.0-7-variuxe1veis-6-regras-motor-congelado-por-adr-011}
+
+    \subsubsection{\texorpdfstring{1. Apresentação do Aluno e ContextoEste
+trabalho foi desenvolvido como atividade final da \textbf{Trilha I} do
+curso de Pós-Graduação em Inteligência Artificial Aplicada do IF
+Goiano.O projeto \textbf{AcolheMente Escolar PB} implementa um Sistema
+Baseado em Conhecimento (SBC) utilizando \textbf{Lógica Proposicional
+com Inferência por Resolução} para identificar cenários de acolhimento
+prioritário em saúde mental escolar, com foco no contexto da
+Paraíba.\textbf{Inspiração pedagógica:} Este notebook se inspira no
+notebook-base \texttt{Resposta\_Trabalho\_Trilha\_I.ipynb} fornecido
+como referência da Trilha I, expandindo cautelosamente o modelo de 5
+para 7 variáveis proposicionais para incorporar contexto comportamental
+e capacidade
+institucional.}{1. Apresentação do Aluno e ContextoEste trabalho foi desenvolvido como atividade final da Trilha I do curso de Pós-Graduação em Inteligência Artificial Aplicada do IF Goiano.O projeto AcolheMente Escolar PB implementa um Sistema Baseado em Conhecimento (SBC) utilizando Lógica Proposicional com Inferência por Resolução para identificar cenários de acolhimento prioritário em saúde mental escolar, com foco no contexto da Paraíba.Inspiração pedagógica: Este notebook se inspira no notebook-base Resposta\_Trabalho\_Trilha\_I.ipynb fornecido como referência da Trilha I, expandindo cautelosamente o modelo de 5 para 7 variáveis proposicionais para incorporar contexto comportamental e capacidade institucional.}}\label{apresentauxe7uxe3o-do-aluno-e-contextoeste-trabalho-foi-desenvolvido-como-atividade-final-da-trilha-i-do-curso-de-puxf3s-graduauxe7uxe3o-em-inteliguxeancia-artificial-aplicada-do-if-goiano.o-projeto-acolhemente-escolar-pb-implementa-um-sistema-baseado-em-conhecimento-sbc-utilizando-luxf3gica-proposicional-com-inferuxeancia-por-resoluuxe7uxe3o-para-identificar-cenuxe1rios-de-acolhimento-priorituxe1rio-em-sauxfade-mental-escolar-com-foco-no-contexto-da-parauxedba.inspirauxe7uxe3o-pedaguxf3gica-este-notebook-se-inspira-no-notebook-base-resposta_trabalho_trilha_i.ipynb-fornecido-como-referuxeancia-da-trilha-i-expandindo-cautelosamente-o-modelo-de-5-para-7-variuxe1veis-proposicionais-para-incorporar-contexto-comportamental-e-capacidade-institucional.}
+
+    \subsubsection{\texorpdfstring{2. Introdução e Definição do ProblemaA
+\textbf{Pesquisa Nacional de Saúde do Escolar (PeNSE 2024)} revelou
+indicadores preocupantes de saúde mental entre adolescentes brasileiros,
+particularmente na região Nordeste e no estado da
+Paraíba.\textbf{Problema:} Como apoiar equipes pedagógicas na
+identificação de cenários que demandam acolhimento prioritário em saúde
+mental, sem criar sistemas de diagnóstico automatizado, ranking de
+estudantes ou vigilância discente?\textbf{Solução proposta:} Um motor
+lógico determinístico baseado em regras explícitas que:- Opera sobre
+\textbf{7 variáveis proposicionais} extraídas da PeNSE 2024;- Utiliza
+\textbf{inferência por resolução} sobre base de conhecimento em CNF;-
+Gera apenas uma saída operacional: \textbf{Acolhimento Humano
+Prioritário (A)};- Exige \textbf{revisão humana obrigatória} antes de
+qualquer ação;- Respeita integralmente LGPD, ECA e PSE.\textgreater{}
+\textbf{Nota ética:} Este sistema NÃO diagnostica, NÃO prediz e NÃO
+classifica indivíduos. Toda saída é sugestão para revisão por
+profissional
+habilitado.}{2. Introdução e Definição do ProblemaA Pesquisa Nacional de Saúde do Escolar (PeNSE 2024) revelou indicadores preocupantes de saúde mental entre adolescentes brasileiros, particularmente na região Nordeste e no estado da Paraíba.Problema: Como apoiar equipes pedagógicas na identificação de cenários que demandam acolhimento prioritário em saúde mental, sem criar sistemas de diagnóstico automatizado, ranking de estudantes ou vigilância discente?Solução proposta: Um motor lógico determinístico baseado em regras explícitas que:- Opera sobre 7 variáveis proposicionais extraídas da PeNSE 2024;- Utiliza inferência por resolução sobre base de conhecimento em CNF;- Gera apenas uma saída operacional: Acolhimento Humano Prioritário (A);- Exige revisão humana obrigatória antes de qualquer ação;- Respeita integralmente LGPD, ECA e PSE.\textgreater{} Nota ética: Este sistema NÃO diagnostica, NÃO prediz e NÃO classifica indivíduos. Toda saída é sugestão para revisão por profissional habilitado.}}\label{introduuxe7uxe3o-e-definiuxe7uxe3o-do-problemaa-pesquisa-nacional-de-sauxfade-do-escolar-pense-2024-revelou-indicadores-preocupantes-de-sauxfade-mental-entre-adolescentes-brasileiros-particularmente-na-regiuxe3o-nordeste-e-no-estado-da-parauxedba.problema-como-apoiar-equipes-pedaguxf3gicas-na-identificauxe7uxe3o-de-cenuxe1rios-que-demandam-acolhimento-priorituxe1rio-em-sauxfade-mental-sem-criar-sistemas-de-diagnuxf3stico-automatizado-ranking-de-estudantes-ou-vigiluxe2ncia-discentesoluuxe7uxe3o-proposta-um-motor-luxf3gico-determinuxedstico-baseado-em-regras-expluxedcitas-que--opera-sobre-7-variuxe1veis-proposicionais-extrauxeddas-da-pense-2024--utiliza-inferuxeancia-por-resoluuxe7uxe3o-sobre-base-de-conhecimento-em-cnf--gera-apenas-uma-sauxedda-operacional-acolhimento-humano-priorituxe1rio-a--exige-revisuxe3o-humana-obrigatuxf3ria-antes-de-qualquer-auxe7uxe3o--respeita-integralmente-lgpd-eca-e-pse.-nota-uxe9tica-este-sistema-nuxe3o-diagnostica-nuxe3o-prediz-e-nuxe3o-classifica-indivuxedduos.-toda-sauxedda-uxe9-sugestuxe3o-para-revisuxe3o-por-profissional-habilitado.}
+
+    \subsubsection{\texorpdfstring{3. Metodologia e Escolha da Técnica de
+IA\#\#\#\# 3.1 Lógica ProposicionalA técnica central é a \textbf{Lógica
+Proposicional} aplicada a um Sistema Baseado em Conhecimento (SBC). As
+variáveis são binárias (verdadeiro/falso), derivadas de questões da
+PeNSE 2024, e as regras são definidas explicitamente por especialistas
+--- não aprendidas por máquina.\#\#\#\# 3.2 Inferência por ResoluçãoO
+método de inferência utilizado é a \textbf{Resolução por Refutação}:1.
+Converter todas as regras para \textbf{Forma Normal Conjuntiva (CNF)};2.
+Adicionar a negação da query (¬A) à base de conhecimento;3. Aplicar
+resolução binária repetidamente;4. Se a cláusula vazia (⊥) for derivada
+→ A é consequência lógica;5. Se a saturação ocorrer sem ⊥ → A não é
+inferível.\#\#\#\# 3.3 Justificativa de não usar diagnóstico
+automatizadoO sistema opera no nível de \textbf{triagem institucional},
+não de diagnóstico clínico. Nenhuma variável representa condição clínica
+(depressão, TDAH, autismo, TOC). Todas as variáveis descrevem
+\textbf{situações observáveis e autorreferidas} na PeNSE 2024.\#\#\#\#
+3.4 Por que avançar de 5 para 7 variáveis?\textgreater{} A versão-base
+com 5 variáveis preservava máxima parcimônia e alinhamento direto com o
+notebook exemplar da Trilha I. A evolução para 7 variáveis foi adotada
+de forma \textbf{cautelosa} para incorporar dois elementos essenciais no
+contexto escolar: \textbf{contexto comportamental} e \textbf{capacidade
+institucional de resposta}. As variáveis C e I não ampliam o sistema
+para diagnóstico ou predição clínica; elas qualificam o ambiente de
+decisão e fortalecem a utilidade institucional do motor, mantendo
+explicabilidade e revisão humana
+obrigatória.}{3. Metodologia e Escolha da Técnica de IA\#\#\#\# 3.1 Lógica ProposicionalA técnica central é a Lógica Proposicional aplicada a um Sistema Baseado em Conhecimento (SBC). As variáveis são binárias (verdadeiro/falso), derivadas de questões da PeNSE 2024, e as regras são definidas explicitamente por especialistas --- não aprendidas por máquina.\#\#\#\# 3.2 Inferência por ResoluçãoO método de inferência utilizado é a Resolução por Refutação:1. Converter todas as regras para Forma Normal Conjuntiva (CNF);2. Adicionar a negação da query (¬A) à base de conhecimento;3. Aplicar resolução binária repetidamente;4. Se a cláusula vazia (⊥) for derivada → A é consequência lógica;5. Se a saturação ocorrer sem ⊥ → A não é inferível.\#\#\#\# 3.3 Justificativa de não usar diagnóstico automatizadoO sistema opera no nível de triagem institucional, não de diagnóstico clínico. Nenhuma variável representa condição clínica (depressão, TDAH, autismo, TOC). Todas as variáveis descrevem situações observáveis e autorreferidas na PeNSE 2024.\#\#\#\# 3.4 Por que avançar de 5 para 7 variáveis?\textgreater{} A versão-base com 5 variáveis preservava máxima parcimônia e alinhamento direto com o notebook exemplar da Trilha I. A evolução para 7 variáveis foi adotada de forma cautelosa para incorporar dois elementos essenciais no contexto escolar: contexto comportamental e capacidade institucional de resposta. As variáveis C e I não ampliam o sistema para diagnóstico ou predição clínica; elas qualificam o ambiente de decisão e fortalecem a utilidade institucional do motor, mantendo explicabilidade e revisão humana obrigatória.}}\label{metodologia-e-escolha-da-tuxe9cnica-de-ia-3.1-luxf3gica-proposicionala-tuxe9cnica-central-uxe9-a-luxf3gica-proposicional-aplicada-a-um-sistema-baseado-em-conhecimento-sbc.-as-variuxe1veis-suxe3o-binuxe1rias-verdadeirofalso-derivadas-de-questuxf5es-da-pense-2024-e-as-regras-suxe3o-definidas-explicitamente-por-especialistas-nuxe3o-aprendidas-por-muxe1quina.-3.2-inferuxeancia-por-resoluuxe7uxe3oo-muxe9todo-de-inferuxeancia-utilizado-uxe9-a-resoluuxe7uxe3o-por-refutauxe7uxe3o1.-converter-todas-as-regras-para-forma-normal-conjuntiva-cnf2.-adicionar-a-negauxe7uxe3o-da-query-a-uxe0-base-de-conhecimento3.-aplicar-resoluuxe7uxe3o-binuxe1ria-repetidamente4.-se-a-cluxe1usula-vazia-for-derivada-a-uxe9-consequuxeancia-luxf3gica5.-se-a-saturauxe7uxe3o-ocorrer-sem-a-nuxe3o-uxe9-inferuxedvel.-3.3-justificativa-de-nuxe3o-usar-diagnuxf3stico-automatizadoo-sistema-opera-no-nuxedvel-de-triagem-institucional-nuxe3o-de-diagnuxf3stico-cluxednico.-nenhuma-variuxe1vel-representa-condiuxe7uxe3o-cluxednica-depressuxe3o-tdah-autismo-toc.-todas-as-variuxe1veis-descrevem-situauxe7uxf5es-observuxe1veis-e-autorreferidas-na-pense-2024.-3.4-por-que-avanuxe7ar-de-5-para-7-variuxe1veis-a-versuxe3o-base-com-5-variuxe1veis-preservava-muxe1xima-parcimuxf4nia-e-alinhamento-direto-com-o-notebook-exemplar-da-trilha-i.-a-evoluuxe7uxe3o-para-7-variuxe1veis-foi-adotada-de-forma-cautelosa-para-incorporar-dois-elementos-essenciais-no-contexto-escolar-contexto-comportamental-e-capacidade-institucional-de-resposta.-as-variuxe1veis-c-e-i-nuxe3o-ampliam-o-sistema-para-diagnuxf3stico-ou-prediuxe7uxe3o-cluxednica-elas-qualificam-o-ambiente-de-decisuxe3o-e-fortalecem-a-utilidade-institucional-do-motor-mantendo-explicabilidade-e-revisuxe3o-humana-obrigatuxf3ria.}
+
+    \subsubsection{4. Implementação da Solução\#\#\#\# 4.1 Configuração do
+Ambiente}\label{implementauxe7uxe3o-da-soluuxe7uxe3o-4.1-configurauxe7uxe3o-do-ambiente}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{1}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Importações necessáriasimport sys, ossys.path.insert(0, os.path.join(os.getcwd(), \PYZsq{}..\PYZsq{}))\PYZsh{} Módulos do AcolheMentefrom src.acolhemente.rule\PYZus{}graph import (    PROPOSITIONAL\PYZus{}VARIABLES, NUCLEAR\PYZus{}VARIABLES, CONTEXTUAL\PYZus{}VARIABLES,    ALL\PYZus{}RULES, ALL\PYZus{}CNFS,    E, B, V, S, A, C, I,    R1, R2, R3, R4, R5, R6,    R1\PYZus{}CNF, R2\PYZus{}CNF, R3\PYZus{}CNF, R4\PYZus{}CNF, R5\PYZus{}CNF, R6\PYZus{}CNF,    build\PYZus{}rule\PYZus{}graph, build\PYZus{}governance\PYZus{}graph, export\PYZus{}graph\PYZus{}png,)from src.acolhemente.graph\PYZus{}schema import EntityTypeprint(\PYZdq{}✅ Módulos AcolheMente carregados com sucesso.\PYZdq{})print(f\PYZdq{}   Variáveis proposicionais: \PYZob{}len(PROPOSITIONAL\PYZus{}VARIABLES)\PYZcb{}\PYZdq{})print(f\PYZdq{}   Nucleares: \PYZob{}len(NUCLEAR\PYZus{}VARIABLES)\PYZcb{}\PYZdq{})print(f\PYZdq{}   Contextuais: \PYZob{}len(CONTEXTUAL\PYZus{}VARIABLES)\PYZcb{}\PYZdq{})print(f\PYZdq{}   Regras lógicas: \PYZob{}len(ALL\PYZus{}RULES)\PYZcb{}\PYZdq{})}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \paragraph{4.2 Tabela das 7 Variáveis
+Proposicionais}\label{tabela-das-7-variuxe1veis-proposicionais}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{2}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Tabela das 7 variáveis proposicionaisprint(\PYZdq{}=\PYZdq{} * 90)print(f\PYZdq{}\PYZob{}\PYZsq{}Var\PYZsq{}:\PYZlt{}4\PYZcb{} \PYZob{}\PYZsq{}Tipo\PYZsq{}:\PYZlt{}12\PYZcb{} \PYZob{}\PYZsq{}Semântica\PYZsq{}:\PYZlt{}45\PYZcb{} \PYZob{}\PYZsq{}Fontes\PYZsq{}\PYZcb{}\PYZdq{})print(\PYZdq{}=\PYZdq{} * 90)for var in PROPOSITIONAL\PYZus{}VARIABLES:    tipo = \PYZdq{}Nuclear\PYZdq{} if var in NUCLEAR\PYZus{}VARIABLES else \PYZdq{}Contextual\PYZdq{}    \PYZsh{} Extrair fontes da descrição    desc = var.description    print(f\PYZdq{}\PYZob{}var.name:\PYZlt{}4\PYZcb{} \PYZob{}tipo:\PYZlt{}12\PYZcb{} \PYZob{}desc\PYZcb{}\PYZdq{})print(\PYZdq{}=\PYZdq{} * 90)print(f\PYZdq{}\PYZbs{}nTotal: \PYZob{}len(PROPOSITIONAL\PYZus{}VARIABLES)\PYZcb{} variáveis \PYZdq{}      f\PYZdq{}(\PYZob{}len(NUCLEAR\PYZus{}VARIABLES)\PYZcb{} nucleares + \PYZob{}len(CONTEXTUAL\PYZus{}VARIABLES)\PYZcb{} contextuais)\PYZdq{})}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \paragraph{4.3 Base de Conhecimento: Regras
+R1--R6}\label{base-de-conhecimento-regras-r1r6}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{3}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Base de conhecimento: 6 regras lógicasprint(\PYZdq{}\PYZbs{}n\PYZdq{} + \PYZdq{}=\PYZdq{} * 70)print(\PYZdq{}BASE DE CONHECIMENTO — Regras Lógicas\PYZdq{})print(\PYZdq{}=\PYZdq{} * 70)for rule, cnf in zip(ALL\PYZus{}RULES, ALL\PYZus{}CNFS):    print(f\PYZdq{}  \PYZob{}rule.name\PYZcb{}: \PYZob{}rule.description:\PYZlt{}20\PYZcb{}  │  CNF: \PYZob{}cnf.description\PYZcb{}\PYZdq{})print(\PYZdq{}=\PYZdq{} * 70)print(f\PYZdq{}\PYZbs{}nTotal: \PYZob{}len(ALL\PYZus{}RULES)\PYZcb{} regras, \PYZob{}len(ALL\PYZus{}CNFS)\PYZcb{} cláusulas CNF\PYZdq{})print(\PYZdq{}\PYZbs{}n⚠️  Nota: C e I são variáveis contextuais de modulação.\PYZdq{})print(\PYZdq{}   C nunca infere A isoladamente (R5 exige E ∧ B ∧ C).\PYZdq{})print(\PYZdq{}   I nunca infere A isoladamente (R6 exige V ∧ I).\PYZdq{})}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \paragraph{4.4 Motor de Inferência por
+Resolução}\label{motor-de-inferuxeancia-por-resoluuxe7uxe3o}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{4}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} =====================================================================\PYZsh{} MOTOR DE INFERÊNCIA POR RESOLUÇÃO\PYZsh{} =====================================================================def cnf\PYZus{}knowledge\PYZus{}base():    \PYZdq{}\PYZdq{}\PYZdq{}Retorna a base de conhecimento em CNF como lista de conjuntos.\PYZdq{}\PYZdq{}\PYZdq{}    return [        \PYZob{}\PYZdq{}\PYZti{}S\PYZdq{}, \PYZdq{}A\PYZdq{}\PYZcb{},           \PYZsh{} R1: ¬S ∨ A        \PYZob{}\PYZdq{}\PYZti{}V\PYZdq{}, \PYZdq{}\PYZti{}E\PYZdq{}, \PYZdq{}A\PYZdq{}\PYZcb{},     \PYZsh{} R2: ¬V ∨ ¬E ∨ A        \PYZob{}\PYZdq{}\PYZti{}E\PYZdq{}, \PYZdq{}\PYZti{}B\PYZdq{}, \PYZdq{}A\PYZdq{}\PYZcb{},     \PYZsh{} R3: ¬E ∨ ¬B ∨ A        \PYZob{}\PYZdq{}\PYZti{}V\PYZdq{}, \PYZdq{}\PYZti{}B\PYZdq{}, \PYZdq{}A\PYZdq{}\PYZcb{},     \PYZsh{} R4: ¬V ∨ ¬B ∨ A        \PYZob{}\PYZdq{}\PYZti{}E\PYZdq{}, \PYZdq{}\PYZti{}B\PYZdq{}, \PYZdq{}\PYZti{}C\PYZdq{}, \PYZdq{}A\PYZdq{}\PYZcb{},  \PYZsh{} R5: ¬E ∨ ¬B ∨ ¬C ∨ A        \PYZob{}\PYZdq{}\PYZti{}V\PYZdq{}, \PYZdq{}\PYZti{}I\PYZdq{}, \PYZdq{}A\PYZdq{}\PYZcb{},     \PYZsh{} R6: ¬V ∨ ¬I ∨ A    ]def negate(literal):    \PYZdq{}\PYZdq{}\PYZdq{}Nega um literal: A → \PYZti{}A, \PYZti{}A → A.\PYZdq{}\PYZdq{}\PYZdq{}    return literal[1:] if literal.startswith(\PYZdq{}\PYZti{}\PYZdq{}) else f\PYZdq{}\PYZti{}\PYZob{}literal\PYZcb{}\PYZdq{}def resolve(clause1, clause2):    \PYZdq{}\PYZdq{}\PYZdq{}Aplica resolução binária entre duas cláusulas.\PYZdq{}\PYZdq{}\PYZdq{}    resolvents = []    for lit in clause1:        neg = negate(lit)        if neg in clause2:            new\PYZus{}clause = (clause1 \PYZhy{} \PYZob{}lit\PYZcb{}) | (clause2 \PYZhy{} \PYZob{}neg\PYZcb{})            resolvents.append(frozenset(new\PYZus{}clause))    return resolventsdef resolution\PYZus{}proof(kb, query\PYZus{}var=\PYZdq{}A\PYZdq{}):    \PYZdq{}\PYZdq{}\PYZdq{}    Prova por resolução: tenta derivar A a partir da KB + fatos.        Adiciona ¬A à KB e tenta derivar a cláusula vazia (⊥).    Se ⊥ for derivada → A é consequência lógica.    \PYZdq{}\PYZdq{}\PYZdq{}    clauses = [frozenset(c) for c in kb]    clauses.append(frozenset(\PYZob{}negate(query\PYZus{}var)\PYZcb{}))  \PYZsh{} Adiciona ¬A        steps = []    new = set()        while True:        n = len(clauses)        pairs = [(clauses[i], clauses[j])                  for i in range(n) for j in range(i+1, n)]                for ci, cj in pairs:            resolvents = resolve(set(ci), set(cj))            for r in resolvents:                if len(r) == 0:  \PYZsh{} Cláusula vazia → contradição!                    steps.append(f\PYZdq{}  Resolveu \PYZob{}set(ci)\PYZcb{} × \PYZob{}set(cj)\PYZcb{} → ⊥ (CONTRADIÇÃO)\PYZdq{})                    return True, steps                if r not in new and r not in set(map(frozenset, [set(c) for c in clauses])):                    new.add(r)                    steps.append(f\PYZdq{}  Resolveu \PYZob{}set(ci)\PYZcb{} × \PYZob{}set(cj)\PYZcb{} → \PYZob{}set(r)\PYZcb{}\PYZdq{})                if new.issubset(set(map(frozenset, [set(c) for c in clauses]))):            return False, steps  \PYZsh{} Saturação sem contradição                for r in new:            if frozenset(r) not in set(map(frozenset, [set(c) for c in clauses])):                clauses.append(frozenset(r))print(\PYZdq{}✅ Motor de inferência por resolução definido.\PYZdq{})}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \paragraph{4.5 Cenários Sintéticos de
+Validação}\label{cenuxe1rios-sintuxe9ticos-de-validauxe7uxe3o}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{5}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} =====================================================================\PYZsh{} CENÁRIOS SINTÉTICOS DE VALIDAÇÃO (TIER\PYZus{}B)\PYZsh{} =====================================================================cenarios = [    \PYZob{}        \PYZdq{}nome\PYZdq{}: \PYZdq{}Cenário 1: Sem acolhimento\PYZdq{},        \PYZdq{}desc\PYZdq{}: \PYZdq{}Apenas C=V (contexto comportamental). Sem variáveis nucleares ativas.\PYZdq{},        \PYZdq{}fatos\PYZdq{}: [\PYZob{}\PYZdq{}C\PYZdq{}\PYZcb{}],        \PYZdq{}esperado\PYZdq{}: False,    \PYZcb{},    \PYZob{}        \PYZdq{}nome\PYZdq{}: \PYZdq{}Cenário 2: E ∧ B → A (R3)\PYZdq{},        \PYZdq{}desc\PYZdq{}: \PYZdq{}Sofrimento emocional + baixo apoio → Acolhimento (regra nuclear).\PYZdq{},        \PYZdq{}fatos\PYZdq{}: [\PYZob{}\PYZdq{}E\PYZdq{}\PYZcb{}, \PYZob{}\PYZdq{}B\PYZdq{}\PYZcb{}],        \PYZdq{}esperado\PYZdq{}: True,    \PYZcb{},    \PYZob{}        \PYZdq{}nome\PYZdq{}: \PYZdq{}Cenário 3: S → A (R1)\PYZdq{},        \PYZdq{}desc\PYZdq{}: \PYZdq{}Sinal de autoagressão → Acolhimento imediato (protocolo humano).\PYZdq{},        \PYZdq{}fatos\PYZdq{}: [\PYZob{}\PYZdq{}S\PYZdq{}\PYZcb{}],        \PYZdq{}esperado\PYZdq{}: True,    \PYZcb{},    \PYZob{}        \PYZdq{}nome\PYZdq{}: \PYZdq{}Cenário 4: E ∧ B ∧ C → A (R5)\PYZdq{},        \PYZdq{}desc\PYZdq{}: \PYZdq{}Sofrimento + baixo apoio + contexto comportamental agravante.\PYZdq{},        \PYZdq{}fatos\PYZdq{}: [\PYZob{}\PYZdq{}E\PYZdq{}\PYZcb{}, \PYZob{}\PYZdq{}B\PYZdq{}\PYZcb{}, \PYZob{}\PYZdq{}C\PYZdq{}\PYZcb{}],        \PYZdq{}esperado\PYZdq{}: True,    \PYZcb{},    \PYZob{}        \PYZdq{}nome\PYZdq{}: \PYZdq{}Cenário 5: V ∧ I → A (R6)\PYZdq{},        \PYZdq{}desc\PYZdq{}: \PYZdq{}Desvalor da vida + insuficiência institucional → Acolhimento.\PYZdq{},        \PYZdq{}fatos\PYZdq{}: [\PYZob{}\PYZdq{}V\PYZdq{}\PYZcb{}, \PYZob{}\PYZdq{}I\PYZdq{}\PYZcb{}],        \PYZdq{}esperado\PYZdq{}: True,    \PYZcb{},]print(\PYZdq{}=\PYZdq{} * 80)print(\PYZdq{}VALIDAÇÃO POR CENÁRIOS SINTÉTICOS (TIER\PYZus{}B\PYZus{}SYNTHETIC\PYZus{}SCHOOL)\PYZdq{})print(\PYZdq{}=\PYZdq{} * 80)todos\PYZus{}ok = Truefor c in cenarios:    kb = cnf\PYZus{}knowledge\PYZus{}base()    for fato in c[\PYZdq{}fatos\PYZdq{}]:        kb.append(fato)        resultado, steps = resolution\PYZus{}proof(kb)    status = \PYZdq{}✅\PYZdq{} if resultado == c[\PYZdq{}esperado\PYZdq{}] else \PYZdq{}❌\PYZdq{}    if resultado != c[\PYZdq{}esperado\PYZdq{}]:        todos\PYZus{}ok = False        print(f\PYZdq{}\PYZbs{}n\PYZob{}status\PYZcb{} \PYZob{}c[\PYZsq{}nome\PYZsq{}]\PYZcb{}\PYZdq{})    print(f\PYZdq{}   \PYZob{}c[\PYZsq{}desc\PYZsq{}]\PYZcb{}\PYZdq{})    print(f\PYZdq{}   Fatos: \PYZob{}c[\PYZsq{}fatos\PYZsq{}]\PYZcb{}\PYZdq{})    print(f\PYZdq{}   A inferido: \PYZob{}resultado\PYZcb{} (esperado: \PYZob{}c[\PYZsq{}esperado\PYZsq{}]\PYZcb{})\PYZdq{})    if steps:        print(f\PYZdq{}   Passos de resolução:\PYZdq{})        for s in steps[\PYZhy{}3:]:            print(f\PYZdq{}   \PYZob{}s\PYZcb{}\PYZdq{})print(\PYZdq{}\PYZbs{}n\PYZdq{} + \PYZdq{}=\PYZdq{} * 80)print(f\PYZdq{}Resultado: \PYZob{}\PYZsq{}✅ TODOS OS CENÁRIOS VALIDADOS\PYZsq{} if todos\PYZus{}ok else \PYZsq{}❌ FALHAS DETECTADAS\PYZsq{}\PYZcb{}\PYZdq{})print(\PYZdq{}=\PYZdq{} * 80)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \paragraph{4.6 Grafo Determinístico de
+Explicabilidade}\label{grafo-determinuxedstico-de-explicabilidade}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{6}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Gerar e exibir grafo de regrasimport osos.makedirs(\PYZdq{}../reports/figures\PYZdq{}, exist\PYZus{}ok=True)kg = build\PYZus{}rule\PYZus{}graph()print(f\PYZdq{}Grafo de regras: \PYZob{}kg.entity\PYZus{}count\PYZcb{} entidades, \PYZob{}kg.relationship\PYZus{}count\PYZcb{} relações\PYZdq{})print(f\PYZdq{}Variáveis proposicionais: \PYZob{}kg.propositional\PYZus{}variable\PYZus{}count()\PYZcb{}\PYZdq{})path = export\PYZus{}graph\PYZus{}png(    kg,     \PYZdq{}../reports/figures/grafo\PYZus{}regras\PYZus{}7vars.png\PYZdq{},    title=\PYZdq{}Grafo de Regras (7 Variáveis) — AcolheMente Escolar PB\PYZdq{})print(f\PYZdq{}\PYZbs{}n✅ Grafo exportado: \PYZob{}path\PYZcb{}\PYZdq{})\PYZsh{} Exibir inlinefrom IPython.display import Image, displaydisplay(Image(filename=str(path), width=800))}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{7}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Gerar grafo de governançakg\PYZus{}gov = build\PYZus{}governance\PYZus{}graph()print(f\PYZdq{}Grafo de governança: \PYZob{}kg\PYZus{}gov.entity\PYZus{}count\PYZcb{} entidades, \PYZob{}kg\PYZus{}gov.relationship\PYZus{}count\PYZcb{} relações\PYZdq{})path\PYZus{}gov = export\PYZus{}graph\PYZus{}png(    kg\PYZus{}gov,    \PYZdq{}../reports/figures/grafo\PYZus{}governanca\PYZus{}7vars.png\PYZdq{},    title=\PYZdq{}Grafo de Governança de Dados — AcolheMente Escolar PB\PYZdq{},    figsize=(16, 10))print(f\PYZdq{}\PYZbs{}n✅ Grafo exportado: \PYZob{}path\PYZus{}gov\PYZcb{}\PYZdq{})display(Image(filename=str(path\PYZus{}gov), width=800))}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \paragraph{4.7 Governança de Dados: LGPD, ECA,
+PSE}\label{governanuxe7a-de-dados-lgpd-eca-pse}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{8}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Demonstração de governançaprint(\PYZdq{}=\PYZdq{} * 70)print(\PYZdq{}GOVERNANÇA DE DADOS — AcolheMente Escolar PB\PYZdq{})print(\PYZdq{}=\PYZdq{} * 70)guardrails = \PYZob{}    \PYZdq{}LGPD\PYZdq{}: \PYZdq{}Nenhum dado identificável processado (Lei 13.709/2018)\PYZdq{},    \PYZdq{}ECA\PYZdq{}: \PYZdq{}Nenhuma classificação de menor individual (Lei 8.069/1990)\PYZdq{},    \PYZdq{}PSE\PYZdq{}: \PYZdq{}Integrado como guardrail e encaminhamento (Programa Saúde na Escola)\PYZdq{},    \PYZdq{}Human\PYZhy{}in\PYZhy{}the\PYZhy{}Loop\PYZdq{}: \PYZdq{}Revisão humana obrigatória antes de qualquer ação\PYZdq{},\PYZcb{}for g, desc in guardrails.items():    print(f\PYZdq{}  ✅ \PYZob{}g\PYZcb{}: \PYZob{}desc\PYZcb{}\PYZdq{})print(\PYZdq{}\PYZbs{}n\PYZdq{} + \PYZdq{}\PYZhy{}\PYZdq{} * 70)print(\PYZdq{}POLÍTICA DE PROVENIÊNCIA (TIERS)\PYZdq{})print(\PYZdq{}\PYZhy{}\PYZdq{} * 70)tiers = \PYZob{}    \PYZdq{}TIER\PYZus{}A\PYZus{}OFFICIAL\PYZus{}BR\PYZdq{}: \PYZdq{}PeNSE 2024 (IBGE) — única fonte inferencial para Brasil/NE/PB\PYZdq{},    \PYZdq{}TIER\PYZus{}B\PYZus{}SYNTHETIC\PYZus{}SCHOOL\PYZdq{}: \PYZdq{}Dados escolares sintéticos — demonstração operacional\PYZdq{},    \PYZdq{}TIER\PYZus{}C\PYZus{}EXTERNAL\PYZus{}EXPLORATORY\PYZdq{}: \PYZdq{}Dataset externo — benchmark metodológico APENAS\PYZdq{},\PYZcb{}for t, desc in tiers.items():    print(f\PYZdq{}  📊 \PYZob{}t\PYZcb{}: \PYZob{}desc\PYZcb{}\PYZdq{})print(\PYZdq{}\PYZbs{}n  ❌ MERGE TIER\PYZus{}A × TIER\PYZus{}C: BLOQUEIO ABSOLUTO\PYZdq{})print(\PYZdq{}  ❌ TIER\PYZus{}C não sustenta conclusão sobre Brasil, Nordeste ou Paraíba\PYZdq{})}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \subsubsection{5. Resultados e Comparações\#\#\#\# 5.1 Baseline Manual
+vs.~Motor
+Lógico}\label{resultados-e-comparauxe7uxf5es-5.1-baseline-manual-vs.-motor-luxf3gico}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{9}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Comparação: baseline manual vs motor lógicoprint(\PYZdq{}=\PYZdq{} * 80)print(\PYZdq{}COMPARAÇÃO: BASELINE MANUAL vs. MOTOR LÓGICO\PYZdq{})print(\PYZdq{}=\PYZdq{} * 80)comparacao = [    (\PYZdq{}Critério\PYZdq{}, \PYZdq{}Baseline Manual\PYZdq{}, \PYZdq{}Motor Lógico AcolheMente\PYZdq{}),    (\PYZdq{}Transparência\PYZdq{}, \PYZdq{}Depende do profissional\PYZdq{}, \PYZdq{}100\PYZpc{} auditável (CNF + grafo)\PYZdq{}),    (\PYZdq{}Reprodutibilidade\PYZdq{}, \PYZdq{}Variável\PYZdq{}, \PYZdq{}Determinístico (mesma entrada → mesma saída)\PYZdq{}),    (\PYZdq{}Explicabilidade\PYZdq{}, \PYZdq{}Verbal\PYZdq{}, \PYZdq{}Grafo + rastreio de regra\PYZdq{}),    (\PYZdq{}Linguagem diagnóstica\PYZdq{}, \PYZdq{}Risco de uso\PYZdq{}, \PYZdq{}Bloqueada por guardrails\PYZdq{}),    (\PYZdq{}Ranking de alunos\PYZdq{}, \PYZdq{}Possível\PYZdq{}, \PYZdq{}Proibido por design\PYZdq{}),    (\PYZdq{}Governança LGPD\PYZdq{}, \PYZdq{}Não garantida\PYZdq{}, \PYZdq{}Integrada ao motor\PYZdq{}),    (\PYZdq{}Human\PYZhy{}in\PYZhy{}the\PYZhy{}Loop\PYZdq{}, \PYZdq{}Implícito\PYZdq{}, \PYZdq{}Obrigatório e documentado\PYZdq{}),    (\PYZdq{}Variáveis\PYZdq{}, \PYZdq{}Ad hoc\PYZdq{}, \PYZdq{}7 formalizadas (5N + 2C)\PYZdq{}),    (\PYZdq{}Regras\PYZdq{}, \PYZdq{}Tácitas\PYZdq{}, \PYZdq{}6 explícitas em CNF\PYZdq{}),]for row in comparacao:    print(f\PYZdq{}  \PYZob{}row[0]:\PYZlt{}25\PYZcb{} │ \PYZob{}row[1]:\PYZlt{}30\PYZcb{} │ \PYZob{}row[2]\PYZcb{}\PYZdq{})print(\PYZdq{}\PYZbs{}n\PYZdq{} + \PYZdq{}=\PYZdq{} * 80)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \paragraph{5.2 Rastreabilidade por
+Regra}\label{rastreabilidade-por-regra}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{10}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Rastreabilidade: qual regra disparou cada cenárioprint(\PYZdq{}\PYZbs{}nRASTREABILIDADE POR REGRA:\PYZdq{})print(\PYZdq{}\PYZhy{}\PYZdq{} * 60)rastreio = [    (\PYZdq{}S=V\PYZdq{}, \PYZdq{}R1: S → A\PYZdq{}, \PYZdq{}Protocolo humano imediato\PYZdq{}),    (\PYZdq{}V=V, E=V\PYZdq{}, \PYZdq{}R2: V ∧ E → A\PYZdq{}, \PYZdq{}Desesperança + sofrimento\PYZdq{}),    (\PYZdq{}E=V, B=V\PYZdq{}, \PYZdq{}R3: E ∧ B → A\PYZdq{}, \PYZdq{}Sofrimento + baixo apoio\PYZdq{}),    (\PYZdq{}V=V, B=V\PYZdq{}, \PYZdq{}R4: V ∧ B → A\PYZdq{}, \PYZdq{}Desesperança + baixo apoio\PYZdq{}),    (\PYZdq{}E=V, B=V, C=V\PYZdq{}, \PYZdq{}R5: E ∧ B ∧ C → A\PYZdq{}, \PYZdq{}Sofrimento + baixo apoio + contexto\PYZdq{}),    (\PYZdq{}V=V, I=V\PYZdq{}, \PYZdq{}R6: V ∧ I → A\PYZdq{}, \PYZdq{}Desesperança + fragilidade institucional\PYZdq{}),]for fatos, regra, significado in rastreio:    print(f\PYZdq{}  Fatos: \PYZob{}fatos:\PYZlt{}18\PYZcb{} │ \PYZob{}regra:\PYZlt{}22\PYZcb{} │ \PYZob{}significado\PYZcb{}\PYZdq{})}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \subsubsection{\texorpdfstring{6. Perspectiva de Evolução do
+Trabalho\#\#\#\# 6.1 Evolução teórica com Deep LearningEm uma
+perspectiva futura, o motor lógico poderia ser complementado por
+técnicas de deep learning para:- \textbf{Detecção de padrões temporais}
+em dados longitudinais da PeNSE;- \textbf{Processamento de linguagem
+natural} para análise de relatos qualitativos;- \textbf{Modelos
+preditivos} para antecipar cenários de risco.\#\#\#\# 6.2 Governança
+obrigatória para qualquer evoluçãoQualquer evolução \textbf{DEVE}
+manter:- \textbf{LGPD:} Nenhum dado identificável;- \textbf{ECA:}
+Nenhuma classificação de menor;- \textbf{PSE:} Integração com rede de
+saúde;- \textbf{Human-in-the-Loop:} Revisão humana obrigatória;-
+\textbf{Sem ranking:} Nenhuma ordenação de estudantes;- \textbf{Sem
+diagnóstico:} Nenhum rótulo clínico automatizado.\textgreater{}
+\textbf{ADR-011:} O motor está congelado em 7 variáveis e 6 regras para
+esta entrega.\textgreater{} Novas variáveis ou regras só podem ser
+propostas em versão futura (≥ v0.4.0),\textgreater{} com ADR dedicado e
+validação ética
+independente.}{6. Perspectiva de Evolução do Trabalho\#\#\#\# 6.1 Evolução teórica com Deep LearningEm uma perspectiva futura, o motor lógico poderia ser complementado por técnicas de deep learning para:- Detecção de padrões temporais em dados longitudinais da PeNSE;- Processamento de linguagem natural para análise de relatos qualitativos;- Modelos preditivos para antecipar cenários de risco.\#\#\#\# 6.2 Governança obrigatória para qualquer evoluçãoQualquer evolução DEVE manter:- LGPD: Nenhum dado identificável;- ECA: Nenhuma classificação de menor;- PSE: Integração com rede de saúde;- Human-in-the-Loop: Revisão humana obrigatória;- Sem ranking: Nenhuma ordenação de estudantes;- Sem diagnóstico: Nenhum rótulo clínico automatizado.\textgreater{} ADR-011: O motor está congelado em 7 variáveis e 6 regras para esta entrega.\textgreater{} Novas variáveis ou regras só podem ser propostas em versão futura (≥ v0.4.0),\textgreater{} com ADR dedicado e validação ética independente.}}\label{perspectiva-de-evoluuxe7uxe3o-do-trabalho-6.1-evoluuxe7uxe3o-teuxf3rica-com-deep-learningem-uma-perspectiva-futura-o-motor-luxf3gico-poderia-ser-complementado-por-tuxe9cnicas-de-deep-learning-para--detecuxe7uxe3o-de-padruxf5es-temporais-em-dados-longitudinais-da-pense--processamento-de-linguagem-natural-para-anuxe1lise-de-relatos-qualitativos--modelos-preditivos-para-antecipar-cenuxe1rios-de-risco.-6.2-governanuxe7a-obrigatuxf3ria-para-qualquer-evoluuxe7uxe3oqualquer-evoluuxe7uxe3o-deve-manter--lgpd-nenhum-dado-identificuxe1vel--eca-nenhuma-classificauxe7uxe3o-de-menor--pse-integrauxe7uxe3o-com-rede-de-sauxfade--human-in-the-loop-revisuxe3o-humana-obrigatuxf3ria--sem-ranking-nenhuma-ordenauxe7uxe3o-de-estudantes--sem-diagnuxf3stico-nenhum-ruxf3tulo-cluxednico-automatizado.-adr-011-o-motor-estuxe1-congelado-em-7-variuxe1veis-e-6-regras-para-esta-entrega.-novas-variuxe1veis-ou-regras-suxf3-podem-ser-propostas-em-versuxe3o-futura-v0.4.0-com-adr-dedicado-e-validauxe7uxe3o-uxe9tica-independente.}
+
+    \subsubsection{\texorpdfstring{7. ConclusõesO projeto
+\textbf{AcolheMente Escolar PB} demonstra que é possível construir um
+sistema de apoio à decisão em saúde mental escolar utilizando
+\textbf{Lógica Proposicional com Inferência por Resolução}, sem recorrer
+a diagnóstico automatizado, ranking de estudantes ou dependência de APIs
+externas.\textbf{Contribuições principais:}1. Formalização de 7
+variáveis proposicionais (5 nucleares + 2 contextuais) a partir da PeNSE
+2024;2. Base de conhecimento com 6 regras explícitas em CNF;3. Motor de
+inferência por resolução 100\% determinístico e auditável;4. Grafo de
+explicabilidade que rastreia cada decisão até as fontes de dados;5.
+Governança integrada (LGPD, ECA, PSE, Human-in-the-Loop);6. Suite de 72
+testes automatizados como guardrails de qualidade;7. Arquitetura de
+proveniência por tiers com bloqueio absoluto de merge
+indevido.\textbf{Viabilidade:} O sistema é viável para implantação em
+escolas públicas da Paraíba como ferramenta de suporte, desde que
+acompanhado de capacitação profissional e integração com a rede
+PSE/UBS/CAPS.}{7. ConclusõesO projeto AcolheMente Escolar PB demonstra que é possível construir um sistema de apoio à decisão em saúde mental escolar utilizando Lógica Proposicional com Inferência por Resolução, sem recorrer a diagnóstico automatizado, ranking de estudantes ou dependência de APIs externas.Contribuições principais:1. Formalização de 7 variáveis proposicionais (5 nucleares + 2 contextuais) a partir da PeNSE 2024;2. Base de conhecimento com 6 regras explícitas em CNF;3. Motor de inferência por resolução 100\% determinístico e auditável;4. Grafo de explicabilidade que rastreia cada decisão até as fontes de dados;5. Governança integrada (LGPD, ECA, PSE, Human-in-the-Loop);6. Suite de 72 testes automatizados como guardrails de qualidade;7. Arquitetura de proveniência por tiers com bloqueio absoluto de merge indevido.Viabilidade: O sistema é viável para implantação em escolas públicas da Paraíba como ferramenta de suporte, desde que acompanhado de capacitação profissional e integração com a rede PSE/UBS/CAPS.}}\label{conclusuxf5eso-projeto-acolhemente-escolar-pb-demonstra-que-uxe9-possuxedvel-construir-um-sistema-de-apoio-uxe0-decisuxe3o-em-sauxfade-mental-escolar-utilizando-luxf3gica-proposicional-com-inferuxeancia-por-resoluuxe7uxe3o-sem-recorrer-a-diagnuxf3stico-automatizado-ranking-de-estudantes-ou-dependuxeancia-de-apis-externas.contribuiuxe7uxf5es-principais1.-formalizauxe7uxe3o-de-7-variuxe1veis-proposicionais-5-nucleares-2-contextuais-a-partir-da-pense-20242.-base-de-conhecimento-com-6-regras-expluxedcitas-em-cnf3.-motor-de-inferuxeancia-por-resoluuxe7uxe3o-100-determinuxedstico-e-audituxe1vel4.-grafo-de-explicabilidade-que-rastreia-cada-decisuxe3o-atuxe9-as-fontes-de-dados5.-governanuxe7a-integrada-lgpd-eca-pse-human-in-the-loop6.-suite-de-72-testes-automatizados-como-guardrails-de-qualidade7.-arquitetura-de-proveniuxeancia-por-tiers-com-bloqueio-absoluto-de-merge-indevido.viabilidade-o-sistema-uxe9-viuxe1vel-para-implantauxe7uxe3o-em-escolas-puxfablicas-da-parauxedba-como-ferramenta-de-suporte-desde-que-acompanhado-de-capacitauxe7uxe3o-profissional-e-integrauxe7uxe3o-com-a-rede-pseubscaps.}
+
+    \subsubsection{\texorpdfstring{8. Referências Bibliográficas1. RUSSELL,
+S.; NORVIG, P. \emph{Inteligência Artificial: uma abordagem moderna}. 4ª
+ed.~Rio de Janeiro: GEN LTC, 2022.2. BRASIL. Instituto Brasileiro de
+Geografia e Estatística (IBGE). \textbf{Pesquisa Nacional de Saúde do
+Escolar (PeNSE) 2024} --- Tema 12: Saúde Mental. Rio de Janeiro: IBGE,
+2024.3. BRASIL. \textbf{Lei nº 13.709, de 14 de agosto de 2018} (Lei
+Geral de Proteção de Dados Pessoais --- LGPD). Brasília: Presidência da
+República, 2018.4. BRASIL. \textbf{Lei nº 8.069, de 13 de julho de 1990}
+(Estatuto da Criança e do Adolescente --- ECA). Brasília: Presidência da
+República, 1990.5. BRASIL. Ministério da Saúde. \textbf{Programa Saúde
+na Escola (PSE)}. Brasília: MS, 2007.6. BRACHMAN, R. J.; LEVESQUE, H. J.
+\emph{Knowledge Representation and Reasoning}. Morgan Kaufmann, 2004.7.
+GENESERETH, M. R.; NILSSON, N. J. \emph{Logical Foundations of
+Artificial Intelligence}. Morgan Kaufmann, 1987.8. WORLD HEALTH
+ORGANIZATION. \emph{Mental Health Action Plan 2013--2030}. Geneva: WHO,
+2021.}{8. Referências Bibliográficas1. RUSSELL, S.; NORVIG, P. Inteligência Artificial: uma abordagem moderna. 4ª ed.~Rio de Janeiro: GEN LTC, 2022.2. BRASIL. Instituto Brasileiro de Geografia e Estatística (IBGE). Pesquisa Nacional de Saúde do Escolar (PeNSE) 2024 --- Tema 12: Saúde Mental. Rio de Janeiro: IBGE, 2024.3. BRASIL. Lei nº 13.709, de 14 de agosto de 2018 (Lei Geral de Proteção de Dados Pessoais --- LGPD). Brasília: Presidência da República, 2018.4. BRASIL. Lei nº 8.069, de 13 de julho de 1990 (Estatuto da Criança e do Adolescente --- ECA). Brasília: Presidência da República, 1990.5. BRASIL. Ministério da Saúde. Programa Saúde na Escola (PSE). Brasília: MS, 2007.6. BRACHMAN, R. J.; LEVESQUE, H. J. Knowledge Representation and Reasoning. Morgan Kaufmann, 2004.7. GENESERETH, M. R.; NILSSON, N. J. Logical Foundations of Artificial Intelligence. Morgan Kaufmann, 1987.8. WORLD HEALTH ORGANIZATION. Mental Health Action Plan 2013--2030. Geneva: WHO, 2021.}}\label{referuxeancias-bibliogruxe1ficas1.-russell-s.-norvig-p.-inteliguxeancia-artificial-uma-abordagem-moderna.-4uxaa-ed.-rio-de-janeiro-gen-ltc-2022.2.-brasil.-instituto-brasileiro-de-geografia-e-estatuxedstica-ibge.-pesquisa-nacional-de-sauxfade-do-escolar-pense-2024-tema-12-sauxfade-mental.-rio-de-janeiro-ibge-2024.3.-brasil.-lei-nuxba-13.709-de-14-de-agosto-de-2018-lei-geral-de-proteuxe7uxe3o-de-dados-pessoais-lgpd.-brasuxedlia-presiduxeancia-da-repuxfablica-2018.4.-brasil.-lei-nuxba-8.069-de-13-de-julho-de-1990-estatuto-da-crianuxe7a-e-do-adolescente-eca.-brasuxedlia-presiduxeancia-da-repuxfablica-1990.5.-brasil.-ministuxe9rio-da-sauxfade.-programa-sauxfade-na-escola-pse.-brasuxedlia-ms-2007.6.-brachman-r.-j.-levesque-h.-j.-knowledge-representation-and-reasoning.-morgan-kaufmann-2004.7.-genesereth-m.-r.-nilsson-n.-j.-logical-foundations-of-artificial-intelligence.-morgan-kaufmann-1987.8.-world-health-organization.-mental-health-action-plan-20132030.-geneva-who-2021.}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+\end{document}
