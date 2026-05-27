@@ -47,3 +47,33 @@ htmlcov/
 # Binaries and Archives
 *.zip
 *.deb
+
+# ---------------------------------------------------------------
+# Versoes academicas intermediarias (manter apenas v2 e v3_2)
+# ---------------------------------------------------------------
+academic_abntex2_attempt_v3/
+academic_abntex2_attempt_v3_1/
+
+# ---------------------------------------------------------------
+# Scripts temporarios de build/fix (raiz do projeto)
+# ---------------------------------------------------------------
+audit_full.py
+audit_notebook.py
+build_academic_notebook.py
+build_new_notebook.py
+extract_logic.py
+fix_cover.py
+fix_latex.py
+fix_notebook_magic.py
+fix_notebook_pep8.py
+fix_tables.py
+remove_tables.py
+preview.md
+preview_notebook.md
+
+# ---------------------------------------------------------------
+# Arquivos duplicados / temporarios
+# ---------------------------------------------------------------
+Trabalho_Trilha_I_AcolheMente_PB.pdf
+logo_urutai.png
+update_cover.py

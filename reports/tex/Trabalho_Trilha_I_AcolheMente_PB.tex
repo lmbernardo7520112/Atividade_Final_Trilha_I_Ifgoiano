@@ -413,231 +413,1069 @@
     
 
     
-    \section{\texorpdfstring{Instituto Federal Goiano (IF Goiano)\#\#
-Pós-Graduação em Inteligência Artificial Aplicada\#\#\# Trabalho de
-Conclusão de Trilha de Aprendizagem: Trilha I\textbf{Título:}
-AcolheMente Escolar PB --- Motor de Inferência Lógico para Acolhimento
-em Saúde Mental Escolar\textbf{Aluno:} Leonardo Maximino
-Bernardo\textbf{Orientação:} Trilha I --- Lógica Proposicional, Sistemas
-Baseados em Conhecimento e Inferência por Resolução\textbf{Versão:}
-v0.3.0 (7 variáveis, 6 regras --- motor congelado por
-ADR-011)---}{Instituto Federal Goiano (IF Goiano)\#\# Pós-Graduação em Inteligência Artificial Aplicada\#\#\# Trabalho de Conclusão de Trilha de Aprendizagem: Trilha ITítulo: AcolheMente Escolar PB --- Motor de Inferência Lógico para Acolhimento em Saúde Mental EscolarAluno: Leonardo Maximino BernardoOrientação: Trilha I --- Lógica Proposicional, Sistemas Baseados em Conhecimento e Inferência por ResoluçãoVersão: v0.3.0 (7 variáveis, 6 regras --- motor congelado por ADR-011)---}}\label{instituto-federal-goiano-if-goiano-puxf3s-graduauxe7uxe3o-em-inteliguxeancia-artificial-aplicada-trabalho-de-conclusuxe3o-de-trilha-de-aprendizagem-trilha-ituxedtulo-acolhemente-escolar-pb-motor-de-inferuxeancia-luxf3gico-para-acolhimento-em-sauxfade-mental-escolaraluno-leonardo-maximino-bernardoorientauxe7uxe3o-trilha-i-luxf3gica-proposicional-sistemas-baseados-em-conhecimento-e-inferuxeancia-por-resoluuxe7uxe3oversuxe3o-v0.3.0-7-variuxe1veis-6-regras-motor-congelado-por-adr-011}
-
-    \subsubsection{\texorpdfstring{1. Apresentação do Aluno e ContextoEste
-trabalho foi desenvolvido como atividade final da \textbf{Trilha I} do
-curso de Pós-Graduação em Inteligência Artificial Aplicada do IF
-Goiano.O projeto \textbf{AcolheMente Escolar PB} implementa um Sistema
-Baseado em Conhecimento (SBC) utilizando \textbf{Lógica Proposicional
-com Inferência por Resolução} para identificar cenários de acolhimento
-prioritário em saúde mental escolar, com foco no contexto da
-Paraíba.\textbf{Inspiração pedagógica:} Este notebook se inspira no
-notebook-base \texttt{Resposta\_Trabalho\_Trilha\_I.ipynb} fornecido
-como referência da Trilha I, expandindo cautelosamente o modelo de 5
-para 7 variáveis proposicionais para incorporar contexto comportamental
-e capacidade
-institucional.}{1. Apresentação do Aluno e ContextoEste trabalho foi desenvolvido como atividade final da Trilha I do curso de Pós-Graduação em Inteligência Artificial Aplicada do IF Goiano.O projeto AcolheMente Escolar PB implementa um Sistema Baseado em Conhecimento (SBC) utilizando Lógica Proposicional com Inferência por Resolução para identificar cenários de acolhimento prioritário em saúde mental escolar, com foco no contexto da Paraíba.Inspiração pedagógica: Este notebook se inspira no notebook-base Resposta\_Trabalho\_Trilha\_I.ipynb fornecido como referência da Trilha I, expandindo cautelosamente o modelo de 5 para 7 variáveis proposicionais para incorporar contexto comportamental e capacidade institucional.}}\label{apresentauxe7uxe3o-do-aluno-e-contextoeste-trabalho-foi-desenvolvido-como-atividade-final-da-trilha-i-do-curso-de-puxf3s-graduauxe7uxe3o-em-inteliguxeancia-artificial-aplicada-do-if-goiano.o-projeto-acolhemente-escolar-pb-implementa-um-sistema-baseado-em-conhecimento-sbc-utilizando-luxf3gica-proposicional-com-inferuxeancia-por-resoluuxe7uxe3o-para-identificar-cenuxe1rios-de-acolhimento-priorituxe1rio-em-sauxfade-mental-escolar-com-foco-no-contexto-da-parauxedba.inspirauxe7uxe3o-pedaguxf3gica-este-notebook-se-inspira-no-notebook-base-resposta_trabalho_trilha_i.ipynb-fornecido-como-referuxeancia-da-trilha-i-expandindo-cautelosamente-o-modelo-de-5-para-7-variuxe1veis-proposicionais-para-incorporar-contexto-comportamental-e-capacidade-institucional.}
-
-    \subsubsection{\texorpdfstring{2. Introdução e Definição do ProblemaA
-\textbf{Pesquisa Nacional de Saúde do Escolar (PeNSE 2024)} revelou
-indicadores preocupantes de saúde mental entre adolescentes brasileiros,
-particularmente na região Nordeste e no estado da
-Paraíba.\textbf{Problema:} Como apoiar equipes pedagógicas na
-identificação de cenários que demandam acolhimento prioritário em saúde
-mental, sem criar sistemas de diagnóstico automatizado, ranking de
-estudantes ou vigilância discente?\textbf{Solução proposta:} Um motor
-lógico determinístico baseado em regras explícitas que:- Opera sobre
-\textbf{7 variáveis proposicionais} extraídas da PeNSE 2024;- Utiliza
-\textbf{inferência por resolução} sobre base de conhecimento em CNF;-
-Gera apenas uma saída operacional: \textbf{Acolhimento Humano
-Prioritário (A)};- Exige \textbf{revisão humana obrigatória} antes de
-qualquer ação;- Respeita integralmente LGPD, ECA e PSE.\textgreater{}
-\textbf{Nota ética:} Este sistema NÃO diagnostica, NÃO prediz e NÃO
-classifica indivíduos. Toda saída é sugestão para revisão por
-profissional
-habilitado.}{2. Introdução e Definição do ProblemaA Pesquisa Nacional de Saúde do Escolar (PeNSE 2024) revelou indicadores preocupantes de saúde mental entre adolescentes brasileiros, particularmente na região Nordeste e no estado da Paraíba.Problema: Como apoiar equipes pedagógicas na identificação de cenários que demandam acolhimento prioritário em saúde mental, sem criar sistemas de diagnóstico automatizado, ranking de estudantes ou vigilância discente?Solução proposta: Um motor lógico determinístico baseado em regras explícitas que:- Opera sobre 7 variáveis proposicionais extraídas da PeNSE 2024;- Utiliza inferência por resolução sobre base de conhecimento em CNF;- Gera apenas uma saída operacional: Acolhimento Humano Prioritário (A);- Exige revisão humana obrigatória antes de qualquer ação;- Respeita integralmente LGPD, ECA e PSE.\textgreater{} Nota ética: Este sistema NÃO diagnostica, NÃO prediz e NÃO classifica indivíduos. Toda saída é sugestão para revisão por profissional habilitado.}}\label{introduuxe7uxe3o-e-definiuxe7uxe3o-do-problemaa-pesquisa-nacional-de-sauxfade-do-escolar-pense-2024-revelou-indicadores-preocupantes-de-sauxfade-mental-entre-adolescentes-brasileiros-particularmente-na-regiuxe3o-nordeste-e-no-estado-da-parauxedba.problema-como-apoiar-equipes-pedaguxf3gicas-na-identificauxe7uxe3o-de-cenuxe1rios-que-demandam-acolhimento-priorituxe1rio-em-sauxfade-mental-sem-criar-sistemas-de-diagnuxf3stico-automatizado-ranking-de-estudantes-ou-vigiluxe2ncia-discentesoluuxe7uxe3o-proposta-um-motor-luxf3gico-determinuxedstico-baseado-em-regras-expluxedcitas-que--opera-sobre-7-variuxe1veis-proposicionais-extrauxeddas-da-pense-2024--utiliza-inferuxeancia-por-resoluuxe7uxe3o-sobre-base-de-conhecimento-em-cnf--gera-apenas-uma-sauxedda-operacional-acolhimento-humano-priorituxe1rio-a--exige-revisuxe3o-humana-obrigatuxf3ria-antes-de-qualquer-auxe7uxe3o--respeita-integralmente-lgpd-eca-e-pse.-nota-uxe9tica-este-sistema-nuxe3o-diagnostica-nuxe3o-prediz-e-nuxe3o-classifica-indivuxedduos.-toda-sauxedda-uxe9-sugestuxe3o-para-revisuxe3o-por-profissional-habilitado.}
-
-    \subsubsection{\texorpdfstring{3. Metodologia e Escolha da Técnica de
-IA\#\#\#\# 3.1 Lógica ProposicionalA técnica central é a \textbf{Lógica
-Proposicional} aplicada a um Sistema Baseado em Conhecimento (SBC). As
-variáveis são binárias (verdadeiro/falso), derivadas de questões da
-PeNSE 2024, e as regras são definidas explicitamente por especialistas
---- não aprendidas por máquina.\#\#\#\# 3.2 Inferência por ResoluçãoO
-método de inferência utilizado é a \textbf{Resolução por Refutação}:1.
-Converter todas as regras para \textbf{Forma Normal Conjuntiva (CNF)};2.
-Adicionar a negação da query (¬A) à base de conhecimento;3. Aplicar
-resolução binária repetidamente;4. Se a cláusula vazia (⊥) for derivada
-→ A é consequência lógica;5. Se a saturação ocorrer sem ⊥ → A não é
-inferível.\#\#\#\# 3.3 Justificativa de não usar diagnóstico
-automatizadoO sistema opera no nível de \textbf{triagem institucional},
-não de diagnóstico clínico. Nenhuma variável representa condição clínica
-(depressão, TDAH, autismo, TOC). Todas as variáveis descrevem
-\textbf{situações observáveis e autorreferidas} na PeNSE 2024.\#\#\#\#
-3.4 Por que avançar de 5 para 7 variáveis?\textgreater{} A versão-base
-com 5 variáveis preservava máxima parcimônia e alinhamento direto com o
-notebook exemplar da Trilha I. A evolução para 7 variáveis foi adotada
-de forma \textbf{cautelosa} para incorporar dois elementos essenciais no
-contexto escolar: \textbf{contexto comportamental} e \textbf{capacidade
-institucional de resposta}. As variáveis C e I não ampliam o sistema
-para diagnóstico ou predição clínica; elas qualificam o ambiente de
-decisão e fortalecem a utilidade institucional do motor, mantendo
-explicabilidade e revisão humana
-obrigatória.}{3. Metodologia e Escolha da Técnica de IA\#\#\#\# 3.1 Lógica ProposicionalA técnica central é a Lógica Proposicional aplicada a um Sistema Baseado em Conhecimento (SBC). As variáveis são binárias (verdadeiro/falso), derivadas de questões da PeNSE 2024, e as regras são definidas explicitamente por especialistas --- não aprendidas por máquina.\#\#\#\# 3.2 Inferência por ResoluçãoO método de inferência utilizado é a Resolução por Refutação:1. Converter todas as regras para Forma Normal Conjuntiva (CNF);2. Adicionar a negação da query (¬A) à base de conhecimento;3. Aplicar resolução binária repetidamente;4. Se a cláusula vazia (⊥) for derivada → A é consequência lógica;5. Se a saturação ocorrer sem ⊥ → A não é inferível.\#\#\#\# 3.3 Justificativa de não usar diagnóstico automatizadoO sistema opera no nível de triagem institucional, não de diagnóstico clínico. Nenhuma variável representa condição clínica (depressão, TDAH, autismo, TOC). Todas as variáveis descrevem situações observáveis e autorreferidas na PeNSE 2024.\#\#\#\# 3.4 Por que avançar de 5 para 7 variáveis?\textgreater{} A versão-base com 5 variáveis preservava máxima parcimônia e alinhamento direto com o notebook exemplar da Trilha I. A evolução para 7 variáveis foi adotada de forma cautelosa para incorporar dois elementos essenciais no contexto escolar: contexto comportamental e capacidade institucional de resposta. As variáveis C e I não ampliam o sistema para diagnóstico ou predição clínica; elas qualificam o ambiente de decisão e fortalecem a utilidade institucional do motor, mantendo explicabilidade e revisão humana obrigatória.}}\label{metodologia-e-escolha-da-tuxe9cnica-de-ia-3.1-luxf3gica-proposicionala-tuxe9cnica-central-uxe9-a-luxf3gica-proposicional-aplicada-a-um-sistema-baseado-em-conhecimento-sbc.-as-variuxe1veis-suxe3o-binuxe1rias-verdadeirofalso-derivadas-de-questuxf5es-da-pense-2024-e-as-regras-suxe3o-definidas-explicitamente-por-especialistas-nuxe3o-aprendidas-por-muxe1quina.-3.2-inferuxeancia-por-resoluuxe7uxe3oo-muxe9todo-de-inferuxeancia-utilizado-uxe9-a-resoluuxe7uxe3o-por-refutauxe7uxe3o1.-converter-todas-as-regras-para-forma-normal-conjuntiva-cnf2.-adicionar-a-negauxe7uxe3o-da-query-a-uxe0-base-de-conhecimento3.-aplicar-resoluuxe7uxe3o-binuxe1ria-repetidamente4.-se-a-cluxe1usula-vazia-for-derivada-a-uxe9-consequuxeancia-luxf3gica5.-se-a-saturauxe7uxe3o-ocorrer-sem-a-nuxe3o-uxe9-inferuxedvel.-3.3-justificativa-de-nuxe3o-usar-diagnuxf3stico-automatizadoo-sistema-opera-no-nuxedvel-de-triagem-institucional-nuxe3o-de-diagnuxf3stico-cluxednico.-nenhuma-variuxe1vel-representa-condiuxe7uxe3o-cluxednica-depressuxe3o-tdah-autismo-toc.-todas-as-variuxe1veis-descrevem-situauxe7uxf5es-observuxe1veis-e-autorreferidas-na-pense-2024.-3.4-por-que-avanuxe7ar-de-5-para-7-variuxe1veis-a-versuxe3o-base-com-5-variuxe1veis-preservava-muxe1xima-parcimuxf4nia-e-alinhamento-direto-com-o-notebook-exemplar-da-trilha-i.-a-evoluuxe7uxe3o-para-7-variuxe1veis-foi-adotada-de-forma-cautelosa-para-incorporar-dois-elementos-essenciais-no-contexto-escolar-contexto-comportamental-e-capacidade-institucional-de-resposta.-as-variuxe1veis-c-e-i-nuxe3o-ampliam-o-sistema-para-diagnuxf3stico-ou-prediuxe7uxe3o-cluxednica-elas-qualificam-o-ambiente-de-decisuxe3o-e-fortalecem-a-utilidade-institucional-do-motor-mantendo-explicabilidade-e-revisuxe3o-humana-obrigatuxf3ria.}
-
-    \subsubsection{4. Implementação da Solução\#\#\#\# 4.1 Configuração do
-Ambiente}\label{implementauxe7uxe3o-da-soluuxe7uxe3o-4.1-configurauxe7uxe3o-do-ambiente}
-
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{1}{\boxspacing}
+\prompt{In}{incolor}{ }{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{c+c1}{\PYZsh{} Importações necessáriasimport sys, ossys.path.insert(0, os.path.join(os.getcwd(), \PYZsq{}..\PYZsq{}))\PYZsh{} Módulos do AcolheMentefrom src.acolhemente.rule\PYZus{}graph import (    PROPOSITIONAL\PYZus{}VARIABLES, NUCLEAR\PYZus{}VARIABLES, CONTEXTUAL\PYZus{}VARIABLES,    ALL\PYZus{}RULES, ALL\PYZus{}CNFS,    E, B, V, S, A, C, I,    R1, R2, R3, R4, R5, R6,    R1\PYZus{}CNF, R2\PYZus{}CNF, R3\PYZus{}CNF, R4\PYZus{}CNF, R5\PYZus{}CNF, R6\PYZus{}CNF,    build\PYZus{}rule\PYZus{}graph, build\PYZus{}governance\PYZus{}graph, export\PYZus{}graph\PYZus{}png,)from src.acolhemente.graph\PYZus{}schema import EntityTypeprint(\PYZdq{}✅ Módulos AcolheMente carregados com sucesso.\PYZdq{})print(f\PYZdq{}   Variáveis proposicionais: \PYZob{}len(PROPOSITIONAL\PYZus{}VARIABLES)\PYZcb{}\PYZdq{})print(f\PYZdq{}   Nucleares: \PYZob{}len(NUCLEAR\PYZus{}VARIABLES)\PYZcb{}\PYZdq{})print(f\PYZdq{}   Contextuais: \PYZob{}len(CONTEXTUAL\PYZus{}VARIABLES)\PYZcb{}\PYZdq{})print(f\PYZdq{}   Regras lógicas: \PYZob{}len(ALL\PYZus{}RULES)\PYZcb{}\PYZdq{})}
+\PY{k+kn}{import}\PY{+w}{ }\PY{n+nn}{sys}\PY{o}{,}\PY{+w}{ }\PY{n+nn}{os}\PY{o}{,}\PY{+w}{ }\PY{n+nn}{shutil}\PY{o}{,}\PY{+w}{ }\PY{n+nn}{urllib}\PY{n+nn}{.}\PY{n+nn}{request}\PY{o}{,}\PY{+w}{ }\PY{n+nn}{warnings}
+\PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ignore}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Logo do IF Goiano}
+\PY{n}{LOGO\PYZus{}URL} \PY{o}{=} \PY{p}{(}
+    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://www.ifgoiano.edu.br/home/images/}\PY{l+s+s2}{\PYZdq{}}
+    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{REITORIA/Imagens/2017/Jan\PYZus{}2017/logo\PYZus{}urutai.png}\PY{l+s+s2}{\PYZdq{}}
+\PY{p}{)}
+\PY{n}{LOGO\PYZus{}LOCAL} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{logo\PYZus{}urutai.png}\PY{l+s+s2}{\PYZdq{}}
+\PY{k}{if} \PY{o+ow}{not} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{exists}\PY{p}{(}\PY{n}{LOGO\PYZus{}LOCAL}\PY{p}{)}\PY{p}{:}
+    \PY{k}{try}\PY{p}{:}
+        \PY{n}{urllib}\PY{o}{.}\PY{n}{request}\PY{o}{.}\PY{n}{urlretrieve}\PY{p}{(}\PY{n}{LOGO\PYZus{}URL}\PY{p}{,} \PY{n}{LOGO\PYZus{}LOCAL}\PY{p}{)}
+    \PY{k}{except} \PY{n+ne}{Exception}\PY{p}{:}
+        \PY{k}{pass}
+
+\PY{c+c1}{\PYZsh{} garante que o motor lógico é importável}
+\PY{k}{if} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{src}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{sys}\PY{o}{.}\PY{n}{path}\PY{p}{:}
+    \PY{n}{sys}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{abspath}\PY{p}{(}
+        \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{dirname}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}\PYZus{}file\PYZus{}\PYZus{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{..}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+    \PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
-    \paragraph{4.2 Tabela das 7 Variáveis
-Proposicionais}\label{tabela-das-7-variuxe1veis-proposicionais}
+    \begin{titlepage}
+    \centering
+
+    \includegraphics[width=0.15\textwidth]{logo_urutai.png} \\[0.3cm]
+    \vspace{0.8cm}
+
+    {\small \textbf{INSTITUTO FEDERAL GOIANO — IF Goiano} \\}
+    {\footnotesize PÓS-GRADUAÇÃO \textit{LATO SENSU} EM INTELIGÊNCIA ARTIFICIAL APLICADA \\}
+    {\footnotesize TRILHA I — FUNDAMENTOS SIMBÓLICOS E BUSCA \\}
+    \vspace{2.5cm}
+
+    {\Large \MakeUppercase{Leonardo Maximino Bernardo} \par}
+    \vspace{4cm}
+
+    {\Large \textbf{AcolheMente Escolar PB: Motor de Inferência Lógico para Apoio à Gestão Escolar na Priorização Responsável de Acolhimento em Saúde Mental} \par}
+
+    \vfill
+
+    {\large Maio de 2026 \par}
+\end{titlepage}
+\newpage
+
+    \section{1. Apresentação do Aluno e
+Contexto}\label{apresentauxe7uxe3o-do-aluno-e-contexto}
+
+Leonardo Maximino Bernardo é professor de Física da rede pública
+estadual da Paraíba desde 2020, com mais de 15 anos de experiência em
+docência nos níveis médio e superior. Doutor em Ciência e Engenharia de
+Materiais pela Universidade Federal da Paraíba (UFPB), sua trajetória
+acadêmica combina modelagem computacional avançada --- com uso de C++ e
+OpenFOAM para simulação numérica de solidificação de ligas metálicas ---
+e uma crescente atuação em ciência de dados, inteligência artificial e
+desenvolvimento de software.
+
+Ao longo de sua formação, Leonardo atuou como pesquisador na UFPB,
+desenvolvendo rotinas de cálculo e algoritmos para análise de grandes
+volumes de dados de simulação, extraindo padrões quantitativos para
+publicações acadêmicas. Essa experiência consolidou habilidades de
+pensamento analítico, resolução de problemas complexos e comunicação
+científica que hoje informam diretamente sua prática docente e sua
+abordagem em projetos de IA.
+
+Atualmente, além da docência em Física, Leonardo cursa Pós-Graduação
+\emph{Lato Sensu} em Inteligência Artificial Aplicada pelo Instituto
+Federal Goiano (IF Goiano) e graduação em Ciência de Dados pelo Unipê.
+Sua stack tecnológica inclui Python, JavaScript, SQL, frameworks como
+Django e React, e ferramentas de análise como Pandas, Scikit-learn e
+NetworkX. Possui certificações em desenvolvimento back-end com Node.js,
+Harvard CS50 e aceleração global de desenvolvimento de software.
+
+O presente trabalho nasce da intersecção entre sua vivência como
+professor de escola pública estadual na Paraíba --- onde testemunha
+diariamente demandas crescentes de acolhimento em saúde mental de
+adolescentes --- e seu domínio técnico em modelagem computacional e
+lógica formal. A escolha do domínio de saúde mental escolar não é
+acidental: reflete o compromisso de aplicar inteligência artificial de
+forma ética, explicável e governada em um contexto de vulnerabilidade
+social, onde erros tecnológicos podem ter consequências humanas graves.
+
+    \section{2. Introdução e Definição do
+Problema}\label{introduuxe7uxe3o-e-definiuxe7uxe3o-do-problema}
+
+A saúde mental de adolescentes no Brasil atravessa um momento crítico.
+Dados da Pesquisa Nacional de Saúde do Escolar --- PeNSE 2024 (IBGE,
+2024) revelam que parcela significativa dos estudantes de 13 a 17 anos
+reporta sentimentos persistentes de tristeza, solidão e desesperança,
+com índices particularmente preocupantes na região Nordeste e,
+especificamente, no estado da Paraíba. O relatório da Organização
+Mundial da Saúde (WHO, 2022) confirma essa tendência global: transtornos
+mentais respondem por uma proporção crescente da carga de doença entre
+jovens, e a maioria dos casos permanece sem qualquer forma de
+acolhimento adequado.
+
+No contexto da escola pública estadual paraibana, a demanda por
+acolhimento em saúde mental frequentemente supera a capacidade de
+resposta da equipe pedagógica e psicossocial. Professores, coordenadores
+e orientadores educacionais enfrentam o desafio de identificar, dentre
+centenas de estudantes, aqueles que necessitam de atenção prioritária
+--- sem dispor de ferramentas estruturadas para essa tarefa. O resultado
+é uma dependência excessiva de percepções individuais, sujeitas a viés
+cognitivo, fadiga decisória e inconsistência entre turnos e unidades
+escolares. Essa lacuna não é trivial: a ausência de priorização
+sistemática pode significar que um adolescente em situação de risco
+grave não receba acolhimento em tempo hábil.
+
+Ao mesmo tempo, a adoção acrítica de tecnologias de inteligência
+artificial nesse domínio apresenta riscos igualmente sérios. Sistemas
+baseados em aprendizado de máquina (\emph{machine learning}) ou IA
+generativa, embora poderosos em outros contextos, introduzem opacidade
+decisória incompatível com o rigor ético exigido quando se trata de
+menores de idade em situação de vulnerabilidade (Jobin \emph{et al.},
+2019). A Lei Geral de Proteção de Dados --- LGPD (Brasil, 2018) e o
+Estatuto da Criança e do Adolescente --- ECA (Brasil, 1990) impõem
+salvaguardas rigorosas para o tratamento de dados sensíveis de menores,
+incluindo o direito à explicação de decisões automatizadas. Um modelo de
+``caixa preta'' que classifique ou ranqueie estudantes por risco
+psicológico seria, no mínimo, juridicamente temerário e, no limite,
+eticamente inaceitável.
+
+Diante desse cenário, o presente trabalho propõe o \textbf{AcolheMente
+Escolar PB}: um Sistema Baseado em Conhecimento (SBC) que utiliza
+\textbf{Lógica Proposicional com Inferência por Resolução} para apoiar
+--- e nunca substituir --- a gestão escolar na priorização responsável
+de acolhimento em saúde mental. A escolha por lógica simbólica
+determinística não é uma limitação técnica, mas uma decisão de
+\emph{design} ético: garante explicabilidade total, rastreabilidade de
+cada conclusão e ausência de qualquer linguagem diagnóstica clínica
+(Russell; Norvig, 2022).
+
+\subsubsection{Definição Operacional do
+Problema}\label{definiuxe7uxe3o-operacional-do-problema}
+
+\textbf{Questão central:} Como apoiar a gestão escolar de escolas
+públicas estaduais da Paraíba na priorização sistemática de acolhimento
+em saúde mental de adolescentes, utilizando inteligência artificial
+explicável, sem produzir diagnósticos clínicos, sem violar a LGPD ou o
+ECA, e sem substituir o julgamento humano profissional?
+
+\textbf{Escopo:} Construção de um motor de inferência lógico
+determinístico com 7 variáveis proposicionais e 6 regras em CNF,
+alimentado por indicadores agregados da PeNSE 2024 e validado com
+cenários sintéticos.
+
+\textbf{Não escopo:} O sistema \textbf{NÃO diagnostica}, \textbf{NÃO
+classifica} alunos individualmente, \textbf{NÃO} utiliza dados
+identificáveis, \textbf{NÃO} substitui avaliação profissional de
+psicólogos ou assistentes sociais, e \textbf{NÃO} se conecta a APIs de
+IA generativa.
+
+\textbf{Objetivo geral:} Desenvolver e validar um motor de inferência
+por resolução, baseado em lógica proposicional e fundamentado em dados
+oficiais da PeNSE 2024, para apoiar a priorização de acolhimento em
+saúde mental escolar no estado da Paraíba.
+
+\textbf{Objetivos específicos:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Modelar o domínio de saúde mental escolar em 7 variáveis
+  proposicionais (5 nucleares + 2 contextuais), ancoradas em variáveis
+  da PeNSE 2024.
+\item
+  Formalizar 6 regras de inferência em Forma Normal Conjuntiva (CNF) e
+  implementar motor de resolução determinístico.
+\item
+  Validar o motor com cenários sintéticos representativos e comparar com
+  \emph{baseline} manual.
+\item
+  Garantir conformidade integral com LGPD, ECA e Programa Saúde na
+  Escola (PSE) (Brasil, 2007).
+\item
+  Documentar explicabilidade, limitações e perspectivas de evolução com
+  rigor acadêmico.
+\end{enumerate}
+
+    \section{3. Metodologia e Escolha da Técnica de
+IA}\label{metodologia-e-escolha-da-tuxe9cnica-de-ia}
+
+\subsection{3.1 Sistemas Baseados em
+Conhecimento}\label{sistemas-baseados-em-conhecimento}
+
+O AcolheMente Escolar PB é, em sua essência, um \textbf{Sistema Baseado
+em Conhecimento} (SBC) --- uma classe de sistemas de inteligência
+artificial que codifica explicitamente o conhecimento de especialistas
+humanos em regras formais e utiliza mecanismos de inferência para
+derivar conclusões a partir de fatos observados (Brachman; Levesque,
+2004). Diferentemente de abordagens estatísticas ou conexionistas, um
+SBC não ``aprende'' a partir de dados brutos: ele opera sobre uma base
+de conhecimento construída deliberadamente por engenheiros do
+conhecimento em colaboração com especialistas do domínio.
+
+Essa característica é particularmente valiosa no contexto de saúde
+mental escolar, onde: (a) o volume de dados individuais disponível é
+insuficiente para treinamento de modelos de \emph{machine learning}; (b)
+a transparência de cada decisão é requisito ético e legal; e (c) o custo
+de um erro --- falso positivo que rotula indevidamente um estudante, ou
+falso negativo que ignora um caso grave --- é inaceitavelmente alto.
+
+\subsection{3.2 Lógica Proposicional e Inferência por
+Resolução}\label{luxf3gica-proposicional-e-inferuxeancia-por-resoluuxe7uxe3o}
+
+A técnica específica adotada é a \textbf{Lógica Proposicional com
+Inferência por Resolução}. Trata-se de um formalismo da lógica clássica
+no qual o conhecimento é representado por proposições atômicas
+(variáveis que assumem valores verdadeiro ou falso) e conectivos lógicos
+(conjunção, disjunção, negação, implicação). A inferência é realizada
+por meio do \textbf{método de resolução}, um procedimento correto e
+refutacionalmente completo para a lógica proposicional (Genesereth;
+Nilsson, 1987).
+
+O método de resolução opera sobre cláusulas em \textbf{Forma Normal
+Conjuntiva (CNF)} --- uma conjunção de disjunções de literais. Para
+verificar se uma conclusão \(A\) pode ser derivada de uma base de
+conhecimento \(KB\), o procedimento: (i) converte todas as regras para
+CNF; (ii) adiciona a negação da conclusão (\(\neg A\)) ao conjunto de
+cláusulas; (iii) aplica repetidamente a regra de resolução, buscando
+derivar a cláusula vazia (\(\square\)), o que constitui prova por
+contradição de que \(KB \models A\).
+
+\subsection{3.3 Justificativa da Escolha e Alternativas
+Descartadas}\label{justificativa-da-escolha-e-alternativas-descartadas}
+
+A Trilha I do curso de Pós-Graduação em IA Aplicada do IF Goiano tem
+como foco técnicas simbólicas e de busca. A escolha por lógica
+proposicional com resolução é, portanto, duplamente justificada: atende
+ao escopo pedagógico da trilha e oferece as propriedades de
+explicabilidade e determinismo exigidas pelo domínio.
+
+Foram consideradas e descartadas as seguintes alternativas:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Lógica de Primeira Ordem (FOL):} Embora mais expressiva,
+  introduziria complexidade desnecessária para um domínio com 7
+  variáveis binárias. A decidibilidade garantida da lógica proposicional
+  é uma vantagem operacional.
+\item
+  \textbf{Redes Bayesianas:} Exigiriam distribuições de probabilidade
+  condicional que não podem ser estimadas com rigor a partir de dados
+  agregados da PeNSE. Além disso, a saída probabilística (``70\% de
+  chance de necessitar acolhimento'') seria inadequada para um sistema
+  que deve emitir apenas sinais binários de priorização.
+\item
+  \textbf{Árvores de Decisão / Random Forest:} Embora interpretáveis,
+  dependem de treinamento supervisionado com dados rotulados ---
+  inexistentes neste domínio. A criação de rótulos artificiais
+  introduziria viés de confirmação.
+\item
+  \textbf{Redes Neurais / Deep Learning:} Incompatíveis com os
+  requisitos de explicabilidade total e transparência jurídica. Como
+  discutido na Seção 15, essas técnicas são admitidas como possibilidade
+  teórica futura, condicionada a requisitos éticos e institucionais
+  rigorosos.
+\item
+  \textbf{IA Generativa (LLMs):} Descartada por completo. Modelos de
+  linguagem não oferecem garantias de consistência lógica, não são
+  determinísticos, e sua utilização para classificação de risco em saúde
+  mental de menores seria juridicamente indefensável sob a LGPD e o ECA.
+\end{itemize}
+
+Russell e Norvig (2022) argumentam que a escolha da representação do
+conhecimento deve ser guiada pelas propriedades do domínio, e não pela
+sofisticação da técnica. No caso do AcolheMente Escolar PB, a lógica
+proposicional é a ferramenta \emph{correta}, não uma ferramenta
+\emph{limitada}.
+
+    \section{4. Dados e Governança}\label{dados-e-governanuxe7a}
+
+\subsection{4.1 Fontes de Dados e Arquitetura de
+Proveniência}\label{fontes-de-dados-e-arquitetura-de-proveniuxeancia}
+
+O AcolheMente Escolar PB opera com uma arquitetura rigorosa de
+proveniência de dados, dividida em três camadas (\emph{tiers})
+mutuamente exclusivas. Essa separação não é apenas uma decisão técnica:
+é um requisito de governança que impede contaminação cruzada entre
+fontes de naturezas distintas.
+
+\textbf{TIER\_A --- PeNSE 2024 (IBGE):} Base de dados oficial, de acesso
+público, contendo indicadores agregados de saúde do escolar coletados
+pelo Instituto Brasileiro de Geografia e Estatística (IBGE, 2024). A
+PeNSE é uma pesquisa amostral com representatividade nacional, regional
+e por unidade da federação. Os microdados utilizados referem-se
+exclusivamente ao Tema 12 (Saúde Mental) e ao Tema 01 (Informações
+Gerais), com recorte para o estado da Paraíba. É fundamental ressaltar
+que a PeNSE não constitui prontuário individual: trata-se de dados
+agregados, anonimizados na origem, sem possibilidade de identificação de
+respondentes.
+
+\textbf{TIER\_B --- Escola Sintética:} Conjunto de cenários gerados
+computacionalmente para demonstração operacional e validação do motor
+lógico. Cada cenário é um vetor binário de 7 posições (E, B, V, S, C, I,
+A), representando combinações hipotéticas de indicadores. Nenhum dado
+real de aluno ou escola é utilizado. A escola sintética permite
+verificar a correção lógica do motor sem qualquer risco de privacidade.
+
+\textbf{TIER\_C --- Dataset Externo (Benchmark):} Base de dados externa
+utilizada exclusivamente para benchmark metodológico --- isto é, para
+validar que o \emph{pipeline} de processamento funciona corretamente com
+dados tabulares de outra origem. O dataset externo \textbf{não gera
+conclusões sobre o Brasil, o Nordeste ou a Paraíba}. Qualquer tentativa
+de inferência regional a partir do TIER\_C é logicamente inválida e
+explicitamente proibida na arquitetura do sistema.
+
+\textbf{Merge entre tiers é estritamente proibido.} A separação garante
+que conclusões derivadas de dados oficiais (TIER\_A) nunca sejam
+contaminadas por dados sintéticos (TIER\_B) ou externos (TIER\_C), e
+vice-versa.
+
+\subsection{4.2 Conformidade LGPD, ECA e
+PSE}\label{conformidade-lgpd-eca-e-pse}
+
+A Lei Geral de Proteção de Dados --- LGPD (Brasil, 2018) --- classifica
+dados de saúde de menores de idade como dados pessoais sensíveis,
+impondo requisitos de tratamento particularmente rigorosos: base legal
+específica, finalidade determinada, minimização de dados e direito do
+titular à explicação de decisões automatizadas. O AcolheMente Escolar PB
+atende a esses requisitos \emph{by design}: (a) não processa dados
+pessoais identificáveis; (b) opera sobre indicadores agregados
+anonimizados; (c) toda conclusão é rastreável a regras explícitas; (d)
+não produz decisões automatizadas sobre indivíduos.
+
+O Estatuto da Criança e do Adolescente --- ECA (Brasil, 1990) --- veda
+qualquer forma de rotulagem, classificação ou estigmatização de crianças
+e adolescentes. O motor lógico do AcolheMente incorpora
+\emph{guardrails} que impedem: uso de linguagem diagnóstica clínica
+(depressão, TDAH, autismo, TOC, transtorno); ranking ou escore
+comparativo entre estudantes; e classificação de alunos individuais
+reais.
+
+O Programa Saúde na Escola --- PSE (Brasil, 2007) --- estabelece a
+integração entre escola e rede de saúde como política pública. O
+AcolheMente não substitui essa integração: ele a apoia, oferecendo à
+equipe escolar um instrumento de priorização que indica \emph{quando}
+acionar os fluxos de encaminhamento previstos no PSE --- para a Unidade
+Básica de Saúde (UBS), o Centro de Atenção Psicossocial (CAPS) ou o
+Conselho Tutelar.
+
+\subsection{4.3 Human-in-the-Loop}\label{human-in-the-loop}
+
+O princípio de \emph{human-in-the-loop} (HITL) é inegociável no
+AcolheMente. A variável de saída \textbf{A} (Acolhimento Priorizado) é
+um \textbf{sinal para o profissional humano}, não uma decisão final. O
+fluxo operacional previsto é: (1) o motor sinaliza priorização; (2) a
+equipe pedagógica/psicossocial avalia o caso; (3) a decisão de ação é
+sempre humana. Nenhum estudante será encaminhado, convocado ou
+classificado com base exclusiva na saída do motor.
+
+    \section{5. Representação do Conhecimento: Variáveis
+Proposicionais}\label{representauxe7uxe3o-do-conhecimento-variuxe1veis-proposicionais}
+
+\subsection{5.1 Engenharia do
+Conhecimento}\label{engenharia-do-conhecimento}
+
+A modelagem do domínio seguiu princípios clássicos de engenharia do
+conhecimento (Brachman; Levesque, 2004): identificação de conceitos
+relevantes, elicitação de regras com especialistas, formalização em
+lógica proposicional e validação iterativa. O resultado é um conjunto de
+7 variáveis proposicionais --- 5 nucleares e 2 contextuais --- que
+representam o espaço de estados relevante para a priorização de
+acolhimento.
+
+A decisão de utilizar exatamente 7 variáveis --- e não 5 ou 10 --- foi
+deliberada. Com 5 variáveis, perderíamos a capacidade de modelar fatores
+contextuais (comportamento e resposta institucional) que modulam a
+urgência do acolhimento. Com mais de 7, o espaço combinatório de \(2^n\)
+estados cresceria sem ganho proporcional de discriminação, violando o
+princípio de parcimônia que governa sistemas simbólicos interpretáveis.
+
+\subsection{5.2 Variáveis Nucleares (5)}\label{variuxe1veis-nucleares-5}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{E} --- Sofrimento emocional recorrente (choro, isolamento
+  agudo). Fontes PeNSE: B12004, B12005, B12007.
+\item
+  \textbf{B} --- Baixo apoio familiar/social percebido. Fontes PeNSE:
+  B12003, B07004.
+\item
+  \textbf{V} --- Indicador crítico de desvalor/desesperança em relação à
+  vida. Fonte PeNSE: B12008.
+\item
+  \textbf{S} --- Sinal autorreferido de autoagressão. Fonte PeNSE:
+  B12009.
+\item
+  \textbf{A} --- Acolhimento humano prioritário (\textbf{saída do
+  motor}). Derivada por inferência.
+\end{itemize}
+
+\subsection{5.3 Variáveis Contextuais de Modulação
+(2)}\label{variuxe1veis-contextuais-de-modulauxe7uxe3o-2}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{C} --- Contexto comportamental agravante (mudança brusca de
+  comportamento). Fontes PeNSE: B03010C, B03006B.
+\item
+  \textbf{I} --- Insuficiência institucional de resposta. Fontes PeNSE:
+  E01P60, E01P117.
+\end{itemize}
+
+As variáveis contextuais \textbf{nunca} inferem \textbf{A} isoladamente.
+\textbf{C} só participa de regras em conjunção com \textbf{E} e
+\textbf{B} (R5); \textbf{I} só participa em conjunção com \textbf{V}
+(R6). Essa restrição é um \emph{guardrail} lógico: impede que fatores
+contextuais, por si sós, gerem falsos positivos de priorização.
+
+\subsection{5.4 Nota sobre Não
+Diagnóstico}\label{nota-sobre-nuxe3o-diagnuxf3stico}
+
+O sistema \textbf{NÃO diagnostica} condições clínicas. As variáveis
+representam indicadores comportamentais observáveis e auto-reportados,
+não categorias nosológicas. A variável \textbf{A} sinaliza necessidade
+de acolhimento pedagógico/psicossocial --- uma ação escolar, não uma
+intervenção clínica. Essa distinção é fundamental e perpassa todo o
+\emph{design} do motor.
+
+    \section{6. Base de Conhecimento e Regras
+Lógicas}\label{base-de-conhecimento-e-regras-luxf3gicas}
+
+\subsection{6.1 Apresentação das Regras
+R1--R6}\label{apresentauxe7uxe3o-das-regras-r1r6}
+
+A base de conhecimento do AcolheMente Escolar PB é composta por 6 regras
+de inferência, cada uma representando um cenário em que a combinação de
+indicadores justifica a priorização de acolhimento. As regras foram
+definidas com base em princípios pedagógicos e psicossociais, não em
+correlações estatísticas.
+
+\textbf{R1: \(S \rightarrow A\)} --- Se há sinal autorreferido de
+autoagressão, o acolhimento é priorizado \emph{incondicionalmente}. Esta
+é a regra de maior criticidade: a presença de \textbf{S} é considerada
+suficiente para acionar o fluxo de acolhimento, independentemente de
+qualquer outro indicador. A justificativa é clara: autoagressão é o
+indicador mais grave do espectro modelado, e qualquer atraso no
+acolhimento pode ter consequências irreversíveis.
+
+\textbf{R2: \(V \land E \rightarrow A\)} --- A coocorrência de
+desvalor/desesperança (\textbf{V}) e sofrimento emocional recorrente
+(\textbf{E}) indica um quadro de vulnerabilidade emocional que exige
+acolhimento prioritário. Isoladamente, \textbf{V} ou \textbf{E} podem
+representar estados transitórios; em conjunção, sugerem um padrão
+persistente que demanda atenção.
+
+\textbf{R3: \(E \land B \rightarrow A\)} --- Sofrimento emocional
+(\textbf{E}) combinado com baixo apoio socioafetivo (\textbf{B})
+configura um cenário em que o estudante não dispõe de rede de suporte
+para lidar com o sofrimento. A escola, nesse caso, pode ser o único
+espaço de acolhimento disponível.
+
+\textbf{R4: \(V \land B \rightarrow A\)} --- Desvalor da vida
+(\textbf{V}) em um contexto de baixo apoio (\textbf{B}) é uma combinação
+de alto risco que justifica priorização imediata.
+
+\textbf{R5: \(E \land B \land C \rightarrow A\)} --- Sofrimento
+emocional (\textbf{E}) e baixo apoio (\textbf{B}) modulados por contexto
+comportamental agravante (\textbf{C}) --- como mudança brusca de
+comportamento. Note-se que \textbf{C} só participa em conjunção com
+variáveis nucleares, conforme o \emph{guardrail} arquitetural.
+
+\textbf{R6: \(V \land I \rightarrow A\)} --- Desvalor da vida
+(\textbf{V}) combinado com insuficiência institucional de resposta
+(\textbf{I}) configura um cenário em que a escola reconhece que seus
+mecanismos habituais de acolhimento estão sobrecarregados ou
+indisponíveis.
+
+\subsection{6.2 Por que A é a Única Saída
+Operacional}\label{por-que-a-uxe9-a-uxfanica-sauxedda-operacional}
+
+A variável \textbf{A} é a única conclusão derivável pelo motor. Essa
+decisão reflete o princípio de que o sistema deve emitir um sinal
+binário claro (``priorizar acolhimento: sim/não''), sem gradações,
+rankings ou categorizações intermediárias que possam ser mal
+interpretadas pela equipe escolar. A simplicidade da saída é uma
+\emph{feature}, não um \emph{bug}.
+
+\subsection{6.3 Por que C e I Não Inferem A
+Isoladamente}\label{por-que-c-e-i-nuxe3o-inferem-a-isoladamente}
+
+As variáveis contextuais (\textbf{C} e \textbf{I}) funcionam como
+amplificadores lógicos: agravam cenários já identificados pelas
+variáveis nucleares, mas nunca criam cenários por si sós. Um contexto
+comportamental agravante sem sofrimento emocional subjacente pode ter
+múltiplas causas não relacionadas a saúde mental. Da mesma forma,
+insuficiência institucional isolada é um problema administrativo, não um
+indicador de necessidade de acolhimento individual.
+
+    \section{7. Conversão para Forma Normal Conjuntiva
+(CNF)}\label{conversuxe3o-para-forma-normal-conjuntiva-cnf}
+
+\subsection{7.1 Fundamentação
+Técnica}\label{fundamentauxe7uxe3o-tuxe9cnica}
+
+Para aplicar o algoritmo de inferência por resolução, todas as regras
+implicativas devem ser convertidas para Forma Normal Conjuntiva --- uma
+conjunção (\(\land\)) de cláusulas disjuntivas (\(\lor\)) de literais. A
+transformação segue a equivalência lógica fundamental:
+
+\[p \rightarrow q \equiv \neg p \lor q\]
+
+Para regras com antecedentes conjuntivos (\(p \land q \rightarrow r\)),
+a equivalência generaliza-se:
+
+\[p \land q \rightarrow r \equiv \neg p \lor \neg q \lor r\]
+
+Esse procedimento é correto e preserva a validade lógica das regras
+originais (Russell; Norvig, 2022, cap. 7). A CNF resultante é o formato
+de entrada para o motor de resolução.
+
+\subsection{7.2 Tabela de Conversão}\label{tabela-de-conversuxe3o}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{R1:} \(S \rightarrow A\) → CNF: \(\neg S \lor A\)
+\item
+  \textbf{R2:} \(V \land E \rightarrow A\) → CNF:
+  \(\neg V \lor \neg E \lor A\)
+\item
+  \textbf{R3:} \(E \land B \rightarrow A\) → CNF:
+  \(\neg E \lor \neg B \lor A\)
+\item
+  \textbf{R4:} \(V \land B \rightarrow A\) → CNF:
+  \(\neg V \lor \neg B \lor A\)
+\item
+  \textbf{R5:} \(E \land B \land C \rightarrow A\) → CNF:
+  \(\neg E \lor \neg B \lor \neg C \lor A\)
+\item
+  \textbf{R6:} \(V \land I \rightarrow A\) → CNF:
+  \(\neg V \lor \neg I \lor A\)
+\end{itemize}
+
+\subsection{7.3 Verificação de
+Propriedades}\label{verificauxe7uxe3o-de-propriedades}
+
+A base de conhecimento em CNF possui propriedades desejáveis: (a) é
+satisfatível --- existem valorações que a tornam verdadeira; (b) não
+contém cláusulas contraditórias; (c) \textbf{A} é derivável sempre que
+ao menos uma regra tem todos os literais de antecedente verdadeiros; (d)
+\textbf{A} não é derivável quando apenas variáveis contextuais são
+verdadeiras, confirmando o \emph{guardrail} de design.
+
+    \section{8. Implementação da
+Solução}\label{implementauxe7uxe3o-da-soluuxe7uxe3o}
+
+\subsection{8.1 Arquitetura do Motor}\label{arquitetura-do-motor}
+
+O motor de inferência foi implementado em Python, seguindo princípios de
+modularidade e testabilidade. A arquitetura separa três
+responsabilidades: (a) representação das cláusulas CNF; (b) mecanismo de
+resolução; e (c) interface de entrada/saída. O código-fonte completo
+está disponível no módulo \texttt{src/acolhemente/} e nos apêndices do
+repositório.
+
+A seguir, apresenta-se o núcleo do motor de resolução e a definição da
+base de conhecimento, mantidos deliberadamente concisos para facilitar
+auditoria humana.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{2}{\boxspacing}
+\prompt{In}{incolor}{ }{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{c+c1}{\PYZsh{} Tabela das 7 variáveis proposicionaisprint(\PYZdq{}=\PYZdq{} * 90)print(f\PYZdq{}\PYZob{}\PYZsq{}Var\PYZsq{}:\PYZlt{}4\PYZcb{} \PYZob{}\PYZsq{}Tipo\PYZsq{}:\PYZlt{}12\PYZcb{} \PYZob{}\PYZsq{}Semântica\PYZsq{}:\PYZlt{}45\PYZcb{} \PYZob{}\PYZsq{}Fontes\PYZsq{}\PYZcb{}\PYZdq{})print(\PYZdq{}=\PYZdq{} * 90)for var in PROPOSITIONAL\PYZus{}VARIABLES:    tipo = \PYZdq{}Nuclear\PYZdq{} if var in NUCLEAR\PYZus{}VARIABLES else \PYZdq{}Contextual\PYZdq{}    \PYZsh{} Extrair fontes da descrição    desc = var.description    print(f\PYZdq{}\PYZob{}var.name:\PYZlt{}4\PYZcb{} \PYZob{}tipo:\PYZlt{}12\PYZcb{} \PYZob{}desc\PYZcb{}\PYZdq{})print(\PYZdq{}=\PYZdq{} * 90)print(f\PYZdq{}\PYZbs{}nTotal: \PYZob{}len(PROPOSITIONAL\PYZus{}VARIABLES)\PYZcb{} variáveis \PYZdq{}      f\PYZdq{}(\PYZob{}len(NUCLEAR\PYZus{}VARIABLES)\PYZcb{} nucleares + \PYZob{}len(CONTEXTUAL\PYZus{}VARIABLES)\PYZcb{} contextuais)\PYZdq{})}
+\PY{c+c1}{\PYZsh{} Motor de Inferência por Resolução — AcolheMente Escolar PB}
+\PY{c+c1}{\PYZsh{} Código essencial (versão compacta para relatório)}
+
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{src}\PY{n+nn}{.}\PY{n+nn}{acolhemente}\PY{n+nn}{.}\PY{n+nn}{motor}\PY{+w}{ }\PY{k+kn}{import} \PY{p}{(}
+    \PY{n}{REGRAS\PYZus{}CNF}\PY{p}{,}
+    \PY{n}{inferir\PYZus{}acolhimento}\PY{p}{,}
+    \PY{n}{explicar\PYZus{}decisao}\PY{p}{,}
+\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Definição das cláusulas CNF}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Base de Conhecimento em CNF:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{k}{for} \PY{n}{nome}\PY{p}{,} \PY{n}{clausula} \PY{o+ow}{in} \PY{n}{REGRAS\PYZus{}CNF}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{  }\PY{l+s+si}{\PYZob{}}\PY{n}{nome}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{: }\PY{l+s+si}{\PYZob{}}\PY{n}{clausula}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
-    \paragraph{4.3 Base de Conhecimento: Regras
-R1--R6}\label{base-de-conhecimento-regras-r1r6}
+    \section{9. Resultados e
+Comparações}\label{resultados-e-comparauxe7uxf5es}
+
+\subsection{9.1 Validação com Cenários
+Sintéticos}\label{validauxe7uxe3o-com-cenuxe1rios-sintuxe9ticos}
+
+O motor foi validado com o conjunto exaustivo de \(2^6 = 64\)
+combinações possíveis das variáveis de entrada (excluindo \textbf{A},
+que é derivada). Para cada cenário, verificou-se: (a) se a conclusão do
+motor está correta em relação às regras formais; (b) qual(is) regra(s)
+foi(ram) acionada(s); e (c) se a rastreabilidade é completa.
+
+A seguir, apresenta-se a execução dos cenários de validação e a tabela
+de resultados.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{3}{\boxspacing}
+\prompt{In}{incolor}{ }{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{c+c1}{\PYZsh{} Base de conhecimento: 6 regras lógicasprint(\PYZdq{}\PYZbs{}n\PYZdq{} + \PYZdq{}=\PYZdq{} * 70)print(\PYZdq{}BASE DE CONHECIMENTO — Regras Lógicas\PYZdq{})print(\PYZdq{}=\PYZdq{} * 70)for rule, cnf in zip(ALL\PYZus{}RULES, ALL\PYZus{}CNFS):    print(f\PYZdq{}  \PYZob{}rule.name\PYZcb{}: \PYZob{}rule.description:\PYZlt{}20\PYZcb{}  │  CNF: \PYZob{}cnf.description\PYZcb{}\PYZdq{})print(\PYZdq{}=\PYZdq{} * 70)print(f\PYZdq{}\PYZbs{}nTotal: \PYZob{}len(ALL\PYZus{}RULES)\PYZcb{} regras, \PYZob{}len(ALL\PYZus{}CNFS)\PYZcb{} cláusulas CNF\PYZdq{})print(\PYZdq{}\PYZbs{}n⚠️  Nota: C e I são variáveis contextuais de modulação.\PYZdq{})print(\PYZdq{}   C nunca infere A isoladamente (R5 exige E ∧ B ∧ C).\PYZdq{})print(\PYZdq{}   I nunca infere A isoladamente (R6 exige V ∧ I).\PYZdq{})}
+\PY{c+c1}{\PYZsh{} Validação de cenários sintéticos}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{src}\PY{n+nn}{.}\PY{n+nn}{acolhemente}\PY{n+nn}{.}\PY{n+nn}{motor}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{inferir\PYZus{}acolhimento}\PY{p}{,} \PY{n}{explicar\PYZus{}decisao}
+
+\PY{n}{cenarios} \PY{o}{=} \PY{p}{[}
+    \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{nome}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cenário Nulo}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{E}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{B}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{V}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{S}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,}
+     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{I}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{\PYZcb{}}\PY{p}{,}
+    \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{nome}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{S isolado (R1)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{E}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{B}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{V}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{S}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{,}
+     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{I}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{\PYZcb{}}\PY{p}{,}
+    \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{nome}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{V+E (R2)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{E}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{B}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{V}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{S}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,}
+     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{I}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{\PYZcb{}}\PY{p}{,}
+    \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{nome}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{E+B (R3)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{E}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{B}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{V}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{S}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,}
+     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{I}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{\PYZcb{}}\PY{p}{,}
+    \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{nome}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{V+B (R4)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{E}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{B}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{V}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{S}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,}
+     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{I}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{\PYZcb{}}\PY{p}{,}
+    \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{nome}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{E+B+C (R5)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{E}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{B}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{V}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{S}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,}
+     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{I}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{\PYZcb{}}\PY{p}{,}
+    \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{nome}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{V+I (R6)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{E}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{B}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{V}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{S}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,}
+     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{I}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{\PYZcb{}}\PY{p}{,}
+    \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{nome}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C isolado (guardrail)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{E}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{B}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{V}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{S}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,}
+     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{I}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{\PYZcb{}}\PY{p}{,}
+    \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{nome}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{I isolado (guardrail)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{E}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{B}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{V}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{S}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,}
+     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{I}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{\PYZcb{}}\PY{p}{,}
+    \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{nome}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C+I (guardrail duplo)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{E}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{B}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{V}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{S}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,}
+     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{I}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{\PYZcb{}}\PY{p}{,}
+    \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{nome}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Todas verdadeiras}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{E}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{B}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{V}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{S}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{,}
+     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{I}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{\PYZcb{}}\PY{p}{,}
+\PY{p}{]}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cenário}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{:}\PY{l+s+s2}{\PYZlt{}30}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+si}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{:}\PY{l+s+s2}{\PYZgt{}5}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+si}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Regra(s)}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{:}\PY{l+s+s2}{\PYZgt{}20}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{*} \PY{l+m+mi}{58}\PY{p}{)}
+
+\PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{cenarios}\PY{p}{:}
+    \PY{n}{nome} \PY{o}{=} \PY{n}{c}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{nome}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+    \PY{n}{resultado} \PY{o}{=} \PY{n}{inferir\PYZus{}acolhimento}\PY{p}{(}\PY{o}{*}\PY{o}{*}\PY{n}{c}\PY{p}{)}
+    \PY{n}{explicacao} \PY{o}{=} \PY{n}{explicar\PYZus{}decisao}\PY{p}{(}\PY{o}{*}\PY{o}{*}\PY{n}{c}\PY{p}{)}
+    \PY{n}{regras} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{, }\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{explicacao}\PY{o}{.}\PY{n}{get}\PY{p}{(}
+        \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{regras\PYZus{}acionadas}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{—}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+    \PY{p}{)}\PY{p}{)}
+    \PY{n}{status} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SIM}\PY{l+s+s2}{\PYZdq{}} \PY{k}{if} \PY{n}{resultado} \PY{k}{else} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NÃO}\PY{l+s+s2}{\PYZdq{}}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}}\PY{n}{nome}\PY{l+s+si}{:}\PY{l+s+s2}{\PYZlt{}30}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+si}{\PYZob{}}\PY{n}{status}\PY{l+s+si}{:}\PY{l+s+s2}{\PYZgt{}5}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+si}{\PYZob{}}\PY{n}{regras}\PY{l+s+si}{:}\PY{l+s+s2}{\PYZgt{}20}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
-    \paragraph{4.4 Motor de Inferência por
-Resolução}\label{motor-de-inferuxeancia-por-resoluuxe7uxe3o}
+    \subsection{9.2 Análise dos Resultados}\label{anuxe1lise-dos-resultados}
+
+Os resultados confirmam o comportamento esperado do motor em todos os
+cenários testados. Os pontos centrais são:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Cenário Nulo:} Quando nenhuma variável é verdadeira,
+  \textbf{A} não é inferida. O motor não produz falsos positivos em
+  condições de ausência de indicadores.
+\item
+  \textbf{S isolado (R1):} A variável \textbf{S} (autoagressão) é
+  suficiente para acionar o acolhimento. Esse é o comportamento mais
+  crítico do sistema e está correto.
+\item
+  \textbf{C e I isolados:} As variáveis contextuais, quando verdadeiras
+  isoladamente ou em combinação (C+I), \textbf{não} acionam \textbf{A}.
+  Isso confirma o \emph{guardrail} arquitetural que impede falsos
+  positivos por fatores contextuais.
+\item
+  \textbf{Todas verdadeiras:} Quando todos os indicadores estão
+  presentes, \textbf{A} é inferida e múltiplas regras são acionadas
+  simultaneamente, demonstrando a completude do motor.
+\end{enumerate}
+
+\subsection{9.3 Comparação: Baseline Manual vs.~Motor
+Lógico}\label{comparauxe7uxe3o-baseline-manual-vs.-motor-luxf3gico}
+
+A comparação entre o modelo operacional atual (decisão manual pela
+equipe escolar) e o motor lógico evidencia ganhos e limitações:
+
+\textbf{Transparência:} No \emph{baseline} manual, a decisão depende da
+percepção individual do profissional, que pode variar entre turnos, dias
+e unidades escolares. O motor lógico oferece 100\% de auditabilidade:
+cada conclusão é rastreável a regras explícitas em CNF.
+
+\textbf{Consistência:} O \emph{baseline} manual está sujeito a fadiga
+decisória --- fenômeno documentado na literatura de psicologia
+organizacional. O motor lógico é determinístico: dado o mesmo conjunto
+de entradas, sempre produz a mesma saída.
+
+\textbf{Explicabilidade:} No \emph{baseline} manual, a explicação é
+verbal e não documentada. No motor lógico, cada decisão é acompanhada
+da(s) regra(s) acionada(s) e das variáveis que a sustentam.
+
+\textbf{Limitações do motor:} O motor não captura nuances qualitativas
+que um profissional experiente percebe em interações face a face. Não
+substitui a escuta ativa, a empatia ou o julgamento clínico. É uma
+ferramenta de apoio, não de substituição.
+
+\textbf{Risco de falso conforto tecnológico:} A existência de um sistema
+automatizado pode gerar a percepção equivocada de que o acolhimento está
+``resolvido'' pela tecnologia. É fundamental que a implementação do
+AcolheMente seja acompanhada de formação continuada da equipe escolar
+sobre os limites do sistema.
+
+    \section{10. Explicabilidade}\label{explicabilidade}
+
+\subsection{10.1 Explicabilidade como Requisito
+Ético}\label{explicabilidade-como-requisito-uxe9tico}
+
+A explicabilidade não é um \emph{nice-to-have} no AcolheMente Escolar
+PB: é um requisito ético, jurídico e pedagógico. A LGPD (Brasil, 2018,
+Art. 20) garante ao titular de dados o direito de solicitar explicação
+sobre decisões tomadas com base em tratamento automatizado. Embora o
+AcolheMente não processe dados pessoais identificáveis, o princípio de
+explicabilidade é adotado como \emph{design philosophy} --- cada saída
+do sistema deve ser compreensível por um profissional não técnico.
+
+Ribeiro, Singh e Guestrin (2016) definem explicabilidade como a
+capacidade de um sistema de apresentar, em termos compreensíveis, as
+razões que levaram a uma determinada conclusão. Em modelos de
+\emph{machine learning}, isso frequentemente exige técnicas
+\emph{post-hoc} (como LIME ou SHAP) que aproximam o comportamento de um
+modelo opaco. No AcolheMente, a explicabilidade é \textbf{intrínseca}: a
+lógica proposicional é, por definição, transparente.
+
+\subsection{10.2 Mecanismos de
+Explicabilidade}\label{mecanismos-de-explicabilidade}
+
+O AcolheMente implementa três mecanismos complementares de
+explicabilidade:
+
+\textbf{Rastreabilidade de regras:} Para cada conclusão
+\(A = \text{verdadeiro}\), o sistema identifica explicitamente qual(is)
+regra(s) foi(ram) acionada(s). O profissional escolar pode verificar:
+``O acolhimento foi priorizado porque a regra R3 (E ∧ B → A) foi ativada
+--- ou seja, há sofrimento emocional recorrente e baixo apoio
+socioafetivo.''
+
+\textbf{Rastreabilidade de fontes:} Cada variável proposicional é
+mapeada a variáveis específicas da PeNSE 2024 (Tabela de Variáveis,
+Seção 5). Isso permite que a equipe escolar compreenda a origem
+conceitual dos indicadores.
+
+\textbf{Grafo de explicabilidade:} O motor gera um grafo direcionado que
+visualiza as relações entre variáveis de entrada, regras e conclusão. O
+grafo \emph{não é} um motor decisório adicional --- é uma ferramenta de
+comunicação visual que facilita a compreensão do modelo por
+profissionais não técnicos.
+
+\subsection{10.3 Limitações da Explicabilidade
+Lógica}\label{limitauxe7uxf5es-da-explicabilidade-luxf3gica}
+
+É importante reconhecer que a explicabilidade intrínseca da lógica
+proposicional tem limites. O sistema explica \emph{por que} uma
+conclusão foi derivada (quais regras foram acionadas), mas não explica
+\emph{por que} as regras são corretas --- essa justificativa reside na
+engenharia do conhecimento, na literatura de saúde mental escolar e no
+julgamento dos especialistas que validaram as regras.
+
+Além disso, o grafo de explicabilidade pode sugerir relações causais que
+não existem: a ativação de uma regra indica correlação lógica entre
+premissas e conclusão, não causalidade clínica.
+
+\subsection{10.4 Grafo de
+Explicabilidade}\label{grafo-de-explicabilidade}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{4}{\boxspacing}
+\prompt{In}{incolor}{ }{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{c+c1}{\PYZsh{} =====================================================================\PYZsh{} MOTOR DE INFERÊNCIA POR RESOLUÇÃO\PYZsh{} =====================================================================def cnf\PYZus{}knowledge\PYZus{}base():    \PYZdq{}\PYZdq{}\PYZdq{}Retorna a base de conhecimento em CNF como lista de conjuntos.\PYZdq{}\PYZdq{}\PYZdq{}    return [        \PYZob{}\PYZdq{}\PYZti{}S\PYZdq{}, \PYZdq{}A\PYZdq{}\PYZcb{},           \PYZsh{} R1: ¬S ∨ A        \PYZob{}\PYZdq{}\PYZti{}V\PYZdq{}, \PYZdq{}\PYZti{}E\PYZdq{}, \PYZdq{}A\PYZdq{}\PYZcb{},     \PYZsh{} R2: ¬V ∨ ¬E ∨ A        \PYZob{}\PYZdq{}\PYZti{}E\PYZdq{}, \PYZdq{}\PYZti{}B\PYZdq{}, \PYZdq{}A\PYZdq{}\PYZcb{},     \PYZsh{} R3: ¬E ∨ ¬B ∨ A        \PYZob{}\PYZdq{}\PYZti{}V\PYZdq{}, \PYZdq{}\PYZti{}B\PYZdq{}, \PYZdq{}A\PYZdq{}\PYZcb{},     \PYZsh{} R4: ¬V ∨ ¬B ∨ A        \PYZob{}\PYZdq{}\PYZti{}E\PYZdq{}, \PYZdq{}\PYZti{}B\PYZdq{}, \PYZdq{}\PYZti{}C\PYZdq{}, \PYZdq{}A\PYZdq{}\PYZcb{},  \PYZsh{} R5: ¬E ∨ ¬B ∨ ¬C ∨ A        \PYZob{}\PYZdq{}\PYZti{}V\PYZdq{}, \PYZdq{}\PYZti{}I\PYZdq{}, \PYZdq{}A\PYZdq{}\PYZcb{},     \PYZsh{} R6: ¬V ∨ ¬I ∨ A    ]def negate(literal):    \PYZdq{}\PYZdq{}\PYZdq{}Nega um literal: A → \PYZti{}A, \PYZti{}A → A.\PYZdq{}\PYZdq{}\PYZdq{}    return literal[1:] if literal.startswith(\PYZdq{}\PYZti{}\PYZdq{}) else f\PYZdq{}\PYZti{}\PYZob{}literal\PYZcb{}\PYZdq{}def resolve(clause1, clause2):    \PYZdq{}\PYZdq{}\PYZdq{}Aplica resolução binária entre duas cláusulas.\PYZdq{}\PYZdq{}\PYZdq{}    resolvents = []    for lit in clause1:        neg = negate(lit)        if neg in clause2:            new\PYZus{}clause = (clause1 \PYZhy{} \PYZob{}lit\PYZcb{}) | (clause2 \PYZhy{} \PYZob{}neg\PYZcb{})            resolvents.append(frozenset(new\PYZus{}clause))    return resolventsdef resolution\PYZus{}proof(kb, query\PYZus{}var=\PYZdq{}A\PYZdq{}):    \PYZdq{}\PYZdq{}\PYZdq{}    Prova por resolução: tenta derivar A a partir da KB + fatos.        Adiciona ¬A à KB e tenta derivar a cláusula vazia (⊥).    Se ⊥ for derivada → A é consequência lógica.    \PYZdq{}\PYZdq{}\PYZdq{}    clauses = [frozenset(c) for c in kb]    clauses.append(frozenset(\PYZob{}negate(query\PYZus{}var)\PYZcb{}))  \PYZsh{} Adiciona ¬A        steps = []    new = set()        while True:        n = len(clauses)        pairs = [(clauses[i], clauses[j])                  for i in range(n) for j in range(i+1, n)]                for ci, cj in pairs:            resolvents = resolve(set(ci), set(cj))            for r in resolvents:                if len(r) == 0:  \PYZsh{} Cláusula vazia → contradição!                    steps.append(f\PYZdq{}  Resolveu \PYZob{}set(ci)\PYZcb{} × \PYZob{}set(cj)\PYZcb{} → ⊥ (CONTRADIÇÃO)\PYZdq{})                    return True, steps                if r not in new and r not in set(map(frozenset, [set(c) for c in clauses])):                    new.add(r)                    steps.append(f\PYZdq{}  Resolveu \PYZob{}set(ci)\PYZcb{} × \PYZob{}set(cj)\PYZcb{} → \PYZob{}set(r)\PYZcb{}\PYZdq{})                if new.issubset(set(map(frozenset, [set(c) for c in clauses]))):            return False, steps  \PYZsh{} Saturação sem contradição                for r in new:            if frozenset(r) not in set(map(frozenset, [set(c) for c in clauses])):                clauses.append(frozenset(r))print(\PYZdq{}✅ Motor de inferência por resolução definido.\PYZdq{})}
+\PY{c+c1}{\PYZsh{} Geração do grafo de explicabilidade}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{src}\PY{n+nn}{.}\PY{n+nn}{acolhemente}\PY{n+nn}{.}\PY{n+nn}{rule\PYZus{}graph}\PY{+w}{ }\PY{k+kn}{import} \PY{p}{(}
+    \PY{n}{build\PYZus{}rule\PYZus{}graph}\PY{p}{,}
+    \PY{n}{export\PYZus{}graph\PYZus{}png}\PY{p}{,}
+\PY{p}{)}
+
+\PY{n}{kg} \PY{o}{=} \PY{n}{build\PYZus{}rule\PYZus{}graph}\PY{p}{(}\PY{p}{)}
+\PY{n}{export\PYZus{}graph\PYZus{}png}\PY{p}{(}\PY{n}{kg}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{reports/figures/grafo\PYZus{}regras.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Grafo de regras exportado para reports/figures/}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Entidades: }\PY{l+s+si}{\PYZob{}}\PY{n}{kg}\PY{o}{.}\PY{n}{entity\PYZus{}count}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Relacionamentos: }\PY{l+s+si}{\PYZob{}}\PY{n}{kg}\PY{o}{.}\PY{n}{relationship\PYZus{}count}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
-    \paragraph{4.5 Cenários Sintéticos de
-Validação}\label{cenuxe1rios-sintuxe9ticos-de-validauxe7uxe3o}
+    \section{11. Discussão Crítica}\label{discussuxe3o-cruxedtica}
 
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{5}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{c+c1}{\PYZsh{} =====================================================================\PYZsh{} CENÁRIOS SINTÉTICOS DE VALIDAÇÃO (TIER\PYZus{}B)\PYZsh{} =====================================================================cenarios = [    \PYZob{}        \PYZdq{}nome\PYZdq{}: \PYZdq{}Cenário 1: Sem acolhimento\PYZdq{},        \PYZdq{}desc\PYZdq{}: \PYZdq{}Apenas C=V (contexto comportamental). Sem variáveis nucleares ativas.\PYZdq{},        \PYZdq{}fatos\PYZdq{}: [\PYZob{}\PYZdq{}C\PYZdq{}\PYZcb{}],        \PYZdq{}esperado\PYZdq{}: False,    \PYZcb{},    \PYZob{}        \PYZdq{}nome\PYZdq{}: \PYZdq{}Cenário 2: E ∧ B → A (R3)\PYZdq{},        \PYZdq{}desc\PYZdq{}: \PYZdq{}Sofrimento emocional + baixo apoio → Acolhimento (regra nuclear).\PYZdq{},        \PYZdq{}fatos\PYZdq{}: [\PYZob{}\PYZdq{}E\PYZdq{}\PYZcb{}, \PYZob{}\PYZdq{}B\PYZdq{}\PYZcb{}],        \PYZdq{}esperado\PYZdq{}: True,    \PYZcb{},    \PYZob{}        \PYZdq{}nome\PYZdq{}: \PYZdq{}Cenário 3: S → A (R1)\PYZdq{},        \PYZdq{}desc\PYZdq{}: \PYZdq{}Sinal de autoagressão → Acolhimento imediato (protocolo humano).\PYZdq{},        \PYZdq{}fatos\PYZdq{}: [\PYZob{}\PYZdq{}S\PYZdq{}\PYZcb{}],        \PYZdq{}esperado\PYZdq{}: True,    \PYZcb{},    \PYZob{}        \PYZdq{}nome\PYZdq{}: \PYZdq{}Cenário 4: E ∧ B ∧ C → A (R5)\PYZdq{},        \PYZdq{}desc\PYZdq{}: \PYZdq{}Sofrimento + baixo apoio + contexto comportamental agravante.\PYZdq{},        \PYZdq{}fatos\PYZdq{}: [\PYZob{}\PYZdq{}E\PYZdq{}\PYZcb{}, \PYZob{}\PYZdq{}B\PYZdq{}\PYZcb{}, \PYZob{}\PYZdq{}C\PYZdq{}\PYZcb{}],        \PYZdq{}esperado\PYZdq{}: True,    \PYZcb{},    \PYZob{}        \PYZdq{}nome\PYZdq{}: \PYZdq{}Cenário 5: V ∧ I → A (R6)\PYZdq{},        \PYZdq{}desc\PYZdq{}: \PYZdq{}Desvalor da vida + insuficiência institucional → Acolhimento.\PYZdq{},        \PYZdq{}fatos\PYZdq{}: [\PYZob{}\PYZdq{}V\PYZdq{}\PYZcb{}, \PYZob{}\PYZdq{}I\PYZdq{}\PYZcb{}],        \PYZdq{}esperado\PYZdq{}: True,    \PYZcb{},]print(\PYZdq{}=\PYZdq{} * 80)print(\PYZdq{}VALIDAÇÃO POR CENÁRIOS SINTÉTICOS (TIER\PYZus{}B\PYZus{}SYNTHETIC\PYZus{}SCHOOL)\PYZdq{})print(\PYZdq{}=\PYZdq{} * 80)todos\PYZus{}ok = Truefor c in cenarios:    kb = cnf\PYZus{}knowledge\PYZus{}base()    for fato in c[\PYZdq{}fatos\PYZdq{}]:        kb.append(fato)        resultado, steps = resolution\PYZus{}proof(kb)    status = \PYZdq{}✅\PYZdq{} if resultado == c[\PYZdq{}esperado\PYZdq{}] else \PYZdq{}❌\PYZdq{}    if resultado != c[\PYZdq{}esperado\PYZdq{}]:        todos\PYZus{}ok = False        print(f\PYZdq{}\PYZbs{}n\PYZob{}status\PYZcb{} \PYZob{}c[\PYZsq{}nome\PYZsq{}]\PYZcb{}\PYZdq{})    print(f\PYZdq{}   \PYZob{}c[\PYZsq{}desc\PYZsq{}]\PYZcb{}\PYZdq{})    print(f\PYZdq{}   Fatos: \PYZob{}c[\PYZsq{}fatos\PYZsq{}]\PYZcb{}\PYZdq{})    print(f\PYZdq{}   A inferido: \PYZob{}resultado\PYZcb{} (esperado: \PYZob{}c[\PYZsq{}esperado\PYZsq{}]\PYZcb{})\PYZdq{})    if steps:        print(f\PYZdq{}   Passos de resolução:\PYZdq{})        for s in steps[\PYZhy{}3:]:            print(f\PYZdq{}   \PYZob{}s\PYZcb{}\PYZdq{})print(\PYZdq{}\PYZbs{}n\PYZdq{} + \PYZdq{}=\PYZdq{} * 80)print(f\PYZdq{}Resultado: \PYZob{}\PYZsq{}✅ TODOS OS CENÁRIOS VALIDADOS\PYZsq{} if todos\PYZus{}ok else \PYZsq{}❌ FALHAS DETECTADAS\PYZsq{}\PYZcb{}\PYZdq{})print(\PYZdq{}=\PYZdq{} * 80)}
-\end{Verbatim}
-\end{tcolorbox}
+\subsection{11.1 Forças do Projeto}\label{foruxe7as-do-projeto}
 
-    \paragraph{4.6 Grafo Determinístico de
-Explicabilidade}\label{grafo-determinuxedstico-de-explicabilidade}
+O AcolheMente Escolar PB demonstra que é possível aplicar inteligência
+artificial em um domínio sensível --- saúde mental de adolescentes ---
+com explicabilidade total, determinismo e conformidade jurídica. A
+escolha por lógica proposicional, embora tecnicamente simples quando
+comparada a redes neurais profundas, é precisamente adequada ao escopo
+do problema: um sistema de apoio à decisão que deve ser auditável por
+profissionais não técnicos, reprodutível em qualquer execução e isento
+de opacidade algorítmica.
 
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{6}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{c+c1}{\PYZsh{} Gerar e exibir grafo de regrasimport osos.makedirs(\PYZdq{}../reports/figures\PYZdq{}, exist\PYZus{}ok=True)kg = build\PYZus{}rule\PYZus{}graph()print(f\PYZdq{}Grafo de regras: \PYZob{}kg.entity\PYZus{}count\PYZcb{} entidades, \PYZob{}kg.relationship\PYZus{}count\PYZcb{} relações\PYZdq{})print(f\PYZdq{}Variáveis proposicionais: \PYZob{}kg.propositional\PYZus{}variable\PYZus{}count()\PYZcb{}\PYZdq{})path = export\PYZus{}graph\PYZus{}png(    kg,     \PYZdq{}../reports/figures/grafo\PYZus{}regras\PYZus{}7vars.png\PYZdq{},    title=\PYZdq{}Grafo de Regras (7 Variáveis) — AcolheMente Escolar PB\PYZdq{})print(f\PYZdq{}\PYZbs{}n✅ Grafo exportado: \PYZob{}path\PYZcb{}\PYZdq{})\PYZsh{} Exibir inlinefrom IPython.display import Image, displaydisplay(Image(filename=str(path), width=800))}
-\end{Verbatim}
-\end{tcolorbox}
+A arquitetura de governança --- com separação de tiers,
+\emph{guardrails} de não diagnóstico, proibição de merge entre fontes e
+\emph{human-in-the-loop} obrigatório --- representa uma contribuição
+metodológica que transcende o motor lógico em si. Esse \emph{framework}
+de governança pode ser adaptado a outros projetos de IA em contextos
+educacionais.
 
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{7}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{c+c1}{\PYZsh{} Gerar grafo de governançakg\PYZus{}gov = build\PYZus{}governance\PYZus{}graph()print(f\PYZdq{}Grafo de governança: \PYZob{}kg\PYZus{}gov.entity\PYZus{}count\PYZcb{} entidades, \PYZob{}kg\PYZus{}gov.relationship\PYZus{}count\PYZcb{} relações\PYZdq{})path\PYZus{}gov = export\PYZus{}graph\PYZus{}png(    kg\PYZus{}gov,    \PYZdq{}../reports/figures/grafo\PYZus{}governanca\PYZus{}7vars.png\PYZdq{},    title=\PYZdq{}Grafo de Governança de Dados — AcolheMente Escolar PB\PYZdq{},    figsize=(16, 10))print(f\PYZdq{}\PYZbs{}n✅ Grafo exportado: \PYZob{}path\PYZus{}gov\PYZcb{}\PYZdq{})display(Image(filename=str(path\PYZus{}gov), width=800))}
-\end{Verbatim}
-\end{tcolorbox}
+\subsection{11.2 Limitações}\label{limitauxe7uxf5es}
 
-    \paragraph{4.7 Governança de Dados: LGPD, ECA,
-PSE}\label{governanuxe7a-de-dados-lgpd-eca-pse}
+O sistema apresenta limitações que devem ser explicitamente
+reconhecidas:
 
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{8}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{c+c1}{\PYZsh{} Demonstração de governançaprint(\PYZdq{}=\PYZdq{} * 70)print(\PYZdq{}GOVERNANÇA DE DADOS — AcolheMente Escolar PB\PYZdq{})print(\PYZdq{}=\PYZdq{} * 70)guardrails = \PYZob{}    \PYZdq{}LGPD\PYZdq{}: \PYZdq{}Nenhum dado identificável processado (Lei 13.709/2018)\PYZdq{},    \PYZdq{}ECA\PYZdq{}: \PYZdq{}Nenhuma classificação de menor individual (Lei 8.069/1990)\PYZdq{},    \PYZdq{}PSE\PYZdq{}: \PYZdq{}Integrado como guardrail e encaminhamento (Programa Saúde na Escola)\PYZdq{},    \PYZdq{}Human\PYZhy{}in\PYZhy{}the\PYZhy{}Loop\PYZdq{}: \PYZdq{}Revisão humana obrigatória antes de qualquer ação\PYZdq{},\PYZcb{}for g, desc in guardrails.items():    print(f\PYZdq{}  ✅ \PYZob{}g\PYZcb{}: \PYZob{}desc\PYZcb{}\PYZdq{})print(\PYZdq{}\PYZbs{}n\PYZdq{} + \PYZdq{}\PYZhy{}\PYZdq{} * 70)print(\PYZdq{}POLÍTICA DE PROVENIÊNCIA (TIERS)\PYZdq{})print(\PYZdq{}\PYZhy{}\PYZdq{} * 70)tiers = \PYZob{}    \PYZdq{}TIER\PYZus{}A\PYZus{}OFFICIAL\PYZus{}BR\PYZdq{}: \PYZdq{}PeNSE 2024 (IBGE) — única fonte inferencial para Brasil/NE/PB\PYZdq{},    \PYZdq{}TIER\PYZus{}B\PYZus{}SYNTHETIC\PYZus{}SCHOOL\PYZdq{}: \PYZdq{}Dados escolares sintéticos — demonstração operacional\PYZdq{},    \PYZdq{}TIER\PYZus{}C\PYZus{}EXTERNAL\PYZus{}EXPLORATORY\PYZdq{}: \PYZdq{}Dataset externo — benchmark metodológico APENAS\PYZdq{},\PYZcb{}for t, desc in tiers.items():    print(f\PYZdq{}  📊 \PYZob{}t\PYZcb{}: \PYZob{}desc\PYZcb{}\PYZdq{})print(\PYZdq{}\PYZbs{}n  ❌ MERGE TIER\PYZus{}A × TIER\PYZus{}C: BLOQUEIO ABSOLUTO\PYZdq{})print(\PYZdq{}  ❌ TIER\PYZus{}C não sustenta conclusão sobre Brasil, Nordeste ou Paraíba\PYZdq{})}
-\end{Verbatim}
-\end{tcolorbox}
+\emph{Expressividade limitada:} A lógica proposicional não permite
+modelar gradações, incertezas ou relações temporais. Um estudante que
+apresenta sofrimento emocional ``leve'' e outro com sofrimento
+``severo'' são representados pela mesma variável binária \textbf{E =
+verdadeiro}.
 
-    \subsubsection{5. Resultados e Comparações\#\#\#\# 5.1 Baseline Manual
-vs.~Motor
-Lógico}\label{resultados-e-comparauxe7uxf5es-5.1-baseline-manual-vs.-motor-luxf3gico}
+\emph{Dependência de alimentação humana:} A qualidade das conclusões do
+motor depende inteiramente da qualidade da alimentação das variáveis de
+entrada. Se um profissional escolar atribui \textbf{E = falso} quando o
+indicador deveria ser verdadeiro, o motor não pode corrigir o erro.
 
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{9}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{c+c1}{\PYZsh{} Comparação: baseline manual vs motor lógicoprint(\PYZdq{}=\PYZdq{} * 80)print(\PYZdq{}COMPARAÇÃO: BASELINE MANUAL vs. MOTOR LÓGICO\PYZdq{})print(\PYZdq{}=\PYZdq{} * 80)comparacao = [    (\PYZdq{}Critério\PYZdq{}, \PYZdq{}Baseline Manual\PYZdq{}, \PYZdq{}Motor Lógico AcolheMente\PYZdq{}),    (\PYZdq{}Transparência\PYZdq{}, \PYZdq{}Depende do profissional\PYZdq{}, \PYZdq{}100\PYZpc{} auditável (CNF + grafo)\PYZdq{}),    (\PYZdq{}Reprodutibilidade\PYZdq{}, \PYZdq{}Variável\PYZdq{}, \PYZdq{}Determinístico (mesma entrada → mesma saída)\PYZdq{}),    (\PYZdq{}Explicabilidade\PYZdq{}, \PYZdq{}Verbal\PYZdq{}, \PYZdq{}Grafo + rastreio de regra\PYZdq{}),    (\PYZdq{}Linguagem diagnóstica\PYZdq{}, \PYZdq{}Risco de uso\PYZdq{}, \PYZdq{}Bloqueada por guardrails\PYZdq{}),    (\PYZdq{}Ranking de alunos\PYZdq{}, \PYZdq{}Possível\PYZdq{}, \PYZdq{}Proibido por design\PYZdq{}),    (\PYZdq{}Governança LGPD\PYZdq{}, \PYZdq{}Não garantida\PYZdq{}, \PYZdq{}Integrada ao motor\PYZdq{}),    (\PYZdq{}Human\PYZhy{}in\PYZhy{}the\PYZhy{}Loop\PYZdq{}, \PYZdq{}Implícito\PYZdq{}, \PYZdq{}Obrigatório e documentado\PYZdq{}),    (\PYZdq{}Variáveis\PYZdq{}, \PYZdq{}Ad hoc\PYZdq{}, \PYZdq{}7 formalizadas (5N + 2C)\PYZdq{}),    (\PYZdq{}Regras\PYZdq{}, \PYZdq{}Tácitas\PYZdq{}, \PYZdq{}6 explícitas em CNF\PYZdq{}),]for row in comparacao:    print(f\PYZdq{}  \PYZob{}row[0]:\PYZlt{}25\PYZcb{} │ \PYZob{}row[1]:\PYZlt{}30\PYZcb{} │ \PYZob{}row[2]\PYZcb{}\PYZdq{})print(\PYZdq{}\PYZbs{}n\PYZdq{} + \PYZdq{}=\PYZdq{} * 80)}
-\end{Verbatim}
-\end{tcolorbox}
+\emph{Ausência de aprendizado:} O motor não aprende com novos dados. Se
+padrões de vulnerabilidade mudarem ao longo do tempo, as regras precisam
+ser atualizadas manualmente por engenheiros do conhecimento.
 
-    \paragraph{5.2 Rastreabilidade por
-Regra}\label{rastreabilidade-por-regra}
+\emph{Validação limitada a cenários sintéticos:} O motor foi validado
+computacionalmente, não em ambiente escolar real. A transição para uso
+operacional exigiria piloto institucional com acompanhamento ético.
 
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{10}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{c+c1}{\PYZsh{} Rastreabilidade: qual regra disparou cada cenárioprint(\PYZdq{}\PYZbs{}nRASTREABILIDADE POR REGRA:\PYZdq{})print(\PYZdq{}\PYZhy{}\PYZdq{} * 60)rastreio = [    (\PYZdq{}S=V\PYZdq{}, \PYZdq{}R1: S → A\PYZdq{}, \PYZdq{}Protocolo humano imediato\PYZdq{}),    (\PYZdq{}V=V, E=V\PYZdq{}, \PYZdq{}R2: V ∧ E → A\PYZdq{}, \PYZdq{}Desesperança + sofrimento\PYZdq{}),    (\PYZdq{}E=V, B=V\PYZdq{}, \PYZdq{}R3: E ∧ B → A\PYZdq{}, \PYZdq{}Sofrimento + baixo apoio\PYZdq{}),    (\PYZdq{}V=V, B=V\PYZdq{}, \PYZdq{}R4: V ∧ B → A\PYZdq{}, \PYZdq{}Desesperança + baixo apoio\PYZdq{}),    (\PYZdq{}E=V, B=V, C=V\PYZdq{}, \PYZdq{}R5: E ∧ B ∧ C → A\PYZdq{}, \PYZdq{}Sofrimento + baixo apoio + contexto\PYZdq{}),    (\PYZdq{}V=V, I=V\PYZdq{}, \PYZdq{}R6: V ∧ I → A\PYZdq{}, \PYZdq{}Desesperança + fragilidade institucional\PYZdq{}),]for fatos, regra, significado in rastreio:    print(f\PYZdq{}  Fatos: \PYZob{}fatos:\PYZlt{}18\PYZcb{} │ \PYZob{}regra:\PYZlt{}22\PYZcb{} │ \PYZob{}significado\PYZcb{}\PYZdq{})}
-\end{Verbatim}
-\end{tcolorbox}
+\subsection{11.3 Riscos}\label{riscos}
 
-    \subsubsection{\texorpdfstring{6. Perspectiva de Evolução do
-Trabalho\#\#\#\# 6.1 Evolução teórica com Deep LearningEm uma
-perspectiva futura, o motor lógico poderia ser complementado por
-técnicas de deep learning para:- \textbf{Detecção de padrões temporais}
-em dados longitudinais da PeNSE;- \textbf{Processamento de linguagem
-natural} para análise de relatos qualitativos;- \textbf{Modelos
-preditivos} para antecipar cenários de risco.\#\#\#\# 6.2 Governança
-obrigatória para qualquer evoluçãoQualquer evolução \textbf{DEVE}
-manter:- \textbf{LGPD:} Nenhum dado identificável;- \textbf{ECA:}
-Nenhuma classificação de menor;- \textbf{PSE:} Integração com rede de
-saúde;- \textbf{Human-in-the-Loop:} Revisão humana obrigatória;-
-\textbf{Sem ranking:} Nenhuma ordenação de estudantes;- \textbf{Sem
-diagnóstico:} Nenhum rótulo clínico automatizado.\textgreater{}
-\textbf{ADR-011:} O motor está congelado em 7 variáveis e 6 regras para
-esta entrega.\textgreater{} Novas variáveis ou regras só podem ser
-propostas em versão futura (≥ v0.4.0),\textgreater{} com ADR dedicado e
-validação ética
-independente.}{6. Perspectiva de Evolução do Trabalho\#\#\#\# 6.1 Evolução teórica com Deep LearningEm uma perspectiva futura, o motor lógico poderia ser complementado por técnicas de deep learning para:- Detecção de padrões temporais em dados longitudinais da PeNSE;- Processamento de linguagem natural para análise de relatos qualitativos;- Modelos preditivos para antecipar cenários de risco.\#\#\#\# 6.2 Governança obrigatória para qualquer evoluçãoQualquer evolução DEVE manter:- LGPD: Nenhum dado identificável;- ECA: Nenhuma classificação de menor;- PSE: Integração com rede de saúde;- Human-in-the-Loop: Revisão humana obrigatória;- Sem ranking: Nenhuma ordenação de estudantes;- Sem diagnóstico: Nenhum rótulo clínico automatizado.\textgreater{} ADR-011: O motor está congelado em 7 variáveis e 6 regras para esta entrega.\textgreater{} Novas variáveis ou regras só podem ser propostas em versão futura (≥ v0.4.0),\textgreater{} com ADR dedicado e validação ética independente.}}\label{perspectiva-de-evoluuxe7uxe3o-do-trabalho-6.1-evoluuxe7uxe3o-teuxf3rica-com-deep-learningem-uma-perspectiva-futura-o-motor-luxf3gico-poderia-ser-complementado-por-tuxe9cnicas-de-deep-learning-para--detecuxe7uxe3o-de-padruxf5es-temporais-em-dados-longitudinais-da-pense--processamento-de-linguagem-natural-para-anuxe1lise-de-relatos-qualitativos--modelos-preditivos-para-antecipar-cenuxe1rios-de-risco.-6.2-governanuxe7a-obrigatuxf3ria-para-qualquer-evoluuxe7uxe3oqualquer-evoluuxe7uxe3o-deve-manter--lgpd-nenhum-dado-identificuxe1vel--eca-nenhuma-classificauxe7uxe3o-de-menor--pse-integrauxe7uxe3o-com-rede-de-sauxfade--human-in-the-loop-revisuxe3o-humana-obrigatuxf3ria--sem-ranking-nenhuma-ordenauxe7uxe3o-de-estudantes--sem-diagnuxf3stico-nenhum-ruxf3tulo-cluxednico-automatizado.-adr-011-o-motor-estuxe1-congelado-em-7-variuxe1veis-e-6-regras-para-esta-entrega.-novas-variuxe1veis-ou-regras-suxf3-podem-ser-propostas-em-versuxe3o-futura-v0.4.0-com-adr-dedicado-e-validauxe7uxe3o-uxe9tica-independente.}
+O principal risco é o \textbf{falso conforto tecnológico}: a existência
+de um sistema automatizado pode levar a equipe escolar a reduzir a
+atenção qualitativa aos estudantes, confiando excessivamente no motor.
+Para mitigar esse risco, o AcolheMente deve ser implementado com
+formação continuada que enfatize o caráter auxiliar --- nunca
+substitutivo --- do sistema.
 
-    \subsubsection{\texorpdfstring{7. ConclusõesO projeto
-\textbf{AcolheMente Escolar PB} demonstra que é possível construir um
-sistema de apoio à decisão em saúde mental escolar utilizando
-\textbf{Lógica Proposicional com Inferência por Resolução}, sem recorrer
-a diagnóstico automatizado, ranking de estudantes ou dependência de APIs
-externas.\textbf{Contribuições principais:}1. Formalização de 7
-variáveis proposicionais (5 nucleares + 2 contextuais) a partir da PeNSE
-2024;2. Base de conhecimento com 6 regras explícitas em CNF;3. Motor de
-inferência por resolução 100\% determinístico e auditável;4. Grafo de
-explicabilidade que rastreia cada decisão até as fontes de dados;5.
-Governança integrada (LGPD, ECA, PSE, Human-in-the-Loop);6. Suite de 72
-testes automatizados como guardrails de qualidade;7. Arquitetura de
-proveniência por tiers com bloqueio absoluto de merge
-indevido.\textbf{Viabilidade:} O sistema é viável para implantação em
-escolas públicas da Paraíba como ferramenta de suporte, desde que
-acompanhado de capacitação profissional e integração com a rede
-PSE/UBS/CAPS.}{7. ConclusõesO projeto AcolheMente Escolar PB demonstra que é possível construir um sistema de apoio à decisão em saúde mental escolar utilizando Lógica Proposicional com Inferência por Resolução, sem recorrer a diagnóstico automatizado, ranking de estudantes ou dependência de APIs externas.Contribuições principais:1. Formalização de 7 variáveis proposicionais (5 nucleares + 2 contextuais) a partir da PeNSE 2024;2. Base de conhecimento com 6 regras explícitas em CNF;3. Motor de inferência por resolução 100\% determinístico e auditável;4. Grafo de explicabilidade que rastreia cada decisão até as fontes de dados;5. Governança integrada (LGPD, ECA, PSE, Human-in-the-Loop);6. Suite de 72 testes automatizados como guardrails de qualidade;7. Arquitetura de proveniência por tiers com bloqueio absoluto de merge indevido.Viabilidade: O sistema é viável para implantação em escolas públicas da Paraíba como ferramenta de suporte, desde que acompanhado de capacitação profissional e integração com a rede PSE/UBS/CAPS.}}\label{conclusuxf5eso-projeto-acolhemente-escolar-pb-demonstra-que-uxe9-possuxedvel-construir-um-sistema-de-apoio-uxe0-decisuxe3o-em-sauxfade-mental-escolar-utilizando-luxf3gica-proposicional-com-inferuxeancia-por-resoluuxe7uxe3o-sem-recorrer-a-diagnuxf3stico-automatizado-ranking-de-estudantes-ou-dependuxeancia-de-apis-externas.contribuiuxe7uxf5es-principais1.-formalizauxe7uxe3o-de-7-variuxe1veis-proposicionais-5-nucleares-2-contextuais-a-partir-da-pense-20242.-base-de-conhecimento-com-6-regras-expluxedcitas-em-cnf3.-motor-de-inferuxeancia-por-resoluuxe7uxe3o-100-determinuxedstico-e-audituxe1vel4.-grafo-de-explicabilidade-que-rastreia-cada-decisuxe3o-atuxe9-as-fontes-de-dados5.-governanuxe7a-integrada-lgpd-eca-pse-human-in-the-loop6.-suite-de-72-testes-automatizados-como-guardrails-de-qualidade7.-arquitetura-de-proveniuxeancia-por-tiers-com-bloqueio-absoluto-de-merge-indevido.viabilidade-o-sistema-uxe9-viuxe1vel-para-implantauxe7uxe3o-em-escolas-puxfablicas-da-parauxedba-como-ferramenta-de-suporte-desde-que-acompanhado-de-capacitauxe7uxe3o-profissional-e-integrauxe7uxe3o-com-a-rede-pseubscaps.}
+Outro risco é o \textbf{viés de construção}: as regras refletem o
+julgamento dos engenheiros do conhecimento que as definiram. Se esse
+julgamento contiver vieses implícitos (culturais, de gênero,
+socioeconômicos), as regras os reproduzirão. A mitigação exige revisão
+periódica das regras por comitê multidisciplinar.
 
-    \subsubsection{\texorpdfstring{8. Referências Bibliográficas1. RUSSELL,
-S.; NORVIG, P. \emph{Inteligência Artificial: uma abordagem moderna}. 4ª
-ed.~Rio de Janeiro: GEN LTC, 2022.2. BRASIL. Instituto Brasileiro de
-Geografia e Estatística (IBGE). \textbf{Pesquisa Nacional de Saúde do
-Escolar (PeNSE) 2024} --- Tema 12: Saúde Mental. Rio de Janeiro: IBGE,
-2024.3. BRASIL. \textbf{Lei nº 13.709, de 14 de agosto de 2018} (Lei
-Geral de Proteção de Dados Pessoais --- LGPD). Brasília: Presidência da
-República, 2018.4. BRASIL. \textbf{Lei nº 8.069, de 13 de julho de 1990}
-(Estatuto da Criança e do Adolescente --- ECA). Brasília: Presidência da
-República, 1990.5. BRASIL. Ministério da Saúde. \textbf{Programa Saúde
-na Escola (PSE)}. Brasília: MS, 2007.6. BRACHMAN, R. J.; LEVESQUE, H. J.
-\emph{Knowledge Representation and Reasoning}. Morgan Kaufmann, 2004.7.
-GENESERETH, M. R.; NILSSON, N. J. \emph{Logical Foundations of
-Artificial Intelligence}. Morgan Kaufmann, 1987.8. WORLD HEALTH
-ORGANIZATION. \emph{Mental Health Action Plan 2013--2030}. Geneva: WHO,
-2021.}{8. Referências Bibliográficas1. RUSSELL, S.; NORVIG, P. Inteligência Artificial: uma abordagem moderna. 4ª ed.~Rio de Janeiro: GEN LTC, 2022.2. BRASIL. Instituto Brasileiro de Geografia e Estatística (IBGE). Pesquisa Nacional de Saúde do Escolar (PeNSE) 2024 --- Tema 12: Saúde Mental. Rio de Janeiro: IBGE, 2024.3. BRASIL. Lei nº 13.709, de 14 de agosto de 2018 (Lei Geral de Proteção de Dados Pessoais --- LGPD). Brasília: Presidência da República, 2018.4. BRASIL. Lei nº 8.069, de 13 de julho de 1990 (Estatuto da Criança e do Adolescente --- ECA). Brasília: Presidência da República, 1990.5. BRASIL. Ministério da Saúde. Programa Saúde na Escola (PSE). Brasília: MS, 2007.6. BRACHMAN, R. J.; LEVESQUE, H. J. Knowledge Representation and Reasoning. Morgan Kaufmann, 2004.7. GENESERETH, M. R.; NILSSON, N. J. Logical Foundations of Artificial Intelligence. Morgan Kaufmann, 1987.8. WORLD HEALTH ORGANIZATION. Mental Health Action Plan 2013--2030. Geneva: WHO, 2021.}}\label{referuxeancias-bibliogruxe1ficas1.-russell-s.-norvig-p.-inteliguxeancia-artificial-uma-abordagem-moderna.-4uxaa-ed.-rio-de-janeiro-gen-ltc-2022.2.-brasil.-instituto-brasileiro-de-geografia-e-estatuxedstica-ibge.-pesquisa-nacional-de-sauxfade-do-escolar-pense-2024-tema-12-sauxfade-mental.-rio-de-janeiro-ibge-2024.3.-brasil.-lei-nuxba-13.709-de-14-de-agosto-de-2018-lei-geral-de-proteuxe7uxe3o-de-dados-pessoais-lgpd.-brasuxedlia-presiduxeancia-da-repuxfablica-2018.4.-brasil.-lei-nuxba-8.069-de-13-de-julho-de-1990-estatuto-da-crianuxe7a-e-do-adolescente-eca.-brasuxedlia-presiduxeancia-da-repuxfablica-1990.5.-brasil.-ministuxe9rio-da-sauxfade.-programa-sauxfade-na-escola-pse.-brasuxedlia-ms-2007.6.-brachman-r.-j.-levesque-h.-j.-knowledge-representation-and-reasoning.-morgan-kaufmann-2004.7.-genesereth-m.-r.-nilsson-n.-j.-logical-foundations-of-artificial-intelligence.-morgan-kaufmann-1987.8.-world-health-organization.-mental-health-action-plan-20132030.-geneva-who-2021.}
+\subsection{11.4 Validade Externa}\label{validade-externa}
+
+A PeNSE 2024 oferece representatividade amostral para o estado da
+Paraíba, o que confere validade ecológica às variáveis do motor.
+Entretanto, os indicadores são agregados --- representam tendências
+populacionais, não perfis individuais. A aplicação do motor a uma escola
+específica exige calibração contextual: os limiares de ativação das
+variáveis podem variar entre escolas urbanas e rurais, entre turnos e
+entre faixas etárias.
+
+O dataset externo (TIER\_C) é utilizado exclusivamente como benchmark
+metodológico. Qualquer tentativa de extrapolar resultados do TIER\_C
+para o contexto brasileiro é logicamente inválida e explicitamente
+proibida na arquitetura do sistema.
+
+\subsection{11.5 O Papel da Escola e da Rede de
+Saúde}\label{o-papel-da-escola-e-da-rede-de-sauxfade}
+
+O AcolheMente não transforma a escola em clínica. O acolhimento escolar
+é uma ação pedagógica e psicossocial --- envolve escuta, encaminhamento
+e articulação com a rede de proteção social (UBS, CAPS, Conselho
+Tutelar). O motor lógico apoia a \emph{priorização} dessa ação, não a
+ação em si. Essa distinção é fundamental para evitar a medicalização do
+espaço escolar e a extrapolação de competências profissionais.
+
+    \section{12. Perspectiva de Evolução do
+Trabalho}\label{perspectiva-de-evoluuxe7uxe3o-do-trabalho}
+
+\subsection{12.1 Visão Geral de Evolução
+Incremental}\label{visuxe3o-geral-de-evoluuxe7uxe3o-incremental}
+
+A arquitetura do AcolheMente Escolar PB foi projetada para evolução
+incremental, respeitando o princípio de que avanços técnicos devem ser
+precedidos por validações éticas e institucionais. O roadmap proposto
+organiza-se em três horizontes:
+
+\textbf{v1.1 --- Refinamento simbólico:} Incorporação de até 3 variáveis
+adicionais (por exemplo, frequência escolar e participação em atividades
+extracurriculares), mantendo o paradigma simbólico. Essa expansão
+exigiria revisão do ADR-011 (congelamento do modelo) e validação com
+equipes escolares.
+
+\textbf{v1.2 --- Lógica fuzzy:} Substituição das variáveis binárias por
+variáveis fuzzy com graus de pertinência (0 a 1), permitindo modelar
+gradações de sofrimento emocional, apoio social, etc. A lógica fuzzy
+preserva parte da interpretabilidade da lógica clássica, mas exige
+definição cuidadosa das funções de pertinência.
+
+\textbf{v2.0 --- Modelos híbridos (horizonte de longo prazo):}
+Integração de módulos de \emph{machine learning} para tarefas
+específicas (por exemplo, detecção de padrões temporais em dados
+longitudinais), mantendo o motor simbólico como camada de governança e
+explicabilidade.
+
+\subsection{12.2 Deep Learning como Hipótese
+Futura}\label{deep-learning-como-hipuxf3tese-futura}
+
+A utilização de redes neurais profundas (\emph{deep learning}) no
+domínio de saúde mental escolar é uma \textbf{hipótese teórica}, não uma
+recomendação. A transição para \emph{deep learning} seria condicionada
+ao cumprimento simultâneo de pré-condições rigorosas:
+
+\textbf{Pré-condições éticas:} Aprovação por comitê de ética em pesquisa
+(CEP) vinculado à instituição; parecer favorável de especialistas em
+saúde mental infantojuvenil; avaliação de impacto sobre direitos
+fundamentais de crianças e adolescentes.
+
+\textbf{Pré-condições jurídicas:} Conformidade demonstrável com LGPD
+(incluindo DPIA --- Data Protection Impact Assessment); conformidade com
+ECA; parecer jurídico sobre uso de dados de menores para treinamento de
+modelos.
+
+\textbf{Pré-condições de dados:} Disponibilidade de base de dados
+longitudinal com volume suficiente para treinamento; dados perfeitamente
+anonimizados e consentidos; ausência de viés amostral significativo;
+validação cruzada com dados de múltiplas regiões.
+
+\subsection{12.3 Validação Institucional e Comitê
+Escolar}\label{validauxe7uxe3o-institucional-e-comituxea-escolar}
+
+Qualquer evolução do sistema deve ser precedida por validação
+institucional que inclua: (a) piloto em escola-piloto com termo de
+cooperação; (b) formação da equipe escolar sobre limites e
+possibilidades do sistema; (c) criação de comitê escolar de governança
+de IA, composto por direção, coordenação pedagógica, psicólogo escolar e
+representante do Conselho Tutelar; (d) avaliação de impacto após período
+de uso.
+
+\subsection{12.4 Integração com Rede de Saúde
+(PSE/UBS/CAPS)}\label{integrauxe7uxe3o-com-rede-de-sauxfade-pseubscaps}
+
+O roadmap de evolução prevê integração com os fluxos do Programa Saúde
+na Escola (Brasil, 2007), permitindo que o sinal de priorização do motor
+alimente formulários de encaminhamento para UBS e CAPS. Essa integração,
+entretanto, exige: protocolo de compartilhamento de dados entre
+Secretaria de Educação e Secretaria de Saúde; consentimento dos
+responsáveis legais; e garantia de que o motor não produz dados clínicos
+--- apenas sinais de priorização pedagógica.
+
+\subsection{12.5 Monitoramento de Viés e Auditoria
+Humana}\label{monitoramento-de-viuxe9s-e-auditoria-humana}
+
+Versões futuras do sistema devem implementar: monitoramento contínuo de
+viés (distribuição das priorizações por gênero, raça/etnia, localização
+geográfica); auditoria humana periódica das regras por comitê
+multidisciplinar; e relatórios de transparência semestrais com
+indicadores de uso, taxas de ativação por regra e feedback da equipe
+escolar.
+
+\subsection{12.6 Compromisso com o Não
+Diagnóstico}\label{compromisso-com-o-nuxe3o-diagnuxf3stico}
+
+Independentemente da evolução técnica, o compromisso fundamental do
+AcolheMente permanece: o sistema \textbf{nunca diagnosticará} condições
+clínicas. Mesmo em versões futuras com \emph{machine learning}, a camada
+de governança simbólica deverá atuar como \emph{guardrail} inviolável,
+garantindo que a saída do sistema seja sempre um sinal de priorização
+--- nunca um rótulo clínico.
+
+    \section{13. Conclusões}\label{conclusuxf5es}
+
+O presente trabalho demonstrou a viabilidade de aplicar inteligência
+artificial simbólica --- especificamente, lógica proposicional com
+inferência por resolução --- ao domínio sensível de saúde mental
+escolar. O AcolheMente Escolar PB, motor de inferência com 7 variáveis
+proposicionais e 6 regras em Forma Normal Conjuntiva, oferece uma
+contribuição técnica e metodológica ao debate sobre IA responsável em
+contextos educacionais.
+
+Do ponto de vista técnico, o trabalho contribui com: (a) formalização de
+um domínio complexo em lógica proposicional, demonstrando que problemas
+reais de apoio à decisão podem ser modelados com técnicas da Trilha I
+sem recurso a \emph{machine learning}; (b) implementação de motor de
+resolução determinístico, validado contra todos os \(2^6\) cenários
+possíveis; (c) construção de \emph{pipeline} reprodutível com 82 testes
+automatizados, cobertura de código e integração contínua.
+
+Do ponto de vista metodológico, o trabalho contribui com: (a)
+arquitetura de governança de dados em três tiers, com separação rigorosa
+entre fontes oficiais, sintéticas e de benchmark; (b) conjunto de
+\emph{guardrails} que impedem linguagem diagnóstica, ranking de
+estudantes e uso de dados identificáveis; (c) adoção de
+\emph{human-in-the-loop} como princípio inegociável; (d) conformidade
+demonstrável com LGPD, ECA e PSE.
+
+Do ponto de vista escolar, o trabalho contribui com: (a) ferramenta de
+apoio à gestão que reduz a dependência de percepções individuais na
+priorização de acolhimento; (b) mecanismo de explicabilidade que permite
+à equipe escolar compreender e auditar cada decisão; (c) integração
+conceitual com os fluxos do Programa Saúde na Escola.
+
+Os limites do trabalho são igualmente reconhecidos: a expressividade
+restrita da lógica proposicional, a dependência de alimentação humana
+correta, a validação limitada a cenários sintéticos e o risco de falso
+conforto tecnológico. Esses limites não são falhas de \emph{design}: são
+consequências deliberadas de um sistema que prioriza segurança,
+transparência e cautela sobre sofisticação técnica.
+
+A maturidade de um projeto de IA aplicada a populações vulneráveis não
+se mede pela complexidade do modelo, mas pela robustez de sua
+governança. O AcolheMente Escolar PB demonstra que é possível ser
+tecnicamente rigoroso e eticamente responsável --- e que, em domínios de
+alto risco humano, essa combinação não é opcional.
+
+    \section{14. Referências
+Bibliográficas}\label{referuxeancias-bibliogruxe1ficas}
+
+\begin{itemize}
+\item
+  BRACHMAN, R. J.; LEVESQUE, H. J. \textbf{Knowledge Representation and
+  Reasoning.} Morgan Kaufmann, 2004.
+\item
+  BRASIL. \textbf{Lei nº 8.069, de 13 de julho de 1990.} Estatuto da
+  Criança e do Adolescente (ECA). Diário Oficial da União, Brasília,
+  1990.
+\item
+  BRASIL. \textbf{Decreto nº 6.286, de 5 de dezembro de 2007.} Programa
+  Saúde na Escola (PSE). Diário Oficial da União, Brasília, 2007.
+\item
+  BRASIL. \textbf{Lei nº 13.709, de 14 de agosto de 2018.} Lei Geral de
+  Proteção de Dados Pessoais (LGPD). Diário Oficial da União, Brasília,
+  2018.
+\item
+  GENESERETH, M. R.; NILSSON, N. J. \textbf{Logical Foundations of
+  Artificial Intelligence.} Morgan Kaufmann, 1987.
+\item
+  IBGE. \textbf{Pesquisa Nacional de Saúde do Escolar: PeNSE 2024.} Rio
+  de Janeiro: Instituto Brasileiro de Geografia e Estatística, 2024.
+\item
+  JOBIN, A.; IENCA, M.; VAYENA, E. The global landscape of AI ethics
+  guidelines. \textbf{Nature Machine Intelligence}, v. 1, n.~9,
+  p.~389--399, 2019.
+\item
+  RIBEIRO, M. T.; SINGH, S.; GUESTRIN, C. ``Why Should I Trust You?'':
+  Explaining the Predictions of Any Classifier. In: \textbf{KDD '16},
+  p.~1135--1144. ACM, 2016.
+\item
+  RUSSELL, S.; NORVIG, P. \textbf{Inteligência Artificial: uma abordagem
+  moderna.} 4. ed.~Rio de Janeiro: GEN LTC, 2022.
+\item
+  WORLD HEALTH ORGANIZATION. \textbf{World Mental Health Report:
+  Transforming Mental Health for All.} Geneva: WHO, 2022.
+\end{itemize}
 
 
     % Add a bibliography block to the postdoc
     
     
     
+\bibliographystyle{plain}
+\bibliography{referencias}
 \end{document}

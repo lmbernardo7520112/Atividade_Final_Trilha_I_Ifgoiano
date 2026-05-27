@@ -5,7 +5,7 @@
 <div align="center">
 
 <!-- Badges -->
-[![CI](https://img.shields.io/badge/tests-80%20passed-brightgreen)]()
+[![CI](https://img.shields.io/badge/tests-107%20passed-brightgreen)]()
 [![Coverage](https://img.shields.io/badge/coverage-88%25-brightgreen)]()
 [![Ruff](https://img.shields.io/badge/lint-ruff%20passed-brightgreen)]()
 [![Variables](https://img.shields.io/badge/propositional%20variables-7-blue)]()
@@ -116,7 +116,7 @@ Para garantir a segurança, ética e eficácia do projeto, estabelecemos uma arq
 ├── scripts/                        # Scripts de compilação de PDF
 ├── src/acolhemente/                # Módulos Python (Motor, Grafos, EDA)
 ├── templates/abntex2/              # Templates de formatação LaTeX
-└── tests/                          # 80 testes automatizados (Pytest)
+└── tests/                          # 107 testes automatizados (Pytest)
 ```
 
 ---
@@ -151,8 +151,8 @@ python -c "from src.acolhemente.rule_graph import build_rule_graph, export_graph
 
 ### Compilar PDF Final
 ```bash
-# Necessita do TinyTeX ou texlive-full instalados
-bash scripts/build_pdf_abntex2.sh
+# Pipeline completo: gera .tex, aplica correções, compila com xelatex+bibtex
+bash scripts/build_academic_pdf.sh
 ```
 
 ---
