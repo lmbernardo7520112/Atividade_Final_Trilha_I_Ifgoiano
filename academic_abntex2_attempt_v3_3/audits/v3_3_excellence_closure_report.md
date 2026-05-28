@@ -25,16 +25,17 @@
 
 - Geradas todas as 2^6 = 64 combinações
 - CSV: `outputs/validacao_exaustiva_64.csv`
-- Colunas: E, B, V, S, C, I, A, regras_acionadas
+- Colunas: E, B, V, S, C, I, A_motor, A_esperado, ok, regras_acionadas
+- Oráculo independente implementado (sem R5 como termo, pois subsumida)
 - Resultado: 50 positivos, 14 negativos
 - R5 sem R3: 0 cenários (subsunção confirmada)
 
 ### 2.3 Notebook Executado
 
 - 28 células (16 code + 12 markdown)
+- Notebook executado localmente nas células não-Colab, com células Colab preservadas e marcadas como execução reservada ao Google Colab
 - 9 células code executadas com outputs
 - 0 erros fatais
-- Células Colab marcadas como "[Celula Colab — execucao reservada ao Google Colab]"
 
 ### 2.4 PDF Recompilado
 

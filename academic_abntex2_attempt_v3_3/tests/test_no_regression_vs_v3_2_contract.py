@@ -92,8 +92,14 @@ def test_v33_csv_has_64_rows():
         reader = csv.DictReader(f)
         rows = list(reader)
     assert len(rows) == 64, f"CSV tem {len(rows)} linhas, esperado 64"
-    assert "A" in rows[0], "CSV não tem coluna A"
+    assert "A_motor" in rows[0], "CSV não tem coluna A_motor"
+    assert "A_esperado" in rows[0], "CSV não tem coluna A_esperado"
+    assert "ok" in rows[0], "CSV não tem coluna ok"
     assert "regras_acionadas" in rows[0], "CSV não tem coluna regras_acionadas"
+    # Verify oracle agreement
+    assert all(
+        str(r["ok"]).lower() in {"true", "1"} for r in rows
+    ), "Oráculo discorda do motor em algum cenário"
 
 
 def test_v33_r5_subsumption_confirmed_in_csv():
