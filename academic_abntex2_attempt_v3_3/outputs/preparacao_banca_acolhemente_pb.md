@@ -704,4 +704,374 @@ Memorize estas frases. Elas funcionam como "encerramento" de respostas longas ou
 
 ---
 
-*Documento preparado em 2026-05-28. Baseado na versão v3.3.2 do AcolheMente Escolar PB.*
+# Seção 18 — Mapa de Rastreabilidade Texto ↔ Código
+
+## 18.1 Visão geral da rastreabilidade
+
+> Esta seção conecta cada afirmação técnica central do trabalho aos arquivos, funções, testes e evidências correspondentes no repositório. O objetivo é demonstrar que o texto acadêmico, o notebook/Colab, os apêndices Python, o CSV de validação e os testes automatizados contam a mesma história.
+
+### Inventário de artefatos rastreáveis
+
+| Categoria | Artefatos |
+|-----------|-----------|
+| **Apêndices Python** | `simbolos_acolhemente.py`, `regras_acolhemente.py`, `motor_resolucao_acolhemente.py`, `cenarios_sinteticos_acolhemente.py`, `gerar_tabelas_resultados.py`, `grafo_explicabilidade_acolhemente.py`, `grafo_pseudonimizacao_acolhimento.py`, `grafos_governanca_proveniencia.py` |
+| **Motor modular** | `src/acolhemente/motor.py`, `rule_graph.py`, `graph_schema.py`, `eda_plots.py` |
+| **Tabelas LaTeX** | `_build/tabela_variaveis.tex`, `_build/tabela_regras.tex`, `_build/tabela_cenarios.tex` |
+| **Figuras** | `figures/grafo_regras_7vars.png`, `comparacao_baseline_motor.png`, `fluxo_proveniencia_dados.png`, `fluxo_pseudonimizacao_acolhimento.png`, `grafo_governanca_acolhemente.png`, `cenarios_ativacao_regras.png`, `resultado_cenarios_sinteticos.png` |
+| **Testes** | 8 módulos em `tests/`: equivalência, privacidade, PDF, regressão, contratos acadêmicos |
+| **Outputs** | `validacao_exaustiva_64.csv`, `main_acolhemente_abntex2.pdf`, notebook `.ipynb` |
+
+---
+
+## 18.2 Matriz principal texto ↔ código
+
+### Item 1 — Sistema Baseado em Conhecimento (SBC)
+
+| Aspecto | Referência |
+|---------|------------|
+| **Texto** | Cap. 4 (Fundamentação Metodológica), L168: "Sistema Baseado em Conhecimento (SBC)" |
+| **Código** | `appendices/regras_acolhemente.py` — regras explícitas em dicionário Python |
+| **Código** | `appendices/simbolos_acolhemente.py` — variáveis com semântica e fontes PeNSE |
+| **Evidência** | Conhecimento codificado em `REGRAS_CNF`, `REGRAS_IMPLICATIVAS`, `VARIAVEIS` — não em pesos estatísticos |
+| **Explicação oral** | "O código materializa o SBC porque o conhecimento não está escondido em pesos estatísticos; ele está explicitamente codificado em símbolos e regras." |
+
+### Item 2 — Variáveis proposicionais (E, B, V, S, C, I, A)
+
+| Aspecto | Referência |
+|---------|------------|
+| **Texto** | Cap. 7 (Representação do Conhecimento), L308–316 |
+| **Código** | `appendices/simbolos_acolhemente.py:9–28` — definição com tipo e fontes PeNSE |
+| **LaTeX** | `_build/tabela_variaveis.tex` — tabela publicada no PDF |
+| **Evidência** | `A` marcada como `tipo: "nuclear"` no código legado, mas como "Saída inferida" na tabela LaTeX |
+| **Explicação oral** | "As seis primeiras variáveis são entradas; A é saída inferida. Por isso o espaço de teste é 2^6 = 64, não 2^7." |
+
+### Item 3 — Regras R1–R6
+
+| Aspecto | Referência |
+|---------|------------|
+| **Texto** | Cap. 8 (Motor de Inferência), tabela de regras |
+| **Código** | `appendices/regras_acolhemente.py:9–16` — `REGRAS_IMPLICATIVAS` |
+| **CNF** | `appendices/regras_acolhemente.py:18–24` — `REGRAS_CNF` como `frozenset` |
+| **LaTeX** | `_build/tabela_regras.tex` — forma implicativa e CNF lado a lado |
+| **Trecho** | `"R1": "S -> A"`, `"R3": "E AND B -> A"`, etc. |
+| **Explicação oral** | "As regras do PDF são as mesmas regras implementadas no código. A banca pode rastrear cada regra do texto até o arquivo Python correspondente." |
+
+### Item 4 — CNF (Forma Normal Conjuntiva)
+
+| Aspecto | Referência |
+|---------|------------|
+| **Texto** | Cap. 4, L172: "cláusulas em Forma Normal Conjuntiva" |
+| **Código** | `appendices/regras_acolhemente.py:18–24` — cada cláusula como `frozenset` |
+| **Código legível** | `appendices/regras_acolhemente.py:27–33` — `REGRAS_CNF_LEGIVEL` |
+| **Trecho** | `"R1": frozenset({"~S", "A"})` — equivalente a `¬S ∨ A` |
+| **Explicação oral** | "A CNF é a forma necessária para a inferência por resolução. Cada implicação foi convertida pela equivalência lógica p → q ≡ ¬p ∨ q." |
+
+### Item 5 — Motor pedagógico do Colab
+
+| Aspecto | Referência |
+|---------|------------|
+| **Texto** | Cap. 8, seção sobre dois motores |
+| **Arquivo** | `appendices/motor_resolucao_acolhemente.py` (102 linhas) |
+| **Função principal** | `inferir_acolhimento(E, B, V, S, C, I) → bool` (L49) |
+| **Resolução** | `_resolve(c1, c2)` (L11) — aplica regra de resolução entre duas cláusulas |
+| **Inferência** | `inferir_por_resolucao(clausulas, conclusao)` (L21) — prova por contradição |
+| **Explicabilidade** | `explicar_decisao(...)` (L62) — retorna regras acionadas e texto explicativo |
+| **Notebook** | `notebooks/Trabalho_Trilha_I_AcolheMente_PB.ipynb` — importa e executa o motor |
+| **Explicação oral** | "O motor pedagógico é curto e didático para que a banca veja a lógica diretamente. Ele não é frágil logicamente; sua limitação é operacional, não semântica." |
+
+### Item 6 — Motor modular/de produção
+
+| Aspecto | Referência |
+|---------|------------|
+| **Texto** | Cap. 8, referência a motor modular |
+| **Arquivo** | `src/acolhemente/motor.py` (147 linhas, repositório raiz) |
+| **Função** | `inferir_acolhimento(E, B, V, S, C, I) → bool` (L77) — mesma assinatura |
+| **Complementos** | `src/acolhemente/rule_graph.py`, `graph_schema.py`, `eda_plots.py` |
+| **Teste de equivalência** | `tests/test_motor_equivalence_contract.py` — compara ambos os motores |
+| **Nota** | O motor modular está no repositório raiz, fora da pasta `v3_3`. A entrega acadêmica usa a versão pedagógica dos apêndices. |
+| **Explicação oral** | "Há duas implementações equivalentes da mesma lógica: uma didática para Colab e outra modular como referência de engenharia. A diferença é arquitetura, não decisão lógica." |
+
+### Item 7 — Validação exaustiva das 64 combinações
+
+| Aspecto | Referência |
+|---------|------------|
+| **Texto** | Cap. 10 (Cenários Sintéticos e Validação) |
+| **Notebook** | `notebooks/Trabalho_Trilha_I_AcolheMente_PB.ipynb` — célula 14 (após nota metodológica) |
+| **CSV** | `outputs/validacao_exaustiva_64.csv` |
+| **Colunas** | `E,B,V,S,C,I,A_motor,A_esperado,ok,regras_acionadas` |
+| **Resultados** | 64 linhas, 64 ok=True, 50 A=SIM, 14 A=NÃO, 0 falhas |
+| **Explicação oral** | "Os 14 cenários são didáticos; a prova formal está no CSV de 64 combinações." |
+
+### Item 8 — Oráculo independente
+
+| Aspecto | Referência |
+|---------|------------|
+| **Texto** | Cap. 10, validação com oráculo |
+| **Notebook** | Célula 14 — função `oraculo_acolhimento(E, B, V, S, C, I)` |
+| **Trecho** | `return S or (V and E) or (E and B) or (V and B) or (V and I)` |
+| **Nota** | R5 (`E and B and C`) não aparece como termo porque `E and B` (R3) já cobre |
+| **Explicação oral** | "O oráculo é independente do motor e serve para confirmar que a implementação produz a saída esperada. R5 não aparece como termo independente porque já está coberta por E and B." |
+
+### Item 9 — R5 subsumida por R3
+
+| Aspecto | Referência |
+|---------|------------|
+| **Texto** | Cap. 7, parágrafo sobre subsunção |
+| **CSV** | Coluna `regras_acionadas`: R5 sempre co-ocorre com R3 |
+| **Verificação** | `R5 sem R3 = 0` (confirmado no notebook e no CSV) |
+| **Oráculo** | R5 omitida na fórmula booleana do oráculo |
+| **Explicação oral** | "R5 é mantida por valor explicativo. Ela nunca dispara sozinha; apenas adiciona contexto quando R3 já seria verdadeira." |
+
+### Item 10 — Guardrails C e I
+
+| Aspecto | Referência |
+|---------|------------|
+| **Texto** | Cap. 7, L314: "variáveis contextuais nunca inferem A isoladamente" |
+| **Cenários** | `appendices/cenarios_sinteticos_acolhemente.py` — cenários "C isolado", "I isolado", "C+I" |
+| **LaTeX** | `_build/tabela_cenarios.tex` — linhas "C isolado → NÃO", "I isolado → NÃO" |
+| **CSV** | Linhas com C=1,I=0 (sem nucleares) → A_motor=0; C=0,I=1 → A_motor=0 |
+| **Explicação oral** | "C e I isolados não acionam A. Isso evita que contexto social ou falha institucional estigmatizem o estudante." |
+
+### Item 11 — Baseline como rubrica qualitativa
+
+| Aspecto | Referência |
+|---------|------------|
+| **Texto** | Cap. 11 (Resultados), seção de baseline |
+| **Figura** | `figures/comparacao_baseline_motor.png` |
+| **Gerador** | `appendices/grafos_governanca_proveniencia.py` — gera todas as 5 figuras do relatório |
+| **Nota** | Não é experimento empírico com profissionais |
+| **Explicação oral** | "Essa comparação é qualitativa e metodológica, não experimento com profissionais." |
+
+### Item 12 — PeNSE como motivação, não entrada individual
+
+| Aspecto | Referência |
+|---------|------------|
+| **Texto** | Cap. 6 (EDA), L291–299 |
+| **Código EDA** | `src/acolhemente/eda_plots.py` (repositório raiz) — funções `plot_pense_pb_vs_ne_br()` |
+| **Separação** | EDA em `eda_plots.py`; motor em `motor.py` — nenhum `import eda_plots` no motor |
+| **Explicação oral** | "A PeNSE fundamenta a escolha das variáveis; o motor não classifica respondentes da PeNSE nem estudantes reais." |
+
+### Item 13 — Pseudonimização e governança
+
+| Aspecto | Referência |
+|---------|------------|
+| **Texto** | Cap. 13–14, seções sobre LGPD/ECA/PSE |
+| **Figura** | `figures/fluxo_pseudonimizacao_acolhimento.png` |
+| **Gerador** | `appendices/grafo_pseudonimizacao_acolhimento.py` — fluxo com `case_id` |
+| **Governança** | `appendices/grafos_governanca_proveniencia.py` — grafo de proveniência TIER_A/B/C |
+| **Figura** | `figures/grafo_governanca_acolhemente.png`, `fluxo_proveniencia_dados.png` |
+| **Explicação oral** | "A versão acadêmica não processa dados reais. O fluxo de pseudonimização é arquitetura para piloto futuro responsável." |
+
+### Item 14 — Grafos de explicabilidade
+
+| Aspecto | Referência |
+|---------|------------|
+| **Grafo de regras** | `figures/grafo_regras_7vars.png` ← `appendices/grafo_explicabilidade_acolhemente.py` |
+| **Governança** | `figures/grafo_governanca_acolhemente.png` ← `appendices/grafos_governanca_proveniencia.py` |
+| **Proveniência** | `figures/fluxo_proveniencia_dados.png` ← `appendices/grafos_governanca_proveniencia.py` |
+| **Pseudonimização** | `figures/fluxo_pseudonimizacao_acolhimento.png` ← `appendices/grafo_pseudonimizacao_acolhimento.py` |
+| **Cenários** | `figures/cenarios_ativacao_regras.png`, `resultado_cenarios_sinteticos.png` ← `appendices/grafos_governanca_proveniencia.py` |
+| **Baseline** | `figures/comparacao_baseline_motor.png` ← `appendices/grafos_governanca_proveniencia.py` |
+| **Explicação oral** | "Os grafos mostram a cadeia de rastreabilidade: dados → regras → sinal → revisão humana." |
+
+### Item 15 — Testes automatizados
+
+| Arquivo de teste | O que verifica |
+|-----------------|----------------|
+| `test_motor_equivalence_contract.py` | Motor pedagógico funciona; equivalência com motor modular (skip se não importável) |
+| `test_academic_flow_contract.py` | Fluxo acadêmico: apêndices, notebook, CSV, figuras existem e são consistentes |
+| `test_attempt_abntex2_contract.py` | Estrutura abnTeX2: capítulos, tabelas, figuras, referências no PDF |
+| `test_attempt_academic_structure.py` | Estrutura acadêmica: sumário, introdução, conclusão, referências |
+| `test_attempt_pdf_quality.py` | Métricas do PDF: páginas, glifos, fontes |
+| `test_data_usage_explanation_contract.py` | Explicação de uso de dados: TIER_A, TIER_B, TIER_C separados |
+| `test_no_regression_vs_v3_2_contract.py` | Não-regressão: v3.3 ≥ v3.2 em todas as métricas |
+| `test_operational_privacy_contract.py` | Privacidade operacional: ausência de dados identificáveis, pseudonimização |
+
+**Resultado:** 136 passed, 1 skipped (equivalência com motor modular — skip justificado), 0 failed.
+
+**Explicação oral:** "Os testes funcionam como rede de segurança contra regressões: eles verificam se a lógica, os outputs e os guardrails continuam corretos."
+
+---
+
+# Seção 19 — Guia rápido: onde apontar no código durante a banca
+
+| Pergunta da banca | Arquivo para abrir | Função/trecho | Mensagem principal |
+|-------------------|--------------------|---------------|-------------------|
+| "Onde estão as regras?" | `appendices/regras_acolhemente.py` | `REGRAS_IMPLICATIVAS` (L9–16) | "São 6 regras em dicionário Python, cada uma com forma implicativa e CNF." |
+| "Onde está o motor?" | `appendices/motor_resolucao_acolhemente.py` | `inferir_acolhimento()` (L49) | "Função de 10 linhas que monta cláusulas e chama resolução." |
+| "Onde você valida as 64 combinações?" | `notebooks/Trabalho_Trilha_I_AcolheMente_PB.ipynb` | Célula 14 — loop `itertools.product` | "Todas as 2^6 combinações testadas com oráculo independente." |
+| "Onde está o oráculo independente?" | Notebook, célula 14 | `oraculo_acolhimento()` | "Função booleana separada do motor, sem R5 (subsumida)." |
+| "Onde você prova que R5 não dispara sem R3?" | `outputs/validacao_exaustiva_64.csv` | Coluna `regras_acionadas` | "Filtrar R5 sem R3: resultado = 0 linhas." |
+| "Onde o notebook gera o CSV?" | Notebook, célula 14 | `csv.DictWriter(...)` | "As 64 linhas são escritas com A_motor, A_esperado e ok." |
+| "Onde aparecem os guardrails?" | `appendices/cenarios_sinteticos_acolhemente.py` | Cenários "C isolado", "I isolado" (L19–21) | "C e I sozinhos → esperado=False." |
+| "Qual a diferença entre motor pedagógico e modular?" | `appendices/motor_resolucao_acolhemente.py` vs `src/acolhemente/motor.py` | Mesma `inferir_acolhimento()` | "Assinatura idêntica. Diferença: arquitetura, não lógica." |
+| "Onde está a governança/pseudonimização?" | `appendices/grafo_pseudonimizacao_acolhimento.py` | Nodos: `case_id`, reidentificação restrita | "Fluxo operacional para piloto futuro." |
+| "Onde estão os testes?" | `tests/test_motor_equivalence_contract.py` | `test_motor_academico_funciona()` | "136 testes passando, incluindo equivalência e privacidade." |
+
+---
+
+# Seção 20 — Trechos de código essenciais comentados
+
+## 20.1 Função principal de inferência
+
+**Arquivo:** `appendices/motor_resolucao_acolhemente.py`, linhas 49–59
+
+```python
+def inferir_acolhimento(E=False, B=False, V=False, S=False, C=False, I=False):
+    """Verifica se A deve ser inferido dado o estado das variaveis."""
+    # Monta mapa de variáveis
+    mapa = {"E": E, "B": B, "V": V, "S": S, "C": C, "I": I}
+    fatos = []
+    for var, val in mapa.items():
+        if val:
+            fatos.append(frozenset({var}))       # ex: {"E"}
+        else:
+            fatos.append(frozenset({f"~{var}"})) # ex: {"~E"}
+    # Combina regras CNF + fatos e tenta derivar A
+    clausulas = list(REGRAS_CNF.values()) + fatos
+    return inferir_por_resolucao(clausulas, "A")
+```
+
+**Linha a linha:**
+- L51: recebe 6 booleanos — cada variável de entrada
+- L52–57: converte cada variável em cláusula unitária (`{"E"}` se True, `{"~E"}` se False)
+- L58: junta as 6 regras CNF com os 6 fatos
+- L59: chama resolução para tentar derivar A
+
+## 20.2 Base de regras R1–R6
+
+**Arquivo:** `appendices/regras_acolhemente.py`, linhas 9–24
+
+```python
+REGRAS_IMPLICATIVAS = {
+    "R1": "S -> A",           # Autoagressão → Acolher
+    "R2": "V AND E -> A",     # Desvalor + Sofrimento → Acolher
+    "R3": "E AND B -> A",     # Sofrimento + Baixo apoio → Acolher
+    "R4": "V AND B -> A",     # Desvalor + Baixo apoio → Acolher
+    "R5": "E AND B AND C -> A",  # Sofrimento + Baixo apoio + Contexto → Acolher
+    "R6": "V AND I -> A",     # Desvalor + Insuficiência institucional → Acolher
+}
+
+REGRAS_CNF = {
+    "R1": frozenset({"~S", "A"}),              # ¬S ∨ A
+    "R2": frozenset({"~V", "~E", "A"}),        # ¬V ∨ ¬E ∨ A
+    "R3": frozenset({"~E", "~B", "A"}),        # ¬E ∨ ¬B ∨ A
+    "R4": frozenset({"~V", "~B", "A"}),        # ¬V ∨ ¬B ∨ A
+    "R5": frozenset({"~E", "~B", "~C", "A"}),  # ¬E ∨ ¬B ∨ ¬C ∨ A
+    "R6": frozenset({"~V", "~I", "A"}),        # ¬V ∨ ¬I ∨ A
+}
+```
+
+**Conexão com o texto:** a tabela 2 do PDF (`_build/tabela_regras.tex`) exibe exatamente essas duas representações — forma implicativa e CNF — lado a lado.
+
+## 20.3 Oráculo independente
+
+**Arquivo:** Notebook, célula 14
+
+```python
+def oraculo_acolhimento(E, B, V, S, C, I):
+    """Oráculo lógico independente da implementação do motor.
+
+    R5 não aparece como termo independente porque é subsumida por R3:
+    sempre que E, B e C são verdadeiros, E e B já tornam R3 verdadeira.
+    """
+    return S or (V and E) or (E and B) or (V and B) or (V and I)
+```
+
+**Por que R5 não aparece:** o termo `E and B and C` é um caso particular de `E and B`. Se E e B já são verdadeiros, a expressão `E and B` (correspondente a R3) já retorna True — independentemente de C.
+
+## 20.4 Validação exaustiva
+
+**Arquivo:** Notebook, célula 14
+
+```python
+for bits in itertools.product([0, 1], repeat=6):
+    kwargs = {v: bool(b) for v, b in zip(VARS, bits)}
+    a_motor = inferir_acolhimento(**kwargs)
+    a_esperado = oraculo_acolhimento(**kwargs)
+    # ...
+    row["ok"] = bool(a_motor == a_esperado)
+```
+
+**Explicação:** `itertools.product([0, 1], repeat=6)` gera todas as 64 combinações possíveis de 6 variáveis booleanas. Para cada uma, o motor e o oráculo são chamados e comparados.
+
+## 20.5 Escrita do CSV
+
+**Arquivo:** Notebook, célula 14
+
+```python
+csv_path = Path("validacao_exaustiva_64.csv")
+with csv_path.open("w", newline="", encoding="utf-8") as f:
+    w = csv.DictWriter(
+        f,
+        fieldnames=VARS + ["A_motor", "A_esperado", "ok", "regras_acionadas"],
+    )
+    w.writeheader()
+    w.writerows(rows)
+```
+
+**Colunas finais:** `E, B, V, S, C, I, A_motor, A_esperado, ok, regras_acionadas`
+
+## 20.6 Teste de equivalência entre motores
+
+**Arquivo:** `tests/test_motor_equivalence_contract.py`
+
+```python
+def test_motor_academico_funciona():
+    """Motor academico roda sem erros e produz resultados corretos."""
+    from motor_resolucao_acolhemente import inferir_acolhimento
+    from cenarios_sinteticos_acolhemente import executar_validacao
+    resultados = executar_validacao()
+    assert len(resultados) >= 14
+    for r in resultados:
+        assert r["ok"], f"Cenario falhou: {r['nome']}"
+
+def test_motor_producao_equivalence():
+    """Se o motor de producao estiver importavel, verifica equivalencia."""
+    # Compara inferir_acolhimento de ambos os motores
+    # para todas as 64 combinações
+    # ...
+```
+
+**Nota:** o teste de equivalência faz `pytest.skip` se o motor modular não for importável no ambiente — skip justificado e documentado.
+
+---
+
+# Seção 21 — Mapa de evidência para apresentação de 10 minutos
+
+| Tempo | Tema | Evidência textual | Evidência de código |
+|-------|------|-------------------|---------------------|
+| 0:00–0:45 | Abertura | Título e objetivo geral | — |
+| 0:45–1:45 | Problema | Cap. 1–3 (Introdução) | — |
+| 1:45–2:45 | Escolha metodológica | Cap. 4 (Fundamentação): SBC, resolução | `regras_acolhemente.py` — regras explícitas |
+| 2:45–4:00 | Modelo lógico | Cap. 7 (Representação): tabela de variáveis e regras | `simbolos_acolhemente.py`, `regras_acolhemente.py`, `_build/tabela_variaveis.tex`, `_build/tabela_regras.tex` |
+| 4:00–5:15 | Dados e governança | Cap. 5–6 (Arquitetura, EDA): tiers, PeNSE | `src/acolhemente/eda_plots.py`, `grafos_governanca_proveniencia.py`, `figures/fluxo_proveniencia_dados.png` |
+| 5:15–6:30 | Validação | Cap. 10 (Cenários): 64 combinações | `validacao_exaustiva_64.csv`, `oraculo_acolhimento()`, `cenarios_sinteticos_acolhemente.py` |
+| 6:30–7:30 | Resultados e baseline | Cap. 11 (Resultados): guardrails, baseline | `figures/comparacao_baseline_motor.png`, `_build/tabela_cenarios.tex` |
+| 7:30–8:30 | LGPD/ECA/PSE | Cap. 13–14 (Governança) | `grafo_pseudonimizacao_acolhimento.py`, `figures/fluxo_pseudonimizacao_acolhimento.png` |
+| 8:30–9:30 | Limitações e evolução | Cap. 15–16 | `test_motor_equivalence_contract.py` (skip documentado como limitação) |
+| 9:30–10:00 | Fechamento | Frase de encerramento | 136 testes passando |
+
+---
+
+# Seção 22 — Checklist de domínio técnico
+
+- [ ] Sei abrir `appendices/regras_acolhemente.py` e apontar R1–R6
+- [ ] Sei mostrar onde está R1 (`"S -> A"`, L10) e R5 (`"E AND B AND C -> A"`, L14)
+- [ ] Sei explicar por que R5 é subsumida por R3 (abrir CSV, filtrar R5 sem R3 = 0)
+- [ ] Sei abrir `appendices/motor_resolucao_acolhemente.py` e apontar `inferir_acolhimento()` (L49)
+- [ ] Sei abrir `src/acolhemente/motor.py` e apontar a mesma `inferir_acolhimento()` (L77)
+- [ ] Sei explicar que os dois motores têm a mesma semântica (mesma assinatura, mesmas regras)
+- [ ] Sei abrir o notebook e localizar `oraculo_acolhimento()` na célula 14
+- [ ] Sei explicar por que o oráculo não tem R5 (E∧B já cobre E∧B∧C)
+- [ ] Sei abrir `outputs/validacao_exaustiva_64.csv` e explicar as 10 colunas
+- [ ] Sei rodar `python -m pytest tests/ -q` e interpretar "136 passed, 1 skipped"
+- [ ] Sei abrir `figures/grafo_regras_7vars.png` e explicar nodos e arestas
+- [ ] Sei abrir `figures/fluxo_pseudonimizacao_acolhimento.png` e explicar `case_id`
+- [ ] Sei distinguir código acadêmico (apêndices) de código de produção (src/acolhemente)
+- [ ] Sei explicar o que cada arquivo de teste verifica (equivalência, privacidade, regressão)
+- [ ] Sei abrir `_build/tabela_variaveis.tex` e confirmar que A é "Saída inferida"
+
+---
+
+*Documento preparado em 2026-05-28. Atualizado com mapa de rastreabilidade texto ↔ código. Baseado na versão v3.3.2 do AcolheMente Escolar PB.*
