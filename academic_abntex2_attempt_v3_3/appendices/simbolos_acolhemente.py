@@ -1,7 +1,7 @@
 # =====================================================================
 # APENDICE A: Simbolos Proposicionais do AcolheMente Escolar PB
 # =====================================================================
-# 7 variaveis: 5 nucleares + 2 contextuais
+# 7 variaveis: 4 entradas nucleares, 2 entradas contextuais, 1 saida inferida
 # Fontes: PeNSE 2024 (IBGE) - Tema 12 (Saude Mental)
 # ADR-008/009: Sem linguagem diagnostica, sem dados identificaveis
 # =====================================================================

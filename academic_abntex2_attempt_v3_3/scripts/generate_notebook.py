@@ -162,7 +162,7 @@ cells.append(md(r"""# Introdução e Definição do Problema
 **Objetivo geral:** Desenvolver e validar um motor de inferência por resolução, baseado em lógica proposicional e fundamentado em dados oficiais da PeNSE 2024, para apoiar a priorização de acolhimento em saúde mental escolar no estado da Paraíba.
 
 **Objetivos específicos:**
-1. Modelar o domínio em 7 variáveis proposicionais (5 nucleares + 2 contextuais), ancoradas em variáveis da PeNSE 2024.
+1. Modelar o domínio em 7 variáveis proposicionais (4 entradas nucleares, 2 entradas contextuais e 1 saída inferida), ancoradas em variáveis da PeNSE 2024.
 2. Formalizar 6 regras de inferência em Forma Normal Conjuntiva e implementar motor de resolução determinístico.
 3. Validar o motor com cenários sintéticos representativos e comparar com *baseline* manual.
 4. Garantir conformidade integral com LGPD, ECA e Programa Saúde na Escola (Brasil, 2007).
@@ -199,7 +199,7 @@ cells.append(md(r"""# Metodologia e Escolha da Técnica de IA
 
 ## Representação do Conhecimento: 7 Variáveis Proposicionais
 
-> A modelagem do domínio resultou em 7 variáveis proposicionais --- 5 nucleares e 2 contextuais:
+> A modelagem do domínio resultou em 7 variáveis proposicionais --- 4 entradas nucleares, 2 entradas contextuais e 1 saída inferida:
 
 | Var | Tipo | Semântica Operacional | Fontes PeNSE |
 |-----|------|-----------------------|--------------|
