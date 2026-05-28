@@ -1,0 +1,605 @@
+% =====================================================================
+% AcolheMente Escolar PB --- Documento Academico Final v3.3
+% Classe: abnTeX2 | Estilo: abntex2-alf | Compilacao: pdflatex + bibtex
+% =====================================================================
+\documentclass[
+    12pt,
+    openright,
+    oneside,
+    a4paper,
+    english,
+    brazil
+]{abntex2}
+
+% --- Impede que "Sumario" apareca como item do proprio sumario ---
+\renewcommand{\tocheadstart}{}
+\renewcommand{\aftertoctitle}{}
+
+% --- Pacotes obrigatorios ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{indentfirst}
+\usepackage[brazil]{babel}
+\usepackage[alf]{abntex2cite}
+\usepackage{float}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{longtable}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[aboveskip=6pt,position=top]{caption}
+\captionsetup[table]{position=top}
+\captionsetup[figure]{position=bottom}
+
+% --- Remocao de bordas vermelhas nos links ---
+\hypersetup{
+    colorlinks=false,
+    pdfborder={0 0 0},
+    hidelinks
+}
+
+% --- Configuracao de listagens de codigo ---
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstset{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\small\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=t,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=4,
+    language=Python,
+    inputencoding=utf8,
+    extendedchars=true,
+    literate=
+      {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'\i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+      {ã}{{\~a}}1 {õ}{{\~o}}1 {ê}{{\^e}}1 {ô}{{\^o}}1 {â}{{\^a}}1 {Â}{{\^A}}1
+      {ç}{{\c c}}1 {Ç}{{\c C}}1
+      {Ã}{{\~A}}1 {É}{{\'E}}1 {Í}{{\'I}}1
+}
+
+% =====================================================================
+% CAPA
+% =====================================================================
+\begin{document}
+
+{%
+\thispagestyle{empty}
+\begin{center}
+
+    \includegraphics[width=0.15\textwidth]{../figures/logo_urutai.png} \\[0.2cm]
+    \vspace{1cm}
+
+    {\small \textbf{INSTITUTO FEDERAL GOIANO} \\}
+    {\small \textbf{CAMPUS URUTA\'I} \\}
+    {\footnotesize N\'UCLEO DE INFORM\'ATICA \\}
+    {\footnotesize ESPECIALIZA\c{C}\~AO EM INTELIG\^ENCIA ARTIFICIAL APLICADA A DADOS CORPORATIVOS \\}
+    \vspace{2cm}
+
+    {\Large \MakeUppercase{Leonardo Maximino Bernardo} \par}
+    \vspace{4.5cm}
+
+    {\Large \textbf{\MakeUppercase{AcolheMente Escolar PB: Motor de Infer\^encia L\'ogico para Apoio \`a Gest\~ao Escolar na Prioriza\c{c}\~ao Respons\'avel de Acolhimento em Sa\'ude Mental}} \par}
+
+    \vfill
+
+    {\large Uruta\'i, \today \par}
+\end{center}
+}
+\newpage
+
+% =====================================================================
+% SUM\'ARIO
+% =====================================================================
+\pdfbookmark[0]{Sum\'ario}{sumario}
+\tableofcontents*
+\cleardoublepage
+
+% =====================================================================
+% CAP\'ITULO 1
+% =====================================================================
+\chapter{Apresenta\c{c}\~ao do Aluno e Contexto}
+
+Leonardo Maximino Bernardo \'e professor de F\'isica da rede p\'ublica estadual da Para\'iba desde 2020, com mais de 15 anos de experi\^encia em doc\^encia nos n\'iveis m\'edio e superior. Doutor em Ci\^encia e Engenharia de Materiais pela Universidade Federal da Para\'iba, sua trajet\'oria acad\^emica combina modelagem computacional avan\c{c}ada e uma crescente atua\c{c}\~ao em ci\^encia de dados e intelig\^encia artificial.
+
+Ao longo de sua forma\c{c}\~ao, atuou como pesquisador na UFPB, desenvolvendo rotinas de c\'alculo e algoritmos para an\'alise de grandes volumes de dados de simula\c{c}\~ao num\'erica de solidifica\c{c}\~ao de ligas met\'alicas, extraindo padr\~oes quantitativos para publica\c{c}\~oes acad\^emicas. Essa experi\^encia consolidou habilidades de pensamento anal\'itico, resolu\c{c}\~ao de problemas complexos e comunica\c{c}\~ao cient\'ifica que informam diretamente sua pr\'atica docente e sua abordagem em projetos de intelig\^encia artificial.
+
+Atualmente, al\'em da doc\^encia em F\'isica, cursa P\'os-Gradua\c{c}\~ao \textit{Lato Sensu} em Intelig\^encia Artificial Aplicada pelo Instituto Federal Goiano e possui forma\c{c}\~ao em Ci\^encia de Dados pelo Unip\^e. Sua \textit{stack} tecnol\'ogica inclui Python, JavaScript, SQL, \textit{frameworks} como Django e React, e ferramentas de an\'alise como Pandas, Scikit-learn e NetworkX. Possui certifica\c{c}\~oes em desenvolvimento \textit{back-end} com Node.js, Harvard CS50 e acelera\c{c}\~ao global de desenvolvimento de software.
+
+O presente trabalho nasce da intersec\c{c}\~ao entre sua viv\^encia como professor de escola p\'ublica estadual na Para\'iba --- onde testemunha diariamente demandas crescentes de acolhimento em sa\'ude mental de adolescentes --- e seu dom\'inio t\'ecnico em modelagem computacional e l\'ogica formal. A escolha do dom\'inio de sa\'ude mental escolar reflete o compromisso de aplicar intelig\^encia artificial de forma \'etica, explic\'avel e governada em um contexto de vulnerabilidade social, onde erros tecnol\'ogicos podem ter consequ\^encias humanas graves.
+
+% =====================================================================
+% CAP\'ITULO 2
+% =====================================================================
+\chapter{Introdu\c{c}\~ao}
+
+A sa\'ude mental de adolescentes no Brasil atravessa um momento cr\'itico. Dados da Pesquisa Nacional de Sa\'ude do Escolar --- PeNSE 2024 \cite{ibge_pense_2024} --- revelam que parcela significativa dos estudantes de 13 a 17 anos reporta sentimentos persistentes de tristeza, solid\~ao e desesperan\c{c}a, com \'indices particularmente preocupantes na regi\~ao Nordeste e, especificamente, no estado da Para\'iba. O relat\'orio da Organiza\c{c}\~ao Mundial da Sa\'ude \cite{who_mental_health_2022} confirma essa tend\^encia global: transtornos mentais respondem por uma propor\c{c}\~ao crescente da carga de doen\c{c}a entre jovens, e a maioria dos casos permanece sem qualquer forma de acolhimento adequado.
+
+No contexto da escola p\'ublica estadual paraibana, a demanda por acolhimento em sa\'ude mental frequentemente supera a capacidade de resposta da equipe pedag\'ogica e psicossocial. Professores, coordenadores e orientadores educacionais enfrentam o desafio de identificar, dentre centenas de estudantes, aqueles que necessitam de aten\c{c}\~ao priorit\'aria --- sem dispor de ferramentas estruturadas para essa tarefa. O resultado \'e uma depend\^encia excessiva de percep\c{c}\~oes individuais, sujeitas a vi\'es cognitivo, fadiga decis\'oria e inconsist\^encia entre turnos e unidades escolares. Essa lacuna n\~ao \'e trivial: a aus\^encia de prioriza\c{c}\~ao sistem\'atica pode significar que um adolescente em situa\c{c}\~ao de risco grave n\~ao receba acolhimento em tempo h\'abil.
+
+Ao mesmo tempo, a ado\c{c}\~ao acr\'itica de tecnologias de intelig\^encia artificial nesse dom\'inio apresenta riscos igualmente s\'erios. Sistemas baseados em aprendizado de m\'aquina ou IA generativa, embora poderosos em outros contextos, introduzem opacidade decis\'oria incompat\'ivel com o rigor \'etico exigido quando se trata de menores de idade em situa\c{c}\~ao de vulnerabilidade \cite{jobin_ai_ethics_2019}. A Lei Geral de Prote\c{c}\~ao de Dados --- LGPD \cite{brasil_lgpd_2018} --- e o Estatuto da Crian\c{c}a e do Adolescente --- ECA \cite{brasil_eca_1990} --- imp\~oem salvaguardas rigorosas para o tratamento de dados sens\'iveis de menores, incluindo o direito \`a explica\c{c}\~ao de decis\~oes automatizadas. Um modelo de ``caixa preta'' que classifique ou ranqueie estudantes por risco psicol\'ogico seria, no m\'inimo, juridicamente temer\'ario e, no limite, eticamente inaceit\'avel.
+
+Diante desse cen\'ario, o presente trabalho prop\~oe o \textbf{AcolheMente Escolar PB}: um Sistema Baseado em Conhecimento que utiliza L\'ogica Proposicional com Infer\^encia por Resolu\c{c}\~ao para apoiar --- e nunca substituir --- a gest\~ao escolar na prioriza\c{c}\~ao respons\'avel de acolhimento em sa\'ude mental. A escolha por l\'ogica simb\'olica determin\'istica n\~ao \'e uma limita\c{c}\~ao t\'ecnica, mas uma decis\~ao de \textit{design} \'etico: garante explicabilidade total, rastreabilidade de cada conclus\~ao e aus\^encia de qualquer linguagem diagn\'ostica cl\'inica \cite{russell_norvig_2022}.
+
+Este documento est\'a organizado da seguinte forma: o Cap\'itulo 3 define formalmente o problema e os objetivos; o Cap\'itulo 4 apresenta a fundamenta\c{c}\~ao metodol\'ogica; o Cap\'itulo 5 detalha a arquitetura de dados e proveni\^encia; o Cap\'itulo 6 apresenta a an\'alise explorat\'oria e a motiva\c{c}\~ao emp\'irica; o Cap\'itulo 7 trata da representa\c{c}\~ao do conhecimento; o Cap\'itulo 8 unifica base de conhecimento, CNF e infer\^encia; o Cap\'itulo 9 descreve a implementa\c{c}\~ao acad\^emica; o Cap\'itulo 10 explica os cen\'arios sint\'eticos; o Cap\'itulo 11 apresenta resultados e \textit{guardrails}; o Cap\'itulo 12 discute explicabilidade; o Cap\'itulo 13 oferece discuss\~ao cr\'itica; o Cap\'itulo 14 analisa perspectivas de evolu\c{c}\~ao; e o Cap\'itulo 15 conclui o trabalho.
+
+% =====================================================================
+% CAP\'ITULO 3
+% =====================================================================
+\chapter{Defini\c{c}\~ao do Problema e Objetivos}
+
+O problema central que este trabalho endere\c{c}a pode ser formulado da seguinte maneira: como apoiar a gest\~ao escolar de escolas p\'ublicas estaduais da Para\'iba na prioriza\c{c}\~ao sistem\'atica de acolhimento em sa\'ude mental de adolescentes, utilizando intelig\^encia artificial explic\'avel, sem produzir diagn\'osticos cl\'inicos, sem violar a LGPD ou o ECA, e sem substituir o julgamento humano profissional?
+
+O escopo da solu\c{c}\~ao proposta compreende a constru\c{c}\~ao de um motor de infer\^encia l\'ogico determin\'istico com 7 vari\'aveis proposicionais --- 6 vari\'aveis de entrada e 1 vari\'avel de sa\'ida --- e 6 regras em Forma Normal Conjuntiva, alimentado por indicadores agregados da PeNSE 2024 e validado com cen\'arios sint\'eticos. O sistema n\~ao diagnostica, n\~ao classifica alunos individualmente, n\~ao utiliza dados identific\'aveis, n\~ao substitui avalia\c{c}\~ao profissional de psic\'ologos ou assistentes sociais, e n\~ao se conecta a APIs de IA generativa.
+
+O \textbf{objetivo geral} \'e desenvolver e validar um motor de infer\^encia por resolu\c{c}\~ao, baseado em l\'ogica proposicional e fundamentado em dados oficiais da PeNSE 2024, para apoiar a prioriza\c{c}\~ao de acolhimento em sa\'ude mental escolar no estado da Para\'iba.
+
+Os \textbf{objetivos espec\'ificos} s\~ao:
+
+\begin{enumerate}
+    \item Modelar o dom\'inio de sa\'ude mental escolar em 7 vari\'aveis proposicionais (5 nucleares e 2 contextuais), ancoradas em vari\'aveis da PeNSE 2024.
+    \item Formalizar 6 regras de infer\^encia em Forma Normal Conjuntiva e implementar motor de resolu\c{c}\~ao determin\'istico.
+    \item Validar o motor com cen\'arios sint\'eticos representativos, cobrindo todas as $2^6 = 64$ combina\c{c}\~oes poss\'iveis das 6 vari\'aveis de entrada, e comparar com \textit{baseline} manual.
+    \item Garantir conformidade integral com LGPD, ECA e Programa Sa\'ude na Escola \cite{brasil_pse_2007}.
+    \item Documentar explicabilidade, limita\c{c}\~oes e perspectivas de evolu\c{c}\~ao com rigor acad\^emico.
+\end{enumerate}
+
+% =====================================================================
+% CAP\'ITULO 4
+% =====================================================================
+\chapter{Fundamenta\c{c}\~ao Metodol\'ogica}
+
+O AcolheMente Escolar PB \'e, em sua ess\^encia, um Sistema Baseado em Conhecimento --- uma classe de sistemas de intelig\^encia artificial que codifica explicitamente o conhecimento de especialistas humanos em regras formais e utiliza mecanismos de infer\^encia para derivar conclus\~oes a partir de fatos observados \cite{brachman_levesque_2004}. Diferentemente de abordagens estat\'isticas ou conexionistas, um SBC n\~ao ``aprende'' a partir de dados brutos: opera sobre uma base de conhecimento constru\'ida deliberadamente por engenheiros do conhecimento em colabora\c{c}\~ao com especialistas do dom\'inio.
+
+Essa caracter\'istica \'e particularmente valiosa no contexto de sa\'ude mental escolar, onde o volume de dados individuais dispon\'ivel \'e insuficiente para treinamento de modelos de \textit{machine learning}, a transpar\^encia de cada decis\~ao \'e requisito \'etico e legal, e o custo de um erro --- falso positivo que rotula indevidamente um estudante, ou falso negativo que ignora um caso grave --- \'e inaceitavelmente alto.
+
+A t\'ecnica espec\'ifica adotada \'e a L\'ogica Proposicional com Infer\^encia por Resolu\c{c}\~ao. Trata-se de um formalismo da l\'ogica cl\'assica no qual o conhecimento \'e representado por proposi\c{c}\~oes at\^omicas e conectivos l\'ogicos. A infer\^encia \'e realizada por meio do m\'etodo de resolu\c{c}\~ao, um procedimento correto e refutacionalmente completo para a l\'ogica proposicional \cite{genesereth_nilsson_1987}. O m\'etodo opera sobre cl\'ausulas em Forma Normal Conjuntiva: para verificar se uma conclus\~ao $A$ pode ser derivada de uma base de conhecimento $KB$, o procedimento adiciona a nega\c{c}\~ao da conclus\~ao ($\neg A$) ao conjunto de cl\'ausulas e aplica repetidamente a regra de resolu\c{c}\~ao, buscando derivar a cl\'ausula vazia, o que constitui prova por contradi\c{c}\~ao de que $KB \models A$.
+
+A Trilha I do curso de P\'os-Gradua\c{c}\~ao em IA Aplicada do IF Goiano tem como foco t\'ecnicas simb\'olicas e de busca. A escolha por l\'ogica proposicional com resolu\c{c}\~ao \'e duplamente justificada: atende ao escopo pedag\'ogico da trilha e oferece as propriedades de explicabilidade e determinismo exigidas pelo dom\'inio.
+
+Foram consideradas e descartadas alternativas como L\'ogica de Primeira Ordem, que introduziria complexidade desnecess\'aria para um dom\'inio com 7 vari\'aveis bin\'arias; Redes Bayesianas, que exigiriam distribui\c{c}\~oes de probabilidade condicional inestim\'aveis a partir de dados agregados; \'Arvores de Decis\~ao, que dependem de treinamento supervisionado com dados rotulados inexistentes; Redes Neurais, incompat\'iveis com os requisitos de explicabilidade total; e IA Generativa, descartada por n\~ao oferecer garantias de consist\^encia l\'ogica e determinismo.
+
+Conforme argumentam \citeonline{russell_norvig_2022}, a escolha da representa\c{c}\~ao do conhecimento deve ser guiada pelas propriedades do dom\'inio, e n\~ao pela sofistica\c{c}\~ao da t\'ecnica. No caso do AcolheMente Escolar PB, a l\'ogica proposicional \'e a ferramenta \textit{correta}, n\~ao uma ferramenta \textit{limitada}.
+
+O princ\'ipio de \textit{human-in-the-loop} \'e inegoci\'avel. A vari\'avel de sa\'ida $A$ \'e um sinal para o profissional humano, n\~ao uma decis\~ao final. O fluxo operacional previsto \'e: o motor sinaliza prioriza\c{c}\~ao; a equipe pedag\'ogica avalia o caso; a decis\~ao de a\c{c}\~ao \'e sempre humana.
+
+% =====================================================================
+% CAP\'ITULO 5
+% =====================================================================
+\chapter{Arquitetura de Dados, Proveni\^encia e Governan\c{c}a}
+
+A credibilidade de qualquer sistema de intelig\^encia artificial aplicado a popula\c{c}\~oes vulner\'aveis depende, antes de tudo, da rastreabilidade e da legitimidade dos dados que o sustentam. No AcolheMente Escolar PB, essa preocupa\c{c}\~ao se traduz em uma arquitetura de proveni\^encia de dados dividida em tr\^es camadas mutuamente exclusivas, cada uma com finalidade, escopo e restri\c{c}\~oes de uso rigorosamente definidos. A separa\c{c}\~ao n\~ao \'e apenas uma decis\~ao t\'ecnica: \'e um requisito de governan\c{c}a que impede contamina\c{c}\~ao cruzada entre fontes de naturezas distintas.
+
+A primeira camada, denominada TIER\_A, corresponde \`a PeNSE 2024, base de dados oficial e de acesso p\'ublico do IBGE \cite{ibge_pense_2024}. A PeNSE \'e uma pesquisa amostral com representatividade nacional, regional e por unidade da federa\c{c}\~ao. Os microdados utilizados referem-se exclusivamente ao Tema 12 (Sa\'ude Mental) e ao Tema 01 (Informa\c{c}\~oes Gerais), com recorte para o estado da Para\'iba. O uso autorizado desta camada \'e estritamente anal\'itico: a PeNSE sustenta a An\'alise Explorat\'oria de Dados, contextualiza o problema epidemiol\'ogico e orienta a escolha das vari\'aveis proposicionais. Os dados da PeNSE \textbf{n\~ao alimentam diretamente o motor de infer\^encia} para fins de classifica\c{c}\~ao individual, pois a PeNSE \'e pesquisa populacional, n\~ao sistema de acompanhamento escolar ativo, e seus respondentes n\~ao s\~ao sujeitos de interven\c{c}\~ao direta neste projeto.
+
+A segunda camada, TIER\_B, compreende cen\'arios sint\'eticos gerados computacionalmente para valida\c{c}\~ao do motor l\'ogico. Cada cen\'ario \'e um vetor bin\'ario de 6 posi\c{c}\~oes, uma para cada vari\'avel de entrada ($E$, $B$, $V$, $S$, $C$, $I$), representando combina\c{c}\~oes hipot\'eticas de indicadores. Nenhum dado real de aluno ou escola \'e utilizado nesta camada. Em um sistema baseado em conhecimento com l\'ogica proposicional, cen\'arios sint\'eticos controlados testam as fronteiras das regras com rigor superior ao que dados ruidosos permitiriam, pois cada cen\'ario corresponde a uma valora\c{c}\~ao booleana precisa e determin\'istica.
+
+A terceira camada, TIER\_C, \'e um \textit{dataset} externo utilizado exclusivamente para \textit{benchmark} metodol\'ogico --- para validar que o \textit{pipeline} de processamento funciona corretamente com dados tabulares de outra origem. O \textit{dataset} externo n\~ao gera conclus\~oes sobre o Brasil, o Nordeste ou a Para\'iba. Qualquer tentativa de infer\^encia regional a partir do TIER\_C \'e logicamente inv\'alida e explicitamente proibida.
+
+O \textit{merge} entre tiers \'e estritamente proibido. Essa barreira garante que conclus\~oes derivadas de dados oficiais nunca sejam contaminadas por dados sint\'eticos ou externos, e vice-versa. A viola\c{c}\~ao dessa regra invalidaria simultaneamente a integridade cient\'ifica e a conformidade jur\'idica do sistema.
+
+A LGPD \cite{brasil_lgpd_2018} classifica dados de sa\'ude de menores como dados pessoais sens\'iveis, impondo requisitos particularmente rigorosos. O AcolheMente atende a esses requisitos \textit{by design}: n\~ao processa dados pessoais identific\'aveis, opera sobre indicadores agregados anonimizados, toda conclus\~ao \'e rastre\'avel a regras expl\'icitas, e n\~ao produz decis\~oes automatizadas sobre indiv\'iduos. O ECA \cite{brasil_eca_1990} veda qualquer forma de rotulagem, classifica\c{c}\~ao ou estigmatiza\c{c}\~ao de crian\c{c}as e adolescentes. O Programa Sa\'ude na Escola \cite{brasil_pse_2007} estabelece a integra\c{c}\~ao entre escola e rede de sa\'ude como pol\'itica p\'ublica; o AcolheMente apoia essa integra\c{c}\~ao, oferecendo \`a equipe escolar um instrumento de prioriza\c{c}\~ao que indica quando acionar os fluxos de encaminhamento previstos no PSE.
+
+A justificativa para n\~ao utilizar os dados reais da PeNSE como entradas individuais do motor merece elabora\c{c}\~ao adicional, pois constitui uma das decis\~oes arquiteturais mais importantes do projeto. Utilizar respostas individuais de sa\'ude mental para infer\^encia operacional sem possibilidade de acolhimento real violaria o princ\'ipio de finalidade da LGPD e poderia produzir uma forma invis\'ivel de classifica\c{c}\~ao sens\'ivel --- um ``diagn\'ostico silencioso'' que nenhum profissional de sa\'ude solicitou e nenhum adolescente consentiu. Por essas raz\~oes, o motor \'e validado por cen\'arios sint\'eticos determin\'isticos, enquanto a PeNSE sustenta a justificativa epidemiol\'ogica e a modelagem conceitual.
+
+\begin{table}[H]
+\centering
+\caption{Camadas de proveni\^encia e uso autorizado.}
+\label{tab:tiers}
+\begin{tabular}{lllll}
+\toprule
+\textbf{Tier} & \textbf{Fonte} & \textbf{Uso permitido} & \textbf{Uso proibido} & \textbf{Justificativa} \\
+\midrule
+A & PeNSE 2024 & EDA, motiva\c{c}\~ao & Infer\^encia individual & Pesquisa populacional \\
+B & Sint\'eticos & Valida\c{c}\~ao do motor & Representar alunos & Controle determin\'istico \\
+C & Externo & Benchmark & Conclus\~ao sobre PB & Sem validade regional \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A Figura~\ref{fig:proveniencia} visualiza o fluxo completo de proveni\^encia, evidenciando que cada tier alimenta exclusivamente seu destino autorizado, com barreira expl\'icita de \textit{merge}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{../figures/fluxo_proveniencia_dados.png}
+\caption{Fluxo de proveni\^encia de dados: cada tier alimenta exclusivamente seu destino autorizado.}
+\label{fig:proveniencia}
+\end{figure}
+
+\subsection*{Anonimiza\c{c}\~ao, pseudonimiza\c{c}\~ao e reidentifica\c{c}\~ao restrita}
+
+A vers\~ao acad\^emica deste trabalho opera integralmente sobre dados oficiais da PeNSE 2024, utilizados apenas para an\'alise explorat\'oria e motiva\c{c}\~ao epidemiol\'ogica, e sobre cen\'arios sint\'eticos determin\'isticos para valida\c{c}\~ao do motor. Nenhum dado identificado ou identific\'avel de estudante \'e processado. Contudo, para que o AcolheMente possa efetivamente cumprir sua finalidade em um piloto operacional futuro --- apoiar a equipe escolar no acolhimento de adolescentes em situa\c{c}\~ao de vulnerabilidade ---, \'e necess\'ario enfrentar uma tens\~ao conceitual fundamental entre privacidade e a\c{c}\~ao.
+
+A anonimiza\c{c}\~ao irrevers\'ivel, prevista no art.~12 da LGPD \cite{brasil_lgpd_2018}, \'e adequada para relat\'orios, pain\'eis agregados e pesquisa, pois elimina qualquer possibilidade de vincular o dado ao indiv\'iduo. Entretanto, se os dados forem anonimizados de forma irrevers\'ivel, a escola n\~ao conseguir\'a saber qual estudante acolher. A anonimiza\c{c}\~ao resolve o problema da privacidade, mas inviabiliza a finalidade pedag\'ogica e psicossocial do sistema: n\~ao h\'a acolhimento poss\'ivel sem saber quem acolher.
+
+Por essa raz\~ao, um piloto operacional real exigiria a ado\c{c}\~ao de \textbf{pseudonimiza\c{c}\~ao}: o motor receberia apenas um identificador de caso --- por exemplo, \texttt{CASE-2026-00037} --- acompanhado das 6 vari\'aveis booleanas m\'inimas de entrada ($E$, $B$, $V$, $S$, $C$, $I$). O motor n\~ao conheceria o nome, a matr\'icula, o CPF, o telefone, o endere\c{c}o ou qualquer outro dado diretamente identificador do estudante. A chave de reidentifica\c{c}\~ao --- o v\'inculo entre o \texttt{case\_id} e a identidade civil --- ficaria segregada, protegida por criptografia e acess\'ivel somente \`a equipe m\'inima autorizada respons\'avel pelo acolhimento. Dessa forma, preserva-se a privacidade sem inviabilizar a finalidade pedag\'ogica e psicossocial do sistema.
+
+A reidentifica\c{c}\~ao n\~ao seria autom\'atica: exigiria solicita\c{c}\~ao formal por membro da equipe autorizada, com registro audit\'avel de quem acessou, quando e por qu\^e. Professores poderiam registrar observa\c{c}\~oes pedag\'ogicas objetivas em formul\'ario estruturado, se autorizados, mas n\~ao devem ter acesso amplo a \textit{scores} sens\'iveis, diagn\'osticos ou chaves de reidentifica\c{c}\~ao. O painel anal\'itico vis\'ivel para a gest\~ao escolar exibiria apenas dados agregados por turma, s\'erie ou turno, com supress\~ao de grupos pequenos para impedir identifica\c{c}\~ao indireta. O motor, o relat\'orio e o painel geral nunca devem exibir nome, matr\'icula, CPF, telefone, endere\c{c}o ou qualquer forma de \textit{ranking} individual.
+
+A Tabela~\ref{tab:perfis_acesso} detalha a matriz de pap\'eis e permiss\~oes proposta para um piloto operacional pseudonimizado, distinguindo cinco perfis de acesso com responsabilidades e restri\c{c}\~oes expl\'icitas.
+
+\begin{table}[H]
+\centering
+\caption{Perfis de acesso em piloto operacional pseudonimizado.}
+\label{tab:perfis_acesso}
+\begin{tabular}{p{2.2cm}p{4cm}p{3.8cm}p{3cm}}
+\toprule
+\textbf{Perfil} & \textbf{Pode visualizar} & \textbf{N\~ao pode visualizar} & \textbf{Finalidade} \\
+\midrule
+Professor &
+Orienta\c{c}\~oes pedag\'ogicas gerais; formul\'ario de observa\c{c}\~ao objetiva &
+\textit{Ranking}; \textit{score} sens\'ivel; diagn\'ostico; dados cl\'inicos; chave de reidentifica\c{c}\~ao &
+Observa\c{c}\~ao pedag\'ogica e cuidado cotidiano \\
+\midrule
+Coordena\c{c}\~ao / orienta\c{c}\~ao &
+Caso pseudonimizado; regras acionadas; justificativa de prioriza\c{c}\~ao &
+Dados al\'em do m\'inimo necess\'ario &
+Triagem humana e acolhimento inicial \\
+\midrule
+Dire\c{c}\~ao / equipe designada &
+Chave de reidentifica\c{c}\~ao sob cust\'odia; registro audit\'avel de acesso; encaminhamento &
+Uso livre ou indiscriminado dos dados &
+Responsabilidade institucional e acionamento de fluxos \\
+\midrule
+PSE / UBS / CAPS &
+Encaminhamento humano qualificado; informa\c{c}\~oes necess\'arias ao cuidado &
+Resultado bruto automatizado sem media\c{c}\~ao &
+Cuidado em rede \\
+\midrule
+Painel anal\'itico &
+Dados agregados por turma/s\'erie/turno; indicadores com supress\~ao de grupos pequenos &
+Nome; matr\'icula; CPF; telefone; \textit{ranking} individual &
+Gest\~ao preventiva e planejamento \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Essa arquitetura de pap\'eis reflete o princ\'ipio de minimiza\c{c}\~ao de acesso: cada ator v\^e apenas o que \'e estritamente necess\'ario para exercer sua fun\c{c}\~ao \cite{brasil_lgpd_2018}. A express\~ao ``a gest\~ao pode acessar'' n\~ao \'e suficiente: o correto \'e definir \textit{qual} membro da equipe, em \textit{qual} papel, pode acessar \textit{qual} dado, com \textit{qual} registro de auditoria. O ECA \cite{brasil_eca_1990} refor\c{c}a que a prote\c{c}\~ao integral de crian\c{c}as e adolescentes exige cautela redobrada no acesso a informa\c{c}\~oes sens\'iveis. O Programa Sa\'ude na Escola \cite{brasil_pse_2007} prev\^e articula\c{c}\~ao entre escola e rede de sa\'ude --- o AcolheMente pode alimentar esse fluxo, desde que a identifica\c{c}\~ao do estudante seja mediada por equipe autorizada e n\~ao exposta em qualquer painel ou relat\'orio automatizado.
+
+A Figura~\ref{fig:fluxo_pseudo} visualiza o fluxo operacional completo, desde a observa\c{c}\~ao dos indicadores m\'inimos at\'e o acolhimento e o registro audit\'avel, com destaque para os n\'os de proibi\c{c}\~ao que impedem exposi\c{c}\~ao de dados.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.80\textwidth]{../figures/fluxo_pseudonimizacao_acolhimento.png}
+\caption{Fluxo operacional pseudonimizado: o motor processa apenas \texttt{case\_id} e vari\'aveis booleanas. A chave de reidentifica\c{c}\~ao permanece sob cust\'odia da equipe designada.}
+\label{fig:fluxo_pseudo}
+\end{figure}
+
+\'E importante enfatizar que essa arquitetura de pseudonimiza\c{c}\~ao n\~ao altera o motor l\'ogico, as regras R1--R6, a CNF ou os cen\'arios sint\'eticos. Trata-se de uma camada de governan\c{c}a de identidade que envolve o motor, sem modific\'a-lo. A vers\~ao acad\^emica apresentada neste documento n\~ao implementa pseudonimiza\c{c}\~ao porque n\~ao processa estudantes reais. A discuss\~ao \'e conceitual e arquitetural, preparando o terreno para uma eventual transi\c{c}\~ao operacional respons\'avel.
+
+% =====================================================================
+% CAP\'ITULO 6
+% =====================================================================
+\chapter{An\'alise Explorat\'oria e Motiva\c{c}\~ao Emp\'irica}
+
+A An\'alise Explorat\'oria de Dados cumpre papel fundamental neste trabalho: \'e ela que transforma a percep\c{c}\~ao qualitativa do autor --- ``h\'a sofrimento emocional crescente entre os alunos'' --- em evid\^encia quantitativa sustentada por dados oficiais. A EDA n\~ao alimenta o motor de infer\^encia; ela justifica sua exist\^encia.
+
+Os microdados da PeNSE 2024 \cite{ibge_pense_2024} foram explorados com foco no Tema 12 (Sa\'ude Mental) e no Tema 01 (Informa\c{c}\~oes Gerais), com recorte para o estado da Para\'iba. As vari\'aveis centrais analisadas cobrem quatro dimens\~oes do sofrimento adolescente: as vari\'aveis B12004, B12005 e B12007, que mensuram sentimentos de tristeza, solid\~ao e desesperan\c{c}a, foram operacionalizadas na vari\'avel proposicional $E$ (sofrimento emocional recorrente); as vari\'aveis B12003 e B07004, que capturam percep\c{c}\~ao de apoio socioafetivo e amizades pr\'oximas, foram operacionalizadas na vari\'avel $B$ (baixo apoio socioafetivo percebido); a vari\'avel B12008, que registra sentimentos persistentes de desvalor da vida, corresponde \`a vari\'avel $V$ (indicador cr\'itico de desvalor da vida); e a vari\'avel B12009, que registra relato de autoagress\~ao, corresponde \`a vari\'avel $S$ (sinal autorreferido de autoagress\~ao). Al\'em das vari\'aveis nucleares, os indicadores B03010C e B03006B foram operacionalizados na vari\'avel contextual $C$ (contexto comportamental agravante), e os indicadores E01P60 e E01P117 na vari\'avel contextual $I$ (insufici\^encia institucional de resposta).
+
+A an\'alise dos dados da PeNSE revela que a Para\'iba apresenta \'indices consistentemente superiores \`a m\'edia nacional em indicadores de sofrimento emocional adolescente. Essa constata\c{c}\~ao \'e a motiva\c{c}\~ao emp\'irica central do projeto: n\~ao se trata de uma suposi\c{c}\~ao, mas de evid\^encia estat\'istica oficial. A escolha de cada vari\'avel proposicional n\~ao foi arbitr\'aria: decorreu da an\'alise quantitativa dos indicadores da PeNSE, identificando quais dimens\~oes apresentam maior preval\^encia e maior vari\^ancia entre estados e regi\~oes.
+
+A EDA foi implementada no m\'odulo \texttt{src/acolhemente/eda\_plots.py}, que cont\'em fun\c{c}\~oes dedicadas para cada tier de dados, com separa\c{c}\~ao estrita entre TIER\_A e TIER\_C. A fun\c{c}\~ao \texttt{plot\_pense\_pb\_vs\_ne\_br()} gera gr\'aficos comparativos entre Para\'iba, Nordeste e Brasil para os indicadores centrais de sa\'ude mental. A fun\c{c}\~ao \texttt{plot\_external\_behavioral\_distributions()} trata exclusivamente do \textit{dataset} externo (TIER\_C), com aviso obrigat\'orio de que os dados n\~ao possuem validade inferencial para o contexto brasileiro.
+
+\'E fundamental compreender que a EDA orienta a escolha das proposi\c{c}\~oes, mas n\~ao decide casos. A an\'alise explorat\'oria revelou quais indicadores da PeNSE s\~ao mais relevantes para a Para\'iba, e essa relev\^ancia foi traduzida na sele\c{c}\~ao das 7 vari\'aveis proposicionais. Contudo, a EDA n\~ao gera diagn\'ostico, n\~ao classifica indiv\'iduos e n\~ao alimenta o motor --- ela fundamenta o problema, n\~ao resolve casos.
+
+O \textit{dataset} externo (TIER\_C) foi utilizado exclusivamente para \textit{benchmark} metodol\'ogico, verificando que o \textit{pipeline} de processamento funciona corretamente com dados tabulares de outra origem. Toda visualiza\c{c}\~ao gerada a partir do TIER\_C carrega aviso expl\'icito de aus\^encia de validade inferencial para o Brasil ou a Para\'iba. As fun\c{c}\~oes de EDA do TIER\_C est\~ao isoladas no m\'odulo \texttt{eda\_plots.py} e nunca acessam dados do TIER\_A, garantindo a integridade da barreira de proveni\^encia.
+
+% =====================================================================
+% CAP\'ITULO 7
+% =====================================================================
+\chapter{Representa\c{c}\~ao do Conhecimento}
+
+A modelagem do dom\'inio seguiu princ\'ipios cl\'assicos de engenharia do conhecimento \cite{brachman_levesque_2004}: identifica\c{c}\~ao de conceitos relevantes, elicita\c{c}\~ao de regras com especialistas, formaliza\c{c}\~ao em l\'ogica proposicional e valida\c{c}\~ao iterativa. O resultado \'e um conjunto de 7 vari\'aveis proposicionais --- 5 nucleares e 2 contextuais --- que representam o espa\c{c}o de estados relevante para a prioriza\c{c}\~ao de acolhimento.
+
+O modelo possui 7 vari\'aveis proposicionais no total, sendo \textbf{6 vari\'aveis de entrada} ($E$, $B$, $V$, $S$, $C$, $I$) e \textbf{1 vari\'avel de sa\'ida} ($A$). Essa distin\c{c}\~ao \'e fundamental: $A$ n\~ao \'e uma vari\'avel observada, mas o resultado da infer\^encia l\'ogica do motor. Portanto, o espa\c{c}o combinat\'orio de estados de entrada \'e $2^6 = 64$, n\~ao $2^7 = 128$.
+
+A decis\~ao de utilizar exatamente 7 vari\'aveis foi deliberada. Com 5 vari\'aveis, perder-se-ia a capacidade de modelar fatores contextuais que modulam a urg\^encia do acolhimento. Com mais de 7, o espa\c{c}o combinat\'orio cresceria sem ganho proporcional de discrimina\c{c}\~ao, violando o princ\'ipio de parcim\^onia que governa sistemas simb\'olicos interpret\'aveis.
+
+As cinco vari\'aveis nucleares s\~ao: $E$ (sofrimento emocional recorrente, fontes PeNSE B12004, B12005, B12007), $B$ (baixo apoio socioafetivo percebido, fontes B12003, B07004), $V$ (indicador cr\'itico de desvalor da vida, fonte B12008), $S$ (sinal autorreferido de autoagress\~ao, fonte B12009) e $A$ (acolhimento humano priorit\'ario, vari\'avel de sa\'ida inferida pelo motor). As duas vari\'aveis contextuais de modula\c{c}\~ao s\~ao: $C$ (contexto comportamental agravante, fontes B03010C, B03006B) e $I$ (insufici\^encia institucional de resposta, fontes E01P60, E01P117). As vari\'aveis contextuais nunca inferem $A$ isoladamente. $C$ s\'o participa de regras em conjun\c{c}\~ao com $E$ e $B$; $I$ s\'o participa em conjun\c{c}\~ao com $V$. Essa restri\c{c}\~ao \'e um \textit{guardrail} l\'ogico que impede falsos positivos por fatores contextuais.
+
+O sistema n\~ao diagnostica condi\c{c}\~oes cl\'inicas. As vari\'aveis representam indicadores comportamentais observ\'aveis e auto-reportados, n\~ao categorias nosol\'ogicas. A vari\'avel $A$ sinaliza necessidade de acolhimento pedag\'ogico e psicossocial --- uma a\c{c}\~ao escolar, n\~ao uma interven\c{c}\~ao cl\'inica.
+
+\input{../_build/tabela_variaveis.tex}
+
+% =====================================================================
+% CAP\'ITULO 8
+% =====================================================================
+\chapter{Base de Conhecimento, CNF e Infer\^encia}
+
+A base de conhecimento do AcolheMente \'e composta por 6 regras de infer\^encia, cada uma representando um cen\'ario em que a combina\c{c}\~ao de indicadores justifica a prioriza\c{c}\~ao de acolhimento. As regras foram definidas com base em princ\'ipios pedag\'ogicos e psicossociais, n\~ao em correla\c{c}\~oes estat\'isticas.
+
+A regra R1, $S \rightarrow A$, estabelece que a presen\c{c}a de sinal autorreferido de autoagress\~ao \'e suficiente para acionar incondicionalmente o fluxo de acolhimento. Esta \'e a regra de maior criticidade: autoagress\~ao \'e o indicador mais grave do espectro modelado, e qualquer atraso no acolhimento pode ter consequ\^encias irrevers\'iveis. A regra R2, $V \land E \rightarrow A$, captura a coocorr\^encia de desvalor da vida e sofrimento emocional recorrente, indicando um quadro de vulnerabilidade emocional persistente. As regras R3 ($E \land B \rightarrow A$) e R4 ($V \land B \rightarrow A$) modelam cen\'arios em que sofrimento emocional ou desvalor da vida se combinam com baixo apoio socioafetivo, configurando situa\c{c}\~oes em que o estudante n\~ao disp\~oe de rede de suporte.
+
+A regra R5, $E \land B \land C \rightarrow A$, incorpora o contexto comportamental agravante como modulador, enquanto R6, $V \land I \rightarrow A$, combina desvalor da vida com insufici\^encia institucional de resposta. Note-se que as vari\'aveis contextuais ($C$ e $I$) s\'o participam em conjun\c{c}\~ao com vari\'aveis nucleares, nunca isoladamente. A vari\'avel $A$ \'e a \'unica conclus\~ao deriv\'avel pelo motor, refletindo o princ\'ipio de que o sistema deve emitir um sinal bin\'ario claro, sem grada\c{c}\~oes ou categoriza\c{c}\~oes intermedi\'arias que possam ser mal interpretadas pela equipe escolar.
+
+\input{../_build/tabela_regras.tex}
+
+Para aplicar o algoritmo de infer\^encia por resolu\c{c}\~ao, todas as regras implicativas devem ser convertidas para Forma Normal Conjuntiva --- uma conjun\c{c}\~ao de cl\'ausulas disjuntivas de literais. A transforma\c{c}\~ao segue a equival\^encia l\'ogica fundamental $p \rightarrow q \equiv \neg p \lor q$. Para regras com antecedentes conjuntivos, a equival\^encia generaliza-se: $p \land q \rightarrow r \equiv \neg p \lor \neg q \lor r$. Esse procedimento \'e correto e preserva a validade l\'ogica das regras originais \cite{russell_norvig_2022}.
+
+O m\'etodo de resolu\c{c}\~ao \'e um procedimento de prova por refuta\c{c}\~ao: para verificar se $KB \models A$, adiciona-se $\neg A$ ao conjunto de cl\'ausulas e aplica-se iterativamente a regra de resolu\c{c}\~ao. Se a cl\'ausula vazia $\square$ for derivada, conclui-se que $KB \models A$; caso contr\'ario, $A$ n\~ao pode ser derivada. A regra de resolu\c{c}\~ao opera sobre pares de cl\'ausulas que contenham literais complementares. O procedimento \'e completo para a l\'ogica proposicional: se $KB \models A$, o m\'etodo sempre encontra a prova em tempo finito.
+
+\begin{lstlisting}[caption={Pseudoc\'odigo do motor de resolu\c{c}\~ao.},label={lst:pseudocodigo}]
+funcao RESOLUCAO(KB, conclusao):
+    clausulas <- KB uniao {NOT conclusao}
+    repita:
+        novas <- conjunto vazio
+        para cada par (Ci, Cj) em clausulas:
+            resolvente <- RESOLVER(Ci, Cj)
+            se resolvente = clausula_vazia:
+                retorna VERDADEIRO
+            novas <- novas uniao {resolvente}
+        se novas subconjunto de clausulas:
+            retorna FALSO
+        clausulas <- clausulas uniao novas
+\end{lstlisting}
+
+A complexidade computacional do m\'etodo de resolu\c{c}\~ao para l\'ogica proposicional \'e exponencial no pior caso, mas para a base de conhecimento do AcolheMente (6 cl\'ausulas com no m\'aximo 4 literais cada), a converg\^encia \'e virtualmente instant\^anea.
+
+% =====================================================================
+% CAP\'ITULO 9
+% =====================================================================
+\chapter{Implementa\c{c}\~ao Acad\^emica e Motores Equivalentes}
+
+O motor de infer\^encia foi implementado em Python, seguindo princ\'ipios de modularidade e testabilidade. A arquitetura separa tr\^es responsabilidades: representa\c{c}\~ao das cl\'ausulas CNF (Ap\^endice A--B), mecanismo de resolu\c{c}\~ao (Ap\^endice C) e interface de valida\c{c}\~ao com cen\'arios sint\'eticos (Ap\^endice D). A implementa\c{c}\~ao adota o padr\~ao de representa\c{c}\~ao de cl\'ausulas como conjuntos imut\'aveis (\texttt{frozenset}) de literais, onde literais positivos s\~ao representados pelo nome da vari\'avel e literais negativos pelo prefixo \texttt{\textasciitilde}. Essa escolha garante que cl\'ausulas sejam \textit{hashable} e possam ser armazenadas em conjuntos, evitando duplicatas durante o processo de resolu\c{c}\~ao.
+
+O projeto mant\'em duas vers\~oes do motor de infer\^encia, ambas matematicamente equivalentes. A vers\~ao de produ\c{c}\~ao, localizada em \texttt{src/acolhemente/motor.py}, possui arquitetura modular com camadas de abstra\c{c}\~ao, integra\c{c}\~ao com o grafo de explicabilidade e \textit{pipeline} de testes automatizados; \'e a vers\~ao que seria utilizada em eventual implanta\c{c}\~ao institucional. A vers\~ao acad\^emica, localizada em \texttt{appendices/motor\_resolucao\_acolhemente.py}, \'e uma simplifica\c{c}\~ao did\'atica com menos de 100 linhas de c\'odigo, sem depend\^encias externas al\'em da biblioteca padr\~ao, com coment\'arios explicativos em portugu\^es. \'E a vers\~ao apresentada nos Ap\^endices deste PDF e executada no Google Colab.
+
+A simplifica\c{c}\~ao do motor acad\^emico n\~ao significa regra diferente. As regras R1--R6, a CNF e a vari\'avel de sa\'ida $A$ s\~ao id\^enticas em ambas as vers\~oes. A diferen\c{c}a reside em aspectos de engenharia de software: menos camadas de arquitetura, menos abstra\c{c}\~oes orientadas a objetos, mais coment\'arios did\'aticos para leitura direta no PDF, e execu\c{c}\~ao simples no Colab sem necessidade de instala\c{c}\~ao de pacotes. A escolha de apresentar a vers\~ao acad\^emica no PDF segue o padr\~ao do modelo de resposta da Trilha I, que privilegia scripts did\'aticos em ap\^endices execut\'aveis. Um teste de equival\^encia (\texttt{tests/test\_motor\_equivalence\_contract.py}) verifica que ambas as vers\~oes produzem sa\'idas id\^enticas para os mesmos cen\'arios de entrada.
+
+O motor inclui fun\c{c}\~ao de explicabilidade que, para cada conclus\~ao $A = \text{verdadeiro}$, identifica quais regras foram acionadas e produz texto explicativo em linguagem natural. Essa funcionalidade \'e essencial para o princ\'ipio de \textit{human-in-the-loop}: a equipe escolar pode verificar n\~ao apenas \textit{se} o acolhimento foi priorizado, mas \textit{por que}. O c\'odigo-fonte completo encontra-se nos Ap\^endices A--F.
+
+% =====================================================================
+% CAP\'ITULO 10
+% =====================================================================
+\chapter{Cen\'arios Sint\'eticos e Valida\c{c}\~ao do Motor}
+
+O modelo possui 7 vari\'aveis proposicionais no total, sendo 6 vari\'aveis de entrada ($E$, $B$, $V$, $S$, $C$, $I$) e 1 vari\'avel de sa\'ida ($A$). Portanto, existem $2^6 = 64$ combina\c{c}\~oes poss\'iveis das vari\'aveis de entrada. Os cen\'arios sint\'eticos n\~ao representam alunos reais: existem exclusivamente para testar a fronteira l\'ogica de cada regra em condi\c{c}\~oes controladas.
+
+Em um Sistema Baseado em Conhecimento com l\'ogica proposicional, cen\'arios sint\'eticos determin\'isticos s\~ao a ferramenta adequada de valida\c{c}\~ao. Diferentemente de modelos estat\'isticos --- que exigem grandes volumes de dados para estima\c{c}\~ao de par\^ametros ---, sistemas simb\'olicos podem ser validados exaustivamente por enumera\c{c}\~ao do espa\c{c}o de estados. Cada cen\'ario corresponde a uma valora\c{c}\~ao booleana controlada das 6 vari\'aveis de entrada, permitindo verificar se o motor produz a sa\'ida esperada para cada combina\c{c}\~ao.
+
+A raz\~ao pela qual n\~ao se utiliza a PeNSE diretamente no motor j\'a foi discutida no Cap\'itulo 5, mas merece reitera\c{c}\~ao neste contexto: a PeNSE \'e pesquisa populacional, n\~ao prontu\'ario individual. Seus dados agregados justificam a exist\^encia do problema e orientam a escolha das vari\'aveis, mas n\~ao constituem entradas operacionais para infer\^encia l\'ogica sobre indiv\'iduos. Os cen\'arios sint\'eticos, por outro lado, foram projetados deliberadamente para testar cada fronteira l\'ogica de cada regra, oferecendo cobertura que dados reais ruidosos n\~ao proporcionariam com a mesma precis\~ao.
+
+Os cen\'arios foram criados seguindo uma l\'ogica sistem\'atica. O cen\'ario nulo, com todas as vari\'aveis falsas, verifica que o motor n\~ao emite alertas espont\^aneos --- aus\^encia de falsos positivos em condi\c{c}\~oes de quietude. O cen\'ario de $S$ isolado testa a regra R1, a mais cr\'itica do sistema, confirmando que autoagress\~ao dispara acolhimento incondicional. Os cen\'arios de combina\c{c}\~oes bin\'arias ($V+E$, $E+B$, $V+B$) testam as regras R2, R3 e R4, verificando que pares de vari\'aveis nucleares acionam corretamente o motor. O cen\'ario $E+B+C$ testa R5, confirmando que o contexto agravante funciona como modulador quando somado a vari\'aveis nucleares. O cen\'ario $V+I$ testa R6, verificando a intera\c{c}\~ao entre desvalor da vida e insufici\^encia institucional.
+
+Os \textit{guardrails} foram testados com particular rigor. O cen\'ario de $C$ isolado, com todas as demais vari\'aveis falsas, verifica que contexto agravante sozinho n\~ao estigmatiza um estudante --- o motor retorna ``n\~ao'', confirmando que a restri\c{c}\~ao l\'ogica funciona. O cen\'ario de $I$ isolado aplica o mesmo teste para insufici\^encia institucional. O cen\'ario $C+I$ sem vari\'aveis nucleares verifica que mesmo a combina\c{c}\~ao de ambos os fatores contextuais n\~ao \'e suficiente para acionar o acolhimento. A vari\'avel $S$ \'e a \'unica exce\c{c}\~ao deliberada ao princ\'ipio de que nenhuma vari\'avel isolada aciona $A$: autoagress\~ao \'e, por defini\c{c}\~ao, um indicador de gravidade incondicional.
+
+Os cen\'arios de vari\'aveis nucleares isoladas ($E$ sozinho, $B$ sozinho, $V$ sozinho) confirmam que nenhuma vari\'avel nuclear, exceto $S$, \'e suficiente isoladamente para acionar o motor. Essa caracter\'istica \'e deliberada: o sistema exige combina\c{c}\~oes espec\'ificas para evitar falsos positivos por sinais amb\'iguos. O cen\'ario com todas as vari\'aveis verdadeiras testa a satura\c{c}\~ao total, confirmando que m\'ultiplas regras podem ser acionadas simultaneamente sem contradi\c{c}\~ao l\'ogica.
+
+A cobertura exaustiva das $2^6 = 64$ combina\c{c}\~oes garante que n\~ao h\'a ``pontos cegos'' no motor. Cada combina\c{c}\~ao poss\'ivel foi testada e cada resultado \'e determin\'istico e rastre\'avel \`a regra que o originou. A tabela a seguir apresenta os cen\'arios representativos selecionados, com a finalidade de cada teste explicitada.
+
+\begin{longtable}{lcccccc c ll}
+\caption{Cen\'arios sint\'eticos: valora\c{c}\~ao, resultado e finalidade.} \label{tab:cenarios_finalidade} \\
+\toprule
+\textbf{Cen\'ario} & $E$ & $B$ & $V$ & $S$ & $C$ & $I$ & $A$ & \textbf{Regra} & \textbf{Finalidade} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Cen\'ario} & $E$ & $B$ & $V$ & $S$ & $C$ & $I$ & $A$ & \textbf{Regra} & \textbf{Finalidade} \\
+\midrule
+\endhead
+Nulo            & 0 & 0 & 0 & 0 & 0 & 0 & N\~AO & ---  & Aus\^encia de falso positivo \\
+S isolado       & 0 & 0 & 0 & 1 & 0 & 0 & SIM & R1   & Autoagress\~ao incondicional \\
+V+E             & 1 & 0 & 1 & 0 & 0 & 0 & SIM & R2   & Desvalor + sofrimento \\
+E+B             & 1 & 1 & 0 & 0 & 0 & 0 & SIM & R3   & Sofrimento + baixo apoio \\
+V+B             & 0 & 1 & 1 & 0 & 0 & 0 & SIM & R4   & Desvalor + baixo apoio \\
+E+B+C           & 1 & 1 & 0 & 0 & 1 & 0 & SIM & R5   & Contexto agravante \\
+V+I             & 0 & 0 & 1 & 0 & 0 & 1 & SIM & R6   & Insuf. institucional \\
+C isolado       & 0 & 0 & 0 & 0 & 1 & 0 & N\~AO & ---  & \textit{Guardrail} C \\
+I isolado       & 0 & 0 & 0 & 0 & 0 & 1 & N\~AO & ---  & \textit{Guardrail} I \\
+C+I             & 0 & 0 & 0 & 0 & 1 & 1 & N\~AO & ---  & \textit{Guardrail} duplo \\
+Todas           & 1 & 1 & 1 & 1 & 1 & 1 & SIM & R1--R6 & Satura\c{c}\~ao total \\
+E isolado       & 1 & 0 & 0 & 0 & 0 & 0 & N\~AO & ---  & Nuclear insuficiente \\
+B isolado       & 0 & 1 & 0 & 0 & 0 & 0 & N\~AO & ---  & Nuclear insuficiente \\
+V isolado       & 0 & 0 & 1 & 0 & 0 & 0 & N\~AO & ---  & Nuclear insuficiente \\
+\bottomrule
+\end{longtable}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{../figures/cenarios_ativacao_regras.png}
+\caption{Ativa\c{c}\~ao de regras por cen\'arios sint\'eticos representativos.}
+\label{fig:ativacao_regras}
+\end{figure}
+
+Cabe registrar uma propriedade l\'ogica relevante da base de conhecimento: a regra R5 ($E \land B \land C \rightarrow A$) \'e \textbf{subsumida} pela regra R3 ($E \land B \rightarrow A$). Isso significa que, em toda valora\c{c}\~ao em que R5 dispara --- isto \'e, quando $E$, $B$ e $C$ s\~ao todos verdadeiros ---, R3 tamb\'em dispara, pois $E$ e $B$ j\'a s\~ao suficientes. A valida\c{c}\~ao exaustiva das $2^6 = 64$ combina\c{c}\~oes confirma que n\~ao h\'a nenhum cen\'ario em que R5 seja a \textit{\'unica} regra acionada. Apesar da subsun\c{c}\~ao, R5 \'e deliberadamente mantida na base por tr\^es raz\~oes: (1) enriquece a explica\c{c}\~ao ao profissional humano, incluindo o fator contextual $C$ na lista de regras acionadas; (2) prepara a base para futuras vers\~oes com l\'ogica \textit{fuzzy}, em que $C$ poderia modular graus de urg\^encia; e (3) n\~ao introduz falsos positivos nem altera o resultado de nenhum cen\'ario. O registro completo das 64 combina\c{c}\~oes encontra-se no arquivo \texttt{outputs/validacao\_exaustiva\_64.csv}.
+
+% =====================================================================
+% CAP\'ITULO 11
+% =====================================================================
+\chapter{Resultados, Guardrails e Compara\c{c}\~ao com Baseline}
+
+Os resultados da valida\c{c}\~ao exaustiva com as $2^6 = 64$ combina\c{c}\~oes poss\'iveis das vari\'aveis de entrada confirmam o comportamento esperado em todos os cen\'arios testados, sem exce\c{c}\~ao. Nenhum falso positivo foi observado no cen\'ario nulo --- quando todas as vari\'aveis s\~ao falsas, o motor corretamente n\~ao infere $A$, demonstrando que o sistema n\~ao emite alertas espont\^aneos. A vari\'avel $S$ (autoagress\~ao) \'e suficiente para acionar o acolhimento isoladamente, confirmando a prioridade incondicional da regra R1. As combina\c{c}\~oes bin\'arias $V+E$, $E+B$ e $V+B$ ativam corretamente R2, R3 e R4, enquanto as combina\c{c}\~oes com contextuais $E+B+C$ e $V+I$ ativam R5 e R6 conforme projetado.
+
+Os testes de \textit{guardrail} merecem destaque especial, pois constituem a demonstra\c{c}\~ao mais importante da responsabilidade \'etica do sistema. Quando apenas $C$ \'e verdadeira, com todas as demais falsas, o motor retorna ``n\~ao'' --- um estudante inserido em contexto comportamental negativo n\~ao \'e automaticamente rotulado como priorit\'ario, o que evitaria estigmatiza\c{c}\~ao injusta. O mesmo resultado obt\'em-se quando apenas $I$ \'e verdadeira: insufici\^encia institucional n\~ao \'e, por si s\'o, motivo para sinalizar um adolescente. O teste mais rigoroso \'e o cen\'ario $C+I$ sem vari\'aveis nucleares: mesmo com ambos os fatores contextuais ativos, o motor n\~ao infere $A$, confirmando que a combina\c{c}\~ao de contextuais n\~ao supera o \textit{guardrail} l\'ogico. Esses resultados demonstram que o sistema foi projetado para proteger, n\~ao para classificar.
+
+Os cen\'arios de vari\'aveis nucleares isoladas complementam a valida\c{c}\~ao: $E$ sozinho, $B$ sozinho e $V$ sozinho n\~ao acionam $A$. Essa caracter\'istica confirma que o motor exige combina\c{c}\~oes espec\'ificas de indicadores para evitar falsos positivos por sinais isolados e potencialmente amb\'iguos. O cen\'ario com todas as vari\'aveis verdadeiras demonstra que m\'ultiplas regras podem ser acionadas simultaneamente (R1 a R6) sem contradi\c{c}\~ao l\'ogica, confirmando a consist\^encia da base de conhecimento.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{../figures/resultado_cenarios_sinteticos.png}
+\caption{Resultado dos cen\'arios sint\'eticos: heatmap das vari\'aveis de entrada e resultado da infer\^encia.}
+\label{fig:resultado_cenarios}
+\end{figure}
+
+A compara\c{c}\~ao entre o modelo operacional atual --- decis\~ao manual pela equipe escolar --- e o motor l\'ogico evidencia ganhos substanciais em transpar\^encia, consist\^encia e explicabilidade. No \textit{baseline} manual, a decis\~ao depende da percep\c{c}\~ao individual do profissional, que pode variar entre turnos, dias e unidades escolares. O motor l\'ogico oferece 100\% de auditabilidade: cada conclus\~ao \'e rastre\'avel a regras expl\'icitas em CNF. O \textit{baseline} manual est\'a sujeito a fadiga decis\'oria; o motor \'e determin\'istico. Entretanto, \'e fundamental reconhecer que o motor n\~ao captura nuances qualitativas que um profissional experiente percebe em intera\c{c}\~oes face a face. N\~ao substitui a escuta ativa, a empatia ou o julgamento cl\'inico. \'E uma ferramenta de apoio, n\~ao de substitui\c{c}\~ao. A exist\^encia de um sistema automatizado pode gerar a percep\c{c}\~ao equivocada de que o acolhimento est\'a ``resolvido'' pela tecnologia --- risco que deve ser mitigado por forma\c{c}\~ao continuada.
+
+\begin{table}[H]
+\centering
+\caption{Compara\c{c}\~ao: \textit{baseline} manual vs. motor l\'ogico.}
+\label{tab:baseline}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Crit\'erio} & \textbf{Manual} & \textbf{Motor L\'ogico} \\
+\midrule
+Transpar\^encia     & Baixa      & Total \\
+Consist\^encia      & Vari\'avel   & Determin\'istica \\
+Explicabilidade   & Verbal     & Formal (CNF) \\
+Rastreabilidade   & Nenhuma    & Regra por regra \\
+Fadiga decis\'oria  & Presente   & Ausente \\
+Nuance qualitativa & Alta      & Nenhuma \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{../figures/comparacao_baseline_motor.png}
+\caption{Compara\c{c}\~ao quantitativa entre \textit{baseline} manual e motor l\'ogico.}
+\label{fig:baseline}
+\end{figure}
+
+% =====================================================================
+% CAP\'ITULO 12
+% =====================================================================
+\chapter{Explicabilidade e Grafos de Rastreabilidade}
+
+A explicabilidade n\~ao \'e um atributo desej\'avel no AcolheMente Escolar PB: \'e um requisito \'etico, jur\'idico e pedag\'ogico simultaneamente. Do ponto de vista \'etico, a aplica\c{c}\~ao de intelig\^encia artificial a popula\c{c}\~oes vulner\'aveis exige que cada sinal produzido pelo sistema seja compreens\'ivel por profissionais n\~ao t\'ecnicos. Do ponto de vista jur\'idico, a LGPD \cite{brasil_lgpd_2018} garante ao titular de dados o direito de solicitar explica\c{c}\~ao sobre decis\~oes tomadas com base em tratamento automatizado. Do ponto de vista pedag\'ogico, um instrumento de apoio \`a gest\~ao escolar s\'o ser\'a adotado se a equipe compreender --- e confiar em --- seu funcionamento.
+
+\citeonline{ribeiro_lime_2016} definem explicabilidade como a capacidade de um sistema de apresentar, em termos compreens\'iveis, as raz\~oes que levaram a uma determinada conclus\~ao. Em modelos de \textit{machine learning}, isso frequentemente exige t\'ecnicas \textit{post-hoc} como LIME ou SHAP, que aproximam o comportamento de um modelo opaco. No AcolheMente, a explicabilidade \'e \textbf{intr\'inseca}: a l\'ogica proposicional \'e, por defini\c{c}\~ao, transparente. Cada vari\'avel tem sem\^antica clara, cada regra tem antecedentes e consequente expl\'icitos, e cada conclus\~ao pode ser rastreada \`a cl\'ausula CNF que a originou. N\~ao h\'a \textit{gap} entre o que o sistema faz e o que o sistema diz que faz.
+
+Tr\^es grafos complementares documentam a rastreabilidade completa do sistema, formando uma cadeia que vai dos dados brutos at\'e a a\c{c}\~ao escolar. O grafo de proveni\^encia de dados (Figura~\ref{fig:proveniencia}) visualiza as tr\^es camadas de dados e seus fluxos autorizados, demonstrando que cada tier alimenta exclusivamente seu destino leg\'itimo. O grafo de regras (Figura~\ref{fig:grafo_regras}) visualiza as rela\c{c}\~oes entre as 6 vari\'aveis de entrada, as 6 regras R1--R6 e a vari\'avel de sa\'ida $A$, com distin\c{c}\~ao visual entre vari\'aveis nucleares (azul), contextuais (laranja), regras (cinza) e sa\'ida (vermelho). O grafo de governan\c{c}a p\'os-acolhimento (Figura~\ref{fig:grafo_gov}) visualiza o fluxo completo: do sinal do motor at\'e o encaminhamento pela rede de prote\c{c}\~ao social, passando obrigatoriamente pela revis\~ao humana, com dois n\'os de proibi\c{c}\~ao --- ``n\~ao diagn\'ostico'' e ``n\~ao ranking'' --- que refor\c{c}am os limites inviol\'aveis do sistema.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{../figures/grafo_regras_7vars.png}
+\caption{Grafo de regras: 6 vari\'aveis de entrada, 6 regras e 1 sa\'ida.}
+\label{fig:grafo_regras}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{../figures/grafo_governanca_acolhemente.png}
+\caption{Fluxo de governan\c{c}a p\'os-acolhimento: revis\~ao humana obrigat\'oria. Diagn\'ostico e ranking proibidos.}
+\label{fig:grafo_gov}
+\end{figure}
+
+Juntos, os tr\^es grafos formam uma cadeia de rastreabilidade: da origem dos dados (proveni\^encia) \`a deriva\c{c}\~ao l\'ogica (regras) \`a a\c{c}\~ao institucional (governan\c{c}a). \'E importante, contudo, reconhecer os limites dessa rastreabilidade. Os grafos podem sugerir rela\c{c}\~oes causais que n\~ao existem: a ativa\c{c}\~ao de uma regra indica correla\c{c}\~ao l\'ogica entre premissas e conclus\~ao, n\~ao causalidade cl\'inica. O sistema explica \textit{por que} uma conclus\~ao foi derivada (quais regras foram acionadas), mas n\~ao explica \textit{por que} as regras s\~ao corretas --- essa justificativa reside na engenharia do conhecimento e no julgamento dos especialistas que validaram as regras. O princ\'ipio de \textit{human-in-the-loop} complementa a explicabilidade: mesmo com um sistema totalmente transparente, a decis\~ao final de acolhimento \'e sempre humana. O motor sinaliza; o profissional decide. Essa separa\c{c}\~ao \'e inviol\'avel.
+
+% =====================================================================
+% CAP\'ITULO 13
+% =====================================================================
+\chapter{Discuss\~ao Cr\'itica}
+
+O AcolheMente Escolar PB demonstra que \'e poss\'ivel aplicar intelig\^encia artificial em um dom\'inio sens\'ivel --- sa\'ude mental de adolescentes --- com explicabilidade total, determinismo e conformidade jur\'idica. A escolha por l\'ogica proposicional, embora tecnicamente simples quando comparada a redes neurais profundas, \'e precisamente adequada ao escopo do problema. A arquitetura de governan\c{c}a --- com separa\c{c}\~ao de \textit{tiers}, \textit{guardrails} de n\~ao diagn\'ostico, proibi\c{c}\~ao de \textit{merge} entre fontes e \textit{human-in-the-loop} obrigat\'orio --- representa uma contribui\c{c}\~ao metodol\'ogica que transcende o motor l\'ogico em si.
+
+O sistema apresenta limita\c{c}\~oes que devem ser explicitamente reconhecidas. A l\'ogica proposicional n\~ao permite modelar grada\c{c}\~oes, incertezas ou rela\c{c}\~oes temporais. Um estudante que apresenta sofrimento emocional ``leve'' e outro com sofrimento ``severo'' s\~ao representados pela mesma vari\'avel bin\'aria $E = \text{verdadeiro}$. A qualidade das conclus\~oes depende inteiramente da qualidade da alimenta\c{c}\~ao das vari\'aveis de entrada: se um profissional atribui $E = \text{falso}$ quando o indicador deveria ser verdadeiro, o motor n\~ao pode corrigir o erro.
+
+O motor n\~ao aprende com novos dados. Se padr\~oes de vulnerabilidade mudarem ao longo do tempo, as regras precisam ser atualizadas manualmente por engenheiros do conhecimento. A valida\c{c}\~ao foi realizada computacionalmente com cen\'arios sint\'eticos, n\~ao em ambiente escolar real. A transi\c{c}\~ao para uso operacional exigiria piloto institucional com acompanhamento \'etico.
+
+O principal risco \'e o falso conforto tecnol\'ogico: a exist\^encia de um sistema automatizado pode levar a equipe escolar a reduzir a aten\c{c}\~ao qualitativa aos estudantes, confiando excessivamente no motor. Para mitigar esse risco, a implementa\c{c}\~ao deve ser acompanhada de forma\c{c}\~ao continuada que enfatize o car\'ater auxiliar --- nunca substitutivo --- do sistema. Outro risco \'e o vi\'es de constru\c{c}\~ao: as regras refletem o julgamento dos engenheiros do conhecimento que as definiram. A mitiga\c{c}\~ao exige revis\~ao peri\'odica por comit\^e multidisciplinar.
+
+A PeNSE 2024 oferece representatividade amostral para a Para\'iba, conferindo validade ecol\'ogica \`as vari\'aveis. Entretanto, os indicadores s\~ao agregados --- representam tend\^encias populacionais, n\~ao perfis individuais. A aplica\c{c}\~ao a uma escola espec\'ifica exige calibra\c{c}\~ao contextual.
+
+A tens\~ao entre privacidade e a\c{c}\~ao merece discuss\~ao espec\'ifica. Se os dados de um piloto operacional forem anonimizados de forma irrevers\'ivel, a escola estar\'a protegida do ponto de vista da LGPD \cite{brasil_lgpd_2018}, mas n\~ao conseguir\'a identificar qual estudante necessita de acolhimento. Anonimiza\c{c}\~ao irrevers\'ivel protege, mas impede cuidado individual --- e cuidado individual \'e a raz\~ao de ser do sistema. A solu\c{c}\~ao \'e pseudonimiza\c{c}\~ao com reidentifica\c{c}\~ao restrita: o motor processa identificadores de caso, n\~ao nomes; a chave de reidentifica\c{c}\~ao permanece sob cust\'odia da equipe m\'inima autorizada; e a reidentifica\c{c}\~ao \'e exce\c{c}\~ao controlada, auditada e humana, n\~ao procedimento rotineiro. A express\~ao ``apenas a gest\~ao pode acessar'' n\~ao \'e formula\c{c}\~ao suficiente: o correto \'e definir pap\'eis, permiss\~oes, registros de acesso e responsabilidades.
+
+Essa discuss\~ao n\~ao enfraquece a vers\~ao acad\^emica --- que opera exclusivamente com PeNSE e cen\'arios sint\'eticos. Ao contr\'ario, demonstra que o projeto antecipa e endere\c{c}a a lacuna operacional que separaria uma prova de conceito de uma implanta\c{c}\~ao respons\'avel.
+
+O AcolheMente n\~ao transforma a escola em cl\'inica. O acolhimento escolar \'e uma a\c{c}\~ao pedag\'ogica e psicossocial que envolve escuta, encaminhamento e articula\c{c}\~ao com a rede de prote\c{c}\~ao social. O motor apoia a prioriza\c{c}\~ao dessa a\c{c}\~ao, n\~ao a a\c{c}\~ao em si. A contribui\c{c}\~ao reside na demonstra\c{c}\~ao de que rigor t\'ecnico e responsabilidade \'etica podem coexistir --- e de que, em dom\'inios de alto risco humano, a transpar\^encia \'e mais valiosa que a complexidade.
+
+% =====================================================================
+% CAP\'ITULO 14
+% =====================================================================
+\chapter{Perspectiva de Evolu\c{c}\~ao do Trabalho}
+
+A arquitetura do AcolheMente Escolar PB foi concebida para permitir evolu\c{c}\~ao incremental, mas essa evolu\c{c}\~ao n\~ao \'e governada pela l\'ogica do ``mais complexo \'e melhor''. Pelo contr\'ario, qualquer avan\c{c}o t\'ecnico deve ser precedido por valida\c{c}\~oes \'eticas e institucionais proporcionais ao risco que a mudan\c{c}a introduz.
+
+O caminho mais natural de evolu\c{c}\~ao \'e o refinamento do pr\'oprio motor simb\'olico, sem abandonar o paradigma determin\'istico que lhe confere explicabilidade e rastreabilidade. A incorpora\c{c}\~ao de novas vari\'aveis --- por exemplo, frequ\^encia escolar, participa\c{c}\~ao em atividades extracurriculares ou indicadores de conviv\^encia familiar --- poderia enriquecer a modelagem sem comprometer a transpar\^encia. Essa expans\~ao, entretanto, n\~ao \'e trivial: cada nova vari\'avel dobra o espa\c{c}o combinat\'orio de estados, exigindo revis\~ao integral das regras, revalida\c{c}\~ao dos cen\'arios sint\'eticos e reavalia\c{c}\~ao dos \textit{guardrails}. A engenharia do conhecimento que sustenta o motor atual precisaria ser refeita em colabora\c{c}\~ao com especialistas do dom\'inio, e n\~ao apenas por decis\~ao t\'ecnica unilateral \cite{russell_norvig_2022}.
+
+Uma evolu\c{c}\~ao particularmente promissora dentro do paradigma simb\'olico \'e a transi\c{c}\~ao para l\'ogica \textit{fuzzy}, com graus de pertin\^encia entre 0 e 1. Essa abordagem permitiria modelar grada\c{c}\~oes de sofrimento emocional e apoio social, preservando parte da interpretabilidade da l\'ogica cl\'assica. A defini\c{c}\~ao das fun\c{c}\~oes de pertin\^encia, entretanto, exigiria calibra\c{c}\~ao emp\'irica com dados longitudinais e valida\c{c}\~ao com profissionais de psicologia escolar, o que constitui um projeto de pesquisa em si.
+
+Em horizonte mais distante, modelos h\'ibridos poderiam integrar m\'odulos de \textit{machine learning} para tarefas espec\'ificas --- como detec\c{c}\~ao de padr\~oes temporais em s\'eries hist\'oricas de indicadores escolares --- mantendo o motor simb\'olico como camada de governan\c{c}a e explicabilidade \cite{jobin_ai_ethics_2019}. A utiliza\c{c}\~ao de redes neurais profundas no dom\'inio de sa\'ude mental escolar permanece uma hip\'otese estritamente te\'orica, condicionada a aprova\c{c}\~ao por comit\^e de \'etica, conformidade demonstr\'avel com a LGPD \cite{brasil_lgpd_2018} e com o ECA \cite{brasil_eca_1990}, e base longitudinal adequada.
+
+Qualquer evolu\c{c}\~ao deve ser acompanhada de valida\c{c}\~ao institucional robusta: piloto em escola-piloto com termo de coopera\c{c}\~ao t\'ecnica, forma\c{c}\~ao continuada da equipe escolar, cria\c{c}\~ao de comit\^e de governan\c{c}a de IA e avalia\c{c}\~ao de impacto ap\'os per\'iodo m\'inimo de uso supervisionado. O \textit{roadmap} de longo prazo prev\^e integra\c{c}\~ao com os fluxos do Programa Sa\'ude na Escola \cite{brasil_pse_2007}, permitindo que o sinal de prioriza\c{c}\~ao alimente formul\'arios de encaminhamento para Unidades B\'asicas de Sa\'ude e Centros de Aten\c{c}\~ao Psicossocial --- sem, contudo, produzir dados cl\'inicos ou substituir a avalia\c{c}\~ao profissional.
+
+A transi\c{c}\~ao de prova de conceito acad\^emica para piloto operacional exigiria, al\'em das evolu\c{c}\~oes t\'ecnicas, um conjunto de instrumentos institucionais de governan\c{c}a de dados. Em primeiro lugar, a realiza\c{c}\~ao de DPIA/RIPD (Relat\'orio de Impacto \`a Prote\c{c}\~ao de Dados Pessoais), conforme previsto no art.~38 da LGPD \cite{brasil_lgpd_2018}, para mapear riscos e medidas de mitiga\c{c}\~ao espec\'ificos ao tratamento de dados de adolescentes. Em segundo lugar, a defini\c{c}\~ao de protocolo formal de pseudonimiza\c{c}\~ao, incluindo gera\c{c}\~ao de identificadores de caso, criptografia da chave de reidentifica\c{c}\~ao e pol\'itica de reten\c{c}\~ao e descarte. A matriz de pap\'eis e permiss\~oes apresentada no Cap\'itulo 5 (Tabela~\ref{tab:perfis_acesso}) precisaria ser formalizada em termo institucional de governan\c{c}a, assinado pela dire\c{c}\~ao escolar e validado pelo n\'ucleo de prote\c{c}\~ao de dados.
+
+O treinamento da equipe escolar constituiria etapa inegoci\'avel: professores, coordenadores e orientadores precisariam compreender n\~ao apenas o funcionamento do motor, mas sobretudo seus limites --- o que o sistema n\~ao faz, o que n\~ao deve ser pedido a ele, e quais comportamentos de uso s\~ao vedados. Os \textit{logs} de acesso deveriam registrar cada consulta ao sistema, cada solicita\c{c}\~ao de reidentifica\c{c}\~ao e cada encaminhamento realizado, com reten\c{c}\~ao temporal definida e auditoria peri\'odica. O piloto deveria ser supervisionado por equipe interdisciplinar que inclu\'isse, no m\'inimo, representa\c{c}\~ao pedag\'ogica, jur\'idica e de sa\'ude, com valida\c{c}\~ao pelo Programa Sa\'ude na Escola \cite{brasil_pse_2007} e pela gest\~ao escolar.
+
+Independentemente da evolu\c{c}\~ao t\'ecnica, o compromisso fundamental permanece inalter\'avel: o sistema nunca diagnosticar\'a condi\c{c}\~oes cl\'inicas. \'E necess\'ario resistir \`a tenta\c{c}\~ao de equiparar sofistica\c{c}\~ao algor\'itmica a melhoria do projeto. A simplicidade do motor proposicional n\~ao \'e uma limita\c{c}\~ao a ser superada: \'e uma \textit{feature} a ser preservada enquanto as condi\c{c}\~oes \'eticas, jur\'idicas e institucionais para abordagens mais complexas n\~ao estiverem plenamente atendidas. Conforme argumentam \citeonline{russell_norvig_2022}, a escolha da t\'ecnica deve ser guiada pelas propriedades do dom\'inio --- e o dom\'inio de sa\'ude mental escolar exige, antes de tudo, confian\c{c}a, transpar\^encia e cautela.
+
+% =====================================================================
+% CAP\'ITULO 15
+% =====================================================================
+\chapter{Conclus\~ao}
+
+O presente trabalho demonstrou a viabilidade de aplicar intelig\^encia artificial simb\'olica --- especificamente, l\'ogica proposicional com infer\^encia por resolu\c{c}\~ao --- ao dom\'inio sens\'ivel de sa\'ude mental escolar. O AcolheMente Escolar PB, motor de infer\^encia com 7 vari\'aveis proposicionais (6 de entrada e 1 de sa\'ida) e 6 regras em Forma Normal Conjuntiva, oferece uma contribui\c{c}\~ao t\'ecnica e metodol\'ogica ao debate sobre IA respons\'avel em contextos educacionais.
+
+Do ponto de vista t\'ecnico, o trabalho contribui com a formaliza\c{c}\~ao de um dom\'inio complexo em l\'ogica proposicional, demonstrando que problemas reais de apoio \`a decis\~ao podem ser modelados com t\'ecnicas da Trilha I sem recurso a \textit{machine learning}; com a implementa\c{c}\~ao de motor de resolu\c{c}\~ao determin\'istico validado contra todos os $2^6 = 64$ cen\'arios poss\'iveis das 6 vari\'aveis de entrada; e com a constru\c{c}\~ao de \textit{pipeline} reprodut\'ivel com testes automatizados.
+
+Do ponto de vista metodol\'ogico, a contribui\c{c}\~ao reside na arquitetura de governan\c{c}a de dados em tr\^es \textit{tiers}, nos \textit{guardrails} que impedem linguagem diagn\'ostica e \textit{ranking} de estudantes, na ado\c{c}\~ao de \textit{human-in-the-loop} como princ\'ipio inegoci\'avel, e na conformidade demonstr\'avel com LGPD, ECA e PSE.
+
+Do ponto de vista escolar, o trabalho oferece uma ferramenta de apoio \`a gest\~ao que reduz a depend\^encia de percep\c{c}\~oes individuais, mecanismo de explicabilidade que permite auditar cada decis\~ao, e integra\c{c}\~ao conceitual com os fluxos do Programa Sa\'ude na Escola.
+
+Os limites s\~ao reconhecidos: a expressividade restrita, a depend\^encia de alimenta\c{c}\~ao humana correta, a valida\c{c}\~ao limitada a cen\'arios sint\'eticos e o risco de falso conforto tecnol\'ogico. Esses limites n\~ao s\~ao falhas de \textit{design}: s\~ao consequ\^encias deliberadas de um sistema que prioriza seguran\c{c}a, transpar\^encia e cautela.
+
+A presente vers\~ao acad\^emica n\~ao processa estudantes reais: opera exclusivamente com PeNSE (EDA e motiva\c{c}\~ao) e cen\'arios sint\'eticos (valida\c{c}\~ao do motor). Contudo, se o AcolheMente evoluir para um piloto operacional, a ado\c{c}\~ao de pseudonimiza\c{c}\~ao e reidentifica\c{c}\~ao restrita ser\'a condi\c{c}\~ao indispens\'avel para que o sistema possa cumprir sua finalidade --- apoiar o acolhimento --- sem expor estudantes. Esse desenho preserva a possibilidade de cuidado sem violar a privacidade, e o princ\'ipio de finalidade da LGPD \cite{brasil_lgpd_2018} deve guiar qualquer uso operacional do sistema.
+
+A maturidade de um projeto de IA aplicada a popula\c{c}\~oes vulner\'aveis n\~ao se mede pela complexidade do modelo, mas pela robustez de sua governan\c{c}a. O AcolheMente Escolar PB demonstra que \'e poss\'ivel ser tecnicamente rigoroso e eticamente respons\'avel --- e que, em dom\'inios de alto risco humano, essa combina\c{c}\~ao n\~ao \'e opcional.
+
+% =====================================================================
+% REFER\^ENCIAS
+% =====================================================================
+\bibliographystyle{abntex2-alf}
+\bibliography{referencias}
+
+% =====================================================================
+% AP\^ENDICES
+% =====================================================================
+\begin{apendicesenv}
+\partapendices
+
+\chapter{S\'imbolos Proposicionais do AcolheMente}
+\label{ap:simbolos}
+\lstinputlisting[caption={S\'imbolos proposicionais do AcolheMente.}, label={lst:simbolos}]{../appendices/simbolos_acolhemente.py}
+
+\chapter{Regras L\'ogicas e CNF}
+\label{ap:regras}
+\lstinputlisting[caption={Regras l\'ogicas e CNF.}, label={lst:regras}]{../appendices/regras_acolhemente.py}
+
+\chapter{Motor de Infer\^encia por Resolu\c{c}\~ao}
+\label{ap:motor}
+\lstinputlisting[caption={Motor de infer\^encia por resolu\c{c}\~ao.}, label={lst:motor}]{../appendices/motor_resolucao_acolhemente.py}
+
+\chapter{Cen\'arios Sint\'eticos de Valida\c{c}\~ao}
+\label{ap:cenarios}
+\lstinputlisting[caption={Cen\'arios sint\'eticos de valida\c{c}\~ao.}, label={lst:cenarios}]{../appendices/cenarios_sinteticos_acolhemente.py}
+
+\chapter{Grafo de Explicabilidade}
+\label{ap:grafo}
+\lstinputlisting[caption={Gerador do grafo de explicabilidade.}, label={lst:grafo}]{../appendices/grafo_explicabilidade_acolhemente.py}
+
+\chapter{Gerador de Tabelas de Resultados}
+\label{ap:tabelas}
+\lstinputlisting[caption={Pipeline de gera\c{c}\~ao de tabelas LaTeX.}, label={lst:tabelas}]{../appendices/gerar_tabelas_resultados.py}
+
+\chapter{EDA PeNSE e Dataset Externo}
+\label{ap:eda}
+O c\'odigo completo de EDA encontra-se no m\'odulo \texttt{src/acolhemente/eda\_plots.py} do reposit\'orio principal. Esse m\'odulo cont\'em fun\c{c}\~oes para gera\c{c}\~ao de gr\'aficos comparativos (Para\'iba vs. Nordeste vs. Brasil) a partir da PeNSE 2024 e fun\c{c}\~oes de visualiza\c{c}\~ao explorat\'oria do \textit{dataset} externo, com separa\c{c}\~ao estrita entre TIER\_A e TIER\_C.
+
+\chapter{Grafos de Proveni\^encia e Governan\c{c}a}
+\label{ap:grafos_gov}
+\lstinputlisting[caption={Gerador de grafos de proveni\^encia, governan\c{c}a e ativa\c{c}\~ao de regras.}, label={lst:grafos_gov}]{../appendices/grafos_governanca_proveniencia.py}
+
+\chapter{Fluxo Operacional Pseudonimizado}
+\label{ap:pseudonimizacao}
+\lstinputlisting[caption={Gerador do fluxo operacional pseudonimizado.}, label={lst:pseudo}]{../appendices/grafo_pseudonimizacao_acolhimento.py}
+
+\end{apendicesenv}
+
+\end{document}

@@ -1,0 +1,2 @@
+academic_abntex2_attempt_v3_2/outputs/main_acolhemente_abntex2.pdf
+academic_abntex2_attempt_v3_2/outputs/Trabalho_Trilha_I_AcolheMente_PB.ipynb

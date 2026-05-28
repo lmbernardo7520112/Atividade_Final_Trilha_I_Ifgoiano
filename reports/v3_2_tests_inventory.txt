@@ -1,0 +1,14 @@
+academic_abntex2_attempt_v3_2/tests/__pycache__/test_academic_flow_contract.cpython-312-pytest-9.0.3.pyc
+academic_abntex2_attempt_v3_2/tests/__pycache__/test_attempt_abntex2_contract.cpython-312-pytest-9.0.3.pyc
+academic_abntex2_attempt_v3_2/tests/__pycache__/test_attempt_academic_structure.cpython-312-pytest-9.0.3.pyc
+academic_abntex2_attempt_v3_2/tests/__pycache__/test_attempt_pdf_quality.cpython-312-pytest-9.0.3.pyc
+academic_abntex2_attempt_v3_2/tests/__pycache__/test_data_usage_explanation_contract.cpython-312-pytest-9.0.3.pyc
+academic_abntex2_attempt_v3_2/tests/__pycache__/test_motor_equivalence_contract.cpython-312-pytest-9.0.3.pyc
+academic_abntex2_attempt_v3_2/tests/__pycache__/test_operational_privacy_contract.cpython-312-pytest-9.0.3.pyc
+academic_abntex2_attempt_v3_2/tests/test_academic_flow_contract.py
+academic_abntex2_attempt_v3_2/tests/test_attempt_abntex2_contract.py
+academic_abntex2_attempt_v3_2/tests/test_attempt_academic_structure.py
+academic_abntex2_attempt_v3_2/tests/test_attempt_pdf_quality.py
+academic_abntex2_attempt_v3_2/tests/test_data_usage_explanation_contract.py
+academic_abntex2_attempt_v3_2/tests/test_motor_equivalence_contract.py
+academic_abntex2_attempt_v3_2/tests/test_operational_privacy_contract.py

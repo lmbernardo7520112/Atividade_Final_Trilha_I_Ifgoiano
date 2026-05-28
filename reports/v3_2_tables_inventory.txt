@@ -1,0 +1,3 @@
+academic_abntex2_attempt_v3_2/_build/tabela_cenarios.tex
+academic_abntex2_attempt_v3_2/_build/tabela_regras.tex
+academic_abntex2_attempt_v3_2/_build/tabela_variaveis.tex
