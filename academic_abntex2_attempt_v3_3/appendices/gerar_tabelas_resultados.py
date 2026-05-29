@@ -19,7 +19,7 @@ E & Nuclear    & Sofrimento emocional recorrente       & B12004, B12005, B12007 
 B & Nuclear    & Baixo apoio socioafetivo percebido     & B12003, B07004 \\
 V & Nuclear    & Indicador de desvalor da vida          & B12008 \\
 S & Nuclear    & Sinal de autoagressão                  & B12009 \\
-A & Nuclear    & Acolhimento prioritário (saída)        & Inferida \\
+A & Saída inferida    & Acolhimento prioritário (saída)        & Inferida \\
 C & Contextual & Contexto comportamental agravante      & B03010C, B03006B \\
 I & Contextual & Insuficiência institucional             & E01P60, E01P117 \\
 \bottomrule

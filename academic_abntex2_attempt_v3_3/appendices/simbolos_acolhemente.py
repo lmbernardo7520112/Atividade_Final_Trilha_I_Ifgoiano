@@ -6,7 +6,7 @@
 # ADR-008/009: Sem linguagem diagnostica, sem dados identificaveis
 # =====================================================================
 
-# --- 5 Variaveis Nucleares ---
+# --- 4 Variaveis Nucleares de Entrada ---
 E = "Sofrimento emocional recorrente"       # PeNSE: B12004, B12005, B12007
 B = "Baixo apoio socioafetivo percebido"    # PeNSE: B12003, B07004
 V = "Indicador critico de desvalor da vida" # PeNSE: B12008
@@ -23,13 +23,14 @@ VARIAVEIS = {
     "B": {"semantica": B, "tipo": "nuclear",    "fontes": ["B12003","B07004"]},
     "V": {"semantica": V, "tipo": "nuclear",    "fontes": ["B12008"]},
     "S": {"semantica": S, "tipo": "nuclear",    "fontes": ["B12009"]},
-    "A": {"semantica": A, "tipo": "nuclear",    "fontes": ["inferida"]},
+    "A": {"semantica": A, "tipo": "saida_inferida", "fontes": ["inferida"]},
     "C": {"semantica": C, "tipo": "contextual", "fontes": ["B03010C","B03006B"]},
     "I": {"semantica": I, "tipo": "contextual", "fontes": ["E01P60","E01P117"]},
 }
 
 assert len(VARIAVEIS) == 7, "Budget: exatamente 7 variaveis"
-assert sum(1 for v in VARIAVEIS.values() if v["tipo"]=="nuclear") == 5
+assert sum(1 for v in VARIAVEIS.values() if v["tipo"]=="nuclear") == 4
+assert sum(1 for v in VARIAVEIS.values() if v["tipo"]=="saida_inferida") == 1
 assert sum(1 for v in VARIAVEIS.values() if v["tipo"]=="contextual") == 2
 
 if __name__ == "__main__":

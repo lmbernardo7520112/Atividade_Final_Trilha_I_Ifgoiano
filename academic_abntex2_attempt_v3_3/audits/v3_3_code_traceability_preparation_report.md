@@ -68,7 +68,7 @@ Adicionar ao documento de preparação para banca um mapa de rastreabilidade tex
 
 ## 7. Limitações
 
-- O campo `tipo` de A em `simbolos_acolhemente.py` (L26) ainda diz `"nuclear"` (legado). A tabela LaTeX (`_build/tabela_variaveis.tex`) já está correta ("Saída inferida"). Essa divergência foi documentada no Item 2 do mapa.
+- ~~O campo `tipo` de A em `simbolos_acolhemente.py` (L26) ainda diz `"nuclear"` (legado).~~ **Corrigido em 2026-05-29:** A divergência residual foi eliminada. `A` agora está alinhada à taxonomia final como `"saida_inferida"` em `simbolos_acolhemente.py`. A tabela LaTeX, o PDF e o código-fonte passam a apresentar a mesma interpretação semântica. Ver `audits/v3_3_symbols_taxonomy_fix_report.md`.
 - Não há pipeline Markdown→DOCX no projeto. Documento disponível apenas em Markdown.
 - Não há pipeline Markdown→PDF separado. O PDF acadêmico é compilado via LaTeX.
 

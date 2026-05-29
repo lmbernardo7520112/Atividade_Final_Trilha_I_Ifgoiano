@@ -742,7 +742,7 @@ Memorize estas frases. Elas funcionam como "encerramento" de respostas longas ou
 | **Texto** | Cap. 7 (Representação do Conhecimento), L308–316 |
 | **Código** | `appendices/simbolos_acolhemente.py:9–28` — definição com tipo e fontes PeNSE |
 | **LaTeX** | `_build/tabela_variaveis.tex` — tabela publicada no PDF |
-| **Evidência** | `A` marcada como `tipo: "nuclear"` no código legado, mas como "Saída inferida" na tabela LaTeX |
+| **Evidência** | `A` marcada como `tipo: "saida_inferida"` no código, alinhada com "Saída inferida" na tabela LaTeX (corrigido em 2026-05-29) |
 | **Explicação oral** | "As seis primeiras variáveis são entradas; A é saída inferida. Por isso o espaço de teste é 2^6 = 64, não 2^7." |
 
 ### Item 3 — Regras R1–R6
