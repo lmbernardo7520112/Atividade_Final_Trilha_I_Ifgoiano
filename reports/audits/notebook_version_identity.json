@@ -1,0 +1,310 @@
+[
+  {
+    "label": "raiz/notebooks",
+    "path": "./notebooks/Trabalho_Trilha_I_AcolheMente_PB.ipynb",
+    "size_bytes": 53910,
+    "n_cells": 20,
+    "cell_types": {
+      "code": 4,
+      "markdown": 16
+    },
+    "has_outputs": true,
+    "md_headings_count": 50,
+    "first_5_headings": [
+      "# 1. Apresentação do Aluno e Contexto",
+      "# 2. Introdução e Definição do Problema",
+      "### Definição Operacional do Problema",
+      "# 3. Metodologia e Escolha da Técnica de IA",
+      "## 3.1 Sistemas Baseados em Conhecimento"
+    ],
+    "last_5_headings": [
+      "## 12.4 Integração com Rede de Saúde (PSE/UBS/CAPS)",
+      "## 12.5 Monitoramento de Viés e Auditoria Humana",
+      "## 12.6 Compromisso com o Não Diagnóstico",
+      "# 13. Conclusões",
+      "# 14. Referências Bibliográficas"
+    ],
+    "checks": {
+      "has_colab_meta": false,
+      "has_logo_urutai": true,
+      "has_abntex2": false,
+      "has_EBVSCIA": true,
+      "has_R1_R6": true,
+      "has_64_cenarios": true,
+      "has_pseudonimizacao": false,
+      "has_LGPD": true,
+      "has_ECA": true,
+      "has_PSE": true,
+      "has_governanca": true,
+      "has_v3_3_mention": false,
+      "has_v3_2_mention": false,
+      "has_oraculo": false,
+      "has_inferir_acolhimento": true,
+      "has_csv_writer": false
+    }
+  },
+  {
+    "label": "v3_3/notebooks",
+    "path": "./academic_abntex2_attempt_v3_3/notebooks/Trabalho_Trilha_I_AcolheMente_PB.ipynb",
+    "size_bytes": 73188,
+    "n_cells": 29,
+    "cell_types": {
+      "markdown": 13,
+      "code": 16
+    },
+    "has_outputs": true,
+    "md_headings_count": 22,
+    "first_5_headings": [
+      "# Apresentação do Aluno e Contexto",
+      "# Introdução e Definição do Problema",
+      "# Metodologia e Escolha da Técnica de IA",
+      "## Arquitetura de Dados, Proveniência e Governança",
+      "## Representação do Conhecimento: 7 Variáveis Proposicionais"
+    ],
+    "last_5_headings": [
+      "## Apêndice B: Regras Lógicas e CNF",
+      "## Apêndice C: Motor de Inferência por Resolução",
+      "## Apêndice D: Cenários Sintéticos de Validação",
+      "## Apêndice E: Grafo de Explicabilidade",
+      "## Apêndice F: Gerador de Tabelas de Resultados"
+    ],
+    "checks": {
+      "has_colab_meta": true,
+      "has_logo_urutai": true,
+      "has_abntex2": false,
+      "has_EBVSCIA": true,
+      "has_R1_R6": true,
+      "has_64_cenarios": true,
+      "has_pseudonimizacao": false,
+      "has_LGPD": true,
+      "has_ECA": true,
+      "has_PSE": true,
+      "has_governanca": true,
+      "has_v3_3_mention": true,
+      "has_v3_2_mention": false,
+      "has_oraculo": true,
+      "has_inferir_acolhimento": true,
+      "has_csv_writer": true
+    }
+  },
+  {
+    "label": "v3_3/outputs",
+    "path": "./academic_abntex2_attempt_v3_3/outputs/Trabalho_Trilha_I_AcolheMente_PB.ipynb",
+    "size_bytes": 73188,
+    "n_cells": 29,
+    "cell_types": {
+      "markdown": 13,
+      "code": 16
+    },
+    "has_outputs": true,
+    "md_headings_count": 22,
+    "first_5_headings": [
+      "# Apresentação do Aluno e Contexto",
+      "# Introdução e Definição do Problema",
+      "# Metodologia e Escolha da Técnica de IA",
+      "## Arquitetura de Dados, Proveniência e Governança",
+      "## Representação do Conhecimento: 7 Variáveis Proposicionais"
+    ],
+    "last_5_headings": [
+      "## Apêndice B: Regras Lógicas e CNF",
+      "## Apêndice C: Motor de Inferência por Resolução",
+      "## Apêndice D: Cenários Sintéticos de Validação",
+      "## Apêndice E: Grafo de Explicabilidade",
+      "## Apêndice F: Gerador de Tabelas de Resultados"
+    ],
+    "checks": {
+      "has_colab_meta": true,
+      "has_logo_urutai": true,
+      "has_abntex2": false,
+      "has_EBVSCIA": true,
+      "has_R1_R6": true,
+      "has_64_cenarios": true,
+      "has_pseudonimizacao": false,
+      "has_LGPD": true,
+      "has_ECA": true,
+      "has_PSE": true,
+      "has_governanca": true,
+      "has_v3_3_mention": true,
+      "has_v3_2_mention": false,
+      "has_oraculo": true,
+      "has_inferir_acolhimento": true,
+      "has_csv_writer": true
+    }
+  },
+  {
+    "label": "v3_3/scripts/notebooks",
+    "path": "./academic_abntex2_attempt_v3_3/scripts/notebooks/Trabalho_Trilha_I_AcolheMente_PB.ipynb",
+    "size_bytes": 62784,
+    "n_cells": 26,
+    "cell_types": {
+      "markdown": 11,
+      "code": 15
+    },
+    "has_outputs": false,
+    "md_headings_count": 20,
+    "first_5_headings": [
+      "# Apresentação do Aluno e Contexto",
+      "# Introdução e Definição do Problema",
+      "# Metodologia e Escolha da Técnica de IA",
+      "## Arquitetura de Dados, Proveniência e Governança",
+      "## Representação do Conhecimento: 7 Variáveis Proposicionais"
+    ],
+    "last_5_headings": [
+      "## Apêndice B: Regras Lógicas e CNF",
+      "## Apêndice C: Motor de Inferência por Resolução",
+      "## Apêndice D: Cenários Sintéticos de Validação",
+      "## Apêndice E: Grafo de Explicabilidade",
+      "## Apêndice F: Gerador de Tabelas de Resultados"
+    ],
+    "checks": {
+      "has_colab_meta": true,
+      "has_logo_urutai": true,
+      "has_abntex2": false,
+      "has_EBVSCIA": true,
+      "has_R1_R6": true,
+      "has_64_cenarios": true,
+      "has_pseudonimizacao": false,
+      "has_LGPD": true,
+      "has_ECA": true,
+      "has_PSE": true,
+      "has_governanca": true,
+      "has_v3_3_mention": false,
+      "has_v3_2_mention": false,
+      "has_oraculo": false,
+      "has_inferir_acolhimento": true,
+      "has_csv_writer": false
+    }
+  },
+  {
+    "label": "v3_2/notebooks",
+    "path": "./academic_abntex2_attempt_v3_2/notebooks/Trabalho_Trilha_I_AcolheMente_PB.ipynb",
+    "size_bytes": 62673,
+    "n_cells": 26,
+    "cell_types": {
+      "markdown": 11,
+      "code": 15
+    },
+    "has_outputs": false,
+    "md_headings_count": 20,
+    "first_5_headings": [
+      "# Apresentação do Aluno e Contexto",
+      "# Introdução e Definição do Problema",
+      "# Metodologia e Escolha da Técnica de IA",
+      "## Arquitetura de Dados, Proveniência e Governança",
+      "## Representação do Conhecimento: 7 Variáveis Proposicionais"
+    ],
+    "last_5_headings": [
+      "## Apêndice B: Regras Lógicas e CNF",
+      "## Apêndice C: Motor de Inferência por Resolução",
+      "## Apêndice D: Cenários Sintéticos de Validação",
+      "## Apêndice E: Grafo de Explicabilidade",
+      "## Apêndice F: Gerador de Tabelas de Resultados"
+    ],
+    "checks": {
+      "has_colab_meta": true,
+      "has_logo_urutai": true,
+      "has_abntex2": false,
+      "has_EBVSCIA": true,
+      "has_R1_R6": true,
+      "has_64_cenarios": true,
+      "has_pseudonimizacao": false,
+      "has_LGPD": true,
+      "has_ECA": true,
+      "has_PSE": true,
+      "has_governanca": true,
+      "has_v3_3_mention": false,
+      "has_v3_2_mention": false,
+      "has_oraculo": false,
+      "has_inferir_acolhimento": true,
+      "has_csv_writer": false
+    }
+  },
+  {
+    "label": "v3_1/notebooks",
+    "path": "./academic_abntex2_attempt_v3_1/notebooks/Trabalho_Trilha_I_AcolheMente_PB.ipynb",
+    "size_bytes": 62673,
+    "n_cells": 26,
+    "cell_types": {
+      "markdown": 11,
+      "code": 15
+    },
+    "has_outputs": false,
+    "md_headings_count": 20,
+    "first_5_headings": [
+      "# Apresentação do Aluno e Contexto",
+      "# Introdução e Definição do Problema",
+      "# Metodologia e Escolha da Técnica de IA",
+      "## Arquitetura de Dados, Proveniência e Governança",
+      "## Representação do Conhecimento: 7 Variáveis Proposicionais"
+    ],
+    "last_5_headings": [
+      "## Apêndice B: Regras Lógicas e CNF",
+      "## Apêndice C: Motor de Inferência por Resolução",
+      "## Apêndice D: Cenários Sintéticos de Validação",
+      "## Apêndice E: Grafo de Explicabilidade",
+      "## Apêndice F: Gerador de Tabelas de Resultados"
+    ],
+    "checks": {
+      "has_colab_meta": true,
+      "has_logo_urutai": true,
+      "has_abntex2": false,
+      "has_EBVSCIA": true,
+      "has_R1_R6": true,
+      "has_64_cenarios": true,
+      "has_pseudonimizacao": false,
+      "has_LGPD": true,
+      "has_ECA": true,
+      "has_PSE": true,
+      "has_governanca": true,
+      "has_v3_3_mention": false,
+      "has_v3_2_mention": false,
+      "has_oraculo": false,
+      "has_inferir_acolhimento": true,
+      "has_csv_writer": false
+    }
+  },
+  {
+    "label": "v2/notebooks",
+    "path": "./academic_abntex2_attempt_v2/notebooks/Trabalho_Trilha_I_AcolheMente_PB.ipynb",
+    "size_bytes": 61447,
+    "n_cells": 26,
+    "cell_types": {
+      "markdown": 11,
+      "code": 15
+    },
+    "has_outputs": false,
+    "md_headings_count": 20,
+    "first_5_headings": [
+      "# Apresentação do Aluno e Contexto",
+      "# Introdução e Definição do Problema",
+      "# Metodologia e Escolha da Técnica de IA",
+      "## Dados e Governança",
+      "## Representação do Conhecimento: 7 Variáveis Proposicionais"
+    ],
+    "last_5_headings": [
+      "## Apêndice B: Regras Lógicas e CNF",
+      "## Apêndice C: Motor de Inferência por Resolução",
+      "## Apêndice D: Cenários Sintéticos de Validação",
+      "## Apêndice E: Grafo de Explicabilidade",
+      "## Apêndice F: Gerador de Tabelas de Resultados"
+    ],
+    "checks": {
+      "has_colab_meta": true,
+      "has_logo_urutai": true,
+      "has_abntex2": false,
+      "has_EBVSCIA": true,
+      "has_R1_R6": true,
+      "has_64_cenarios": true,
+      "has_pseudonimizacao": false,
+      "has_LGPD": true,
+      "has_ECA": true,
+      "has_PSE": true,
+      "has_governanca": true,
+      "has_v3_3_mention": false,
+      "has_v3_2_mention": false,
+      "has_oraculo": false,
+      "has_inferir_acolhimento": true,
+      "has_csv_writer": false
+    }
+  }
+]
