@@ -185,7 +185,7 @@
     \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
     % Document parameters
     % Document title
-    \title{temp}
+    
     
     
     
@@ -414,10 +414,13 @@
 \captionsetup[figure]{position=bottom}
 \usepackage{listings}
 \usepackage{xcolor}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstset{backgroundcolor=\color{backcolour},commentstyle=\color{codegreen},keywordstyle=\color{magenta},basicstyle=\ttfamily\small,breaklines=true,captionpos=t,keepspaces=true,numbers=left,numbersep=5pt,tabsize=4}
 \renewcommand{\familydefault}{\sfdefault}
 \renewcommand{\contentsname}{Sumário}
-\renewcommand{\listfigurename}{Lista de Figuras}
-\renewcommand{\listtablename}{Lista de Tabelas}
 \renewcommand{\figurename}{Figura}
 \renewcommand{\tablename}{Tabela}
 \renewcommand{\refname}{Referências}
@@ -484,10 +487,7 @@
     {\large Urutaí --- GO \\}
     {\large Maio de 2026}
 \end{titlepage}
-
 \tableofcontents
-\newpage
-\listoffigures
 \newpage
 
 
@@ -1273,58 +1273,28 @@ maio 2026.
 \makeatletter
 \renewcommand{\@chapapp}{Apêndice}
 \makeatother
+
+\clearpage
 \appendix
+\renewcommand{\thesection}{Apêndice \Alph{section}}
 
-\subsection{Apêndice A: Símbolos Proposicionais do
-AcolheMente}\label{apuxeandice-a-suxedmbolos-proposicionais-do-acolhemente}
+\section{Símbolos Proposicionais do AcolheMente}
+\lstinputlisting[language=Python, caption={Símbolos Proposicionais do AcolheMente.}, label={lst:simbolos}]{simbolos_acolhemente.py}
 
-\label{apendice:simbolos} \textgreater{} Código-fonte completo no
-arquivo \texttt{simbolos\_acolhemente.py} (salvo via
-\texttt{\%\%writefile} acima).
+\section{Regras Lógicas e CNF}
+\lstinputlisting[language=Python, caption={Regras Lógicas e CNF.}, label={lst:regras}]{regras_acolhemente.py}
 
-\subsection{Apêndice B: Regras Lógicas e
-CNF}\label{apuxeandice-b-regras-luxf3gicas-e-cnf}
+\section{Motor de Inferência por Resolução}
+\lstinputlisting[language=Python, caption={Motor de Inferência por Resolução.}, label={lst:motor}]{motor_resolucao_acolhemente.py}
 
-\label{apendice:regras} \textgreater{} Código-fonte completo no arquivo
-\texttt{regras\_acolhemente.py} (salvo via \texttt{\%\%writefile}
-acima).
+\section{Cenários Sintéticos de Validação}
+\lstinputlisting[language=Python, caption={Cenários Sintéticos de Validação.}, label={lst:cenarios}]{cenarios_sinteticos_acolhemente.py}
 
-\subsection{Apêndice C: Motor de Inferência por
-Resolução}\label{apuxeandice-c-motor-de-inferuxeancia-por-resoluuxe7uxe3o}
+\section{Grafo de Explicabilidade}
+\lstinputlisting[language=Python, caption={Grafo de Explicabilidade.}, label={lst:grafo}]{grafo_explicabilidade_acolhemente.py}
 
-\label{apendice:motor} \textgreater{} Código-fonte completo no arquivo
-\texttt{motor\_resolucao\_acolhemente.py} (salvo via
-\texttt{\%\%writefile} acima).
-
-\subsection{Apêndice D: Cenários Sintéticos de
-Validação}\label{apuxeandice-d-cenuxe1rios-sintuxe9ticos-de-validauxe7uxe3o}
-
-\label{apendice:cenarios} \textgreater{} Código-fonte completo no
-arquivo \texttt{cenarios\_sinteticos\_acolhemente.py} (salvo via
-\texttt{\%\%writefile} acima).
-
-\subsection{Apêndice E: Grafo de
-Explicabilidade}\label{apuxeandice-e-grafo-de-explicabilidade}
-
-\label{apendice:grafo} \textgreater{} Código-fonte completo no arquivo
-\texttt{grafo\_explicabilidade\_acolhemente.py} (salvo via
-\texttt{\%\%writefile} acima).
-
-\subsection{Apêndice F: Gerador de Tabelas de
-Resultados}\label{apuxeandice-f-gerador-de-tabelas-de-resultados}
-
-\label{apendice:tabelas} \textgreater{} Código-fonte completo no arquivo
-\texttt{gerar\_tabelas\_resultados.py} (salvo via \texttt{\%\%writefile}
-acima).
+\section{Gerador de Tabelas de Resultados}
+\lstinputlisting[language=Python, caption={Gerador de Tabelas de Resultados.}, label={lst:tabelas}]{gerar_tabelas_resultados.py}
 
 
-    % Add a bibliography block to the postdoc
-    
-    
-    
-
-\newpage
-\addcontentsline{toc}{section}{Referências}
-\bibliographystyle{plain}
-\bibliography{referencias}
 \end{document}
