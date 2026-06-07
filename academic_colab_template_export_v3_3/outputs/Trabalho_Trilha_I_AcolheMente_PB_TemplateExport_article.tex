@@ -414,6 +414,7 @@
 \captionsetup[figure]{position=bottom}
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage{graphicx}
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
@@ -707,6 +708,13 @@ PB/BR & Sem validade regional \\
 \end{longtable}
 }
 
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Figura --- Fluxo de proveniência de dados: cada tier alimenta exclusivamente seu destino legítimo.}]{fluxo_proveniencia_dados.png}}
+\caption{Figura --- Fluxo de proveniência de dados: cada tier alimenta
+exclusivamente seu destino legítimo.}
+\end{figure}
+
 \begin{quote}
 \textbf{Merge entre tiers é estritamente proibido.} Os dados da PeNSE
 \textbf{não alimentam diretamente o motor de inferência} para
@@ -839,6 +847,34 @@ A versão de produção inclui também o \textbf{grafo de explicabilidade}
 (Apêndice E), que visualiza as relações regra-variável via NetworkX, e o
 \textbf{gerador de tabelas de resultados} (Apêndice F), que produz
 tabelas LaTeX programáticas dos cenários de validação.
+\end{quote}
+
+\begin{quote}
+O código-fonte completo do projeto, incluindo ambas as versões do motor,
+testes automatizados, documentação de decisões arquiteturais (ADRs) e
+scripts de validação, está disponível no repositório público:
+\href{https://github.com/lmbernardo7520112/Atividade_Final_Trilha_I_Ifgoiano}{github.com/lmbernardo7520112/Atividade\_Final\_Trilha\_I\_Ifgoiano}.
+\end{quote}
+
+\subsubsection{Engenharia de Software e Garantia de
+Qualidade}\label{engenharia-de-software-e-garantia-de-qualidade}
+
+\begin{quote}
+O desenvolvimento seguiu práticas profissionais de engenharia de
+software: - \textbf{Specification Driven Development (SDD):} Cada
+funcionalidade foi especificada formalmente antes da implementação
+(cf.~\texttt{docs/specs/}). - \textbf{Test Driven Development (TDD):} 8
+suítes de testes de contrato (\texttt{tests/test\_*.py}) verificam
+invariantes como equivalência dos motores, rastreabilidade PeNSE,
+guardrails de não diagnóstico e integridade acadêmica. - \textbf{Clean
+Code:} Código modular com separação de responsabilidades, docstrings em
+português, nomes descritivos e menos de 100 linhas por módulo. -
+\textbf{Conventional Commits:} Histórico de commits rastreável com
+prefixos semânticos (\texttt{fix:}, \texttt{docs:}, \texttt{feat:}). -
+\textbf{Architectural Decision Records (ADRs):} Decisões críticas
+documentadas formalmente (cf.~ADR sobre R5 e subsunção). -
+\textbf{Cobertura exaustiva:} Validação com \(2^6 = 64\) combinações,
+100\% determinística, sem dependência de dados externos.
 \end{quote}
 
 \begin{quote}
@@ -1022,6 +1058,20 @@ gerador produz as mesmas tabelas em formato LaTeX, garantindo
 consistência entre o texto e os dados validados.
 \end{quote}
 
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Figura --- Ativação de regras por cenários sintéticos representativos.}]{cenarios_ativacao_regras.png}}
+\caption{Figura --- Ativação de regras por cenários sintéticos
+representativos.}
+\end{figure}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Figura --- Comparação qualitativa: baseline manual vs.~motor lógico.}]{comparacao_baseline_motor.png}}
+\caption{Figura --- Comparação qualitativa: baseline manual vs.~motor
+lógico.}
+\end{figure}
+
 \subsubsection{\texorpdfstring{Comparação: \emph{Baseline} Manual
 vs.~Motor
 Lógico}{Comparação: Baseline Manual vs.~Motor Lógico}}\label{comparauxe7uxe3o-baseline-manual-vs.-motor-luxf3gico}
@@ -1081,6 +1131,13 @@ formal, permitindo que qualquer conclusão do motor seja verificada
 visualmente. A geração é 100\% determinística, sem dependência de LLMs
 ou APIs externas.
 \end{quote}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Figura --- Grafo de regras: 6 variáveis de entrada, 6 regras R1--R6 e 1 saída inferida (A).}]{grafo_regras_7vars.png}}
+\caption{Figura --- Grafo de regras: 6 variáveis de entrada, 6 regras
+R1--R6 e 1 saída inferida (A).}
+\end{figure}
 
 \subsection{Discussão Crítica}\label{discussuxe3o-cruxedtica}
 
@@ -1169,6 +1226,12 @@ Escola (Brasil, 2007).
 Versões futuras devem implementar monitoramento contínuo de viés e
 auditoria humana periódica das regras por comitê multidisciplinar. O
 risco de medicalização da escola deve ser permanentemente monitorado.
+\end{quote}
+
+\begin{quote}
+Está prevista a adição de pipeline CI/CD via GitHub Actions para
+execução automatizada dos testes de contrato a cada atualização do
+repositório.
 \end{quote}
 
 \begin{quote}
