@@ -225,7 +225,8 @@ conteudo = re.sub(r'\\bibliographystyle\{[^}]*\}', '', conteudo)
 conteudo = re.sub(r'\\bibliography\{[^}]*\}', '', conteudo)
 
 # Limpar newpages orfaos antes de \end{document}
-conteudo = re.sub(r'(\\newpage\s*)+\\end\{document\}', '\\end{document}', conteudo)
+while '\n\\newpage\n\\end{document}' in conteudo:
+    conteudo = conteudo.replace('\n\\newpage\n\\end{document}', '\n\\end{document}')
 
 # Salvar .tex final
 with open(tex_path, 'w', encoding='utf-8') as f:
