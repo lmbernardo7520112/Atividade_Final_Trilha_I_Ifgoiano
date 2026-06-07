@@ -16,8 +16,6 @@
     % proper Figure object with a Caption API and a way to capture that
     % in the conversion process - todo).
     \usepackage{caption}
-    \DeclareCaptionFormat{nocaption}{}
-    \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
 
     \usepackage{float}
     \floatplacement{figure}{H} % forces figures to be placed at the correct location
@@ -408,13 +406,21 @@
     
 
 \usepackage[brazil]{babel}
+\usepackage{float}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage[aboveskip=6pt,position=top]{caption}
+\captionsetup[table]{position=top}
+\captionsetup[figure]{position=bottom}
+\usepackage{listings}
+\usepackage{xcolor}
+\renewcommand{\familydefault}{\sfdefault}
 \renewcommand{\contentsname}{Sumário}
 \renewcommand{\listfigurename}{Lista de Figuras}
 \renewcommand{\listtablename}{Lista de Tabelas}
 \renewcommand{\figurename}{Figura}
 \renewcommand{\tablename}{Tabela}
 \renewcommand{\refname}{Referências}
-
 \begin{document}
     
     
