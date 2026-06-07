@@ -194,14 +194,14 @@ apendices_info = [
 ]
 
 # Construir bloco de apendices nativo
-bloco_apendices = (
-    '\n\\clearpage\n'
-    '\\appendix\n'
-    '\\renewcommand{\\thesection}{Apêndice \\Alph{section}}\n\n'
-)
-for py_file, titulo, label in apendices_info:
+letras = ['A', 'B', 'C', 'D', 'E', 'F']
+bloco_apendices = '\n\\clearpage\n\\appendix\n\n'
+for i, (py_file, titulo, label) in enumerate(apendices_info):
+    letra = letras[i]
+    heading = f'Apêndice {letra} --- {titulo}'
     bloco_apendices += (
-        f'\\section{{{titulo}}}\n'
+        f'\\section*{{{heading}}}\n'
+        f'\\addcontentsline{{toc}}{{section}}{{{heading}}}\n'
         f'\\lstinputlisting[language=Python, caption={{{titulo}.}}, label={{{label}}}]{{{py_file}}}\n\n'
     )
 
