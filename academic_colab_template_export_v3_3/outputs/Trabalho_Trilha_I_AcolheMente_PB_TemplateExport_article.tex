@@ -770,6 +770,12 @@ As variáveis contextuais \textbf{nunca inferem A isoladamente} --- este
 é um \emph{guardrail} lógico fundamental.
 \end{quote}
 
+\begin{quote}
+O código-fonte completo da definição formal dos símbolos, incluindo
+tipos, descrições e rastreabilidade PeNSE, está disponível no Apêndice
+A.
+\end{quote}
+
 \subsection{Base de Conhecimento: 6 Regras
 R1--R6}\label{base-de-conhecimento-6-regras-r1r6}
 
@@ -826,6 +832,13 @@ seguir, é uma simplificação didática com menos de 100 linhas, sem
 dependências externas, com comentários explicativos em português. A
 simplificação é didática, não matemática: as regras R1--R6, a CNF e a
 variável de saída \(A\) são idênticas em ambas as versões.
+\end{quote}
+
+\begin{quote}
+A versão de produção inclui também o \textbf{grafo de explicabilidade}
+(Apêndice E), que visualiza as relações regra-variável via NetworkX, e o
+\textbf{gerador de tabelas de resultados} (Apêndice F), que produz
+tabelas LaTeX programáticas dos cenários de validação.
 \end{quote}
 
 \begin{quote}
@@ -1001,6 +1014,14 @@ Todas & 1 & 1 & 1 & 1 & 1 & 1 & SIM & R1--R6 \\
 \end{longtable}
 }
 
+\begin{quote}
+As tabelas de variáveis, regras e cenários apresentadas neste trabalho
+podem ser reproduzidas programaticamente pelo script
+\texttt{gerar\_tabelas\_resultados.py}, disponível no Apêndice F. O
+gerador produz as mesmas tabelas em formato LaTeX, garantindo
+consistência entre o texto e os dados validados.
+\end{quote}
+
 \subsubsection{\texorpdfstring{Comparação: \emph{Baseline} Manual
 vs.~Motor
 Lógico}{Comparação: Baseline Manual vs.~Motor Lógico}}\label{comparauxe7uxe3o-baseline-manual-vs.-motor-luxf3gico}
@@ -1047,6 +1068,18 @@ particularmente relevante no domínio de saúde mental escolar. O ECA
 (Brasil, 1990) exige proteção integral de crianças e adolescentes, o que
 inclui proteção contra classificação automatizada opaca. A LGPD (Brasil,
 2018) garante transparência no tratamento de dados.
+\end{quote}
+
+\begin{quote}
+Para materializar essa rastreabilidade, o Apêndice E apresenta o
+código-fonte do \textbf{grafo de explicabilidade}
+(\texttt{grafo\_explicabilidade\_acolhemente.py}). O grafo, construído
+com NetworkX e renderizado com Matplotlib, representa visualmente as
+relações entre variáveis de entrada e a variável de saída \(A\),
+mediadas pelas regras R1--R6. Cada aresta corresponde a uma regra
+formal, permitindo que qualquer conclusão do motor seja verificada
+visualmente. A geração é 100\% determinística, sem dependência de LLMs
+ou APIs externas.
 \end{quote}
 
 \subsection{Discussão Crítica}\label{discussuxe3o-cruxedtica}
