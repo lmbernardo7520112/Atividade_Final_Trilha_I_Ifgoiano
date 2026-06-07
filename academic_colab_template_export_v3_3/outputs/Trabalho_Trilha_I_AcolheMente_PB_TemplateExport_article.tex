@@ -1,0 +1,1324 @@
+\documentclass[11pt]{article}
+\usepackage{fontspec}
+
+    \usepackage[breakable]{tcolorbox}
+    \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+    
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % Keep aspect ratio if custom image width or height is specified
+    \setkeys{Gin}{keepaspectratio}
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    \let\Oldincludegraphics\includegraphics
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionFormat{nocaption}{}
+    \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+
+    \usepackage{iftex}
+    \ifPDFTeX
+        
+        \IfFileExists{alphabeta.sty}{
+              \usepackage{alphabeta}
+          }{
+              \usepackage[mathletters]{ucs}
+              
+          }
+    \else
+        \usepackage{fontspec}
+        \usepackage{unicode-math}
+    \fi
+
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics
+                         % to support a larger range
+    \makeatletter % fix for old versions of grffile with XeLaTeX
+    \@ifpackagelater{grffile}{2019/11/01}
+    {
+      % Do nothing on new versions
+    }
+    {
+      \def\Gread@@xetex#1{%
+        \IfFileExists{"\Gin@base".bb}%
+        {\Gread@eps{\Gin@base.bb}}%
+        {\Gread@@xetex@aux#1}%
+      }
+    }
+    \makeatother
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage{array}     % table support for pandoc >= 2.11.3
+    \usepackage{calc}      % table minipage width calculation for pandoc >= 2.11.1
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{soul}      % strikethrough (\st) support for pandoc >= 3.0.0
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % common color for the border for error outputs.
+    \definecolor{outerrorbackground}{HTML}{FFDFDF}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \makeatletter
+    \newsavebox\pandoc@box
+    \newcommand*\pandocbounded[1]{%
+      \sbox\pandoc@box{#1}%
+      % scaling factors for width and height
+      \Gscale@div\@tempa\textheight{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+      \Gscale@div\@tempb\linewidth{\wd\pandoc@box}%
+      % select the smaller of both
+      \ifdim\@tempb\p@<\@tempa\p@
+        \let\@tempa\@tempb
+      \fi
+      % scaling accordingly (\@tempa < 1)
+      \ifdim\@tempa\p@<\p@
+        \scalebox{\@tempa}{\usebox\pandoc@box}%
+      % scaling not needed, use as it is
+      \else
+        \usebox{\pandoc@box}%
+      \fi
+    }
+    \makeatother
+
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{temp}
+    
+    
+    
+    
+    
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\@namedef{PY@tok@w}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.61,0.40,0.00}{##1}}}
+\@namedef{PY@tok@k}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kt}{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\@namedef{PY@tok@o}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ow}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@nb}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nf}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.80,0.25,0.22}{##1}}}
+\@namedef{PY@tok@nv}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@no}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.46,0.46,0.00}{##1}}}
+\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.41,0.47,0.13}{##1}}}
+\@namedef{PY@tok@nt}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nd}{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@s}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sd}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.36,0.12}{##1}}}
+\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@ss}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sx}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@m}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@gh}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gu}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gd}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.52,0.00}{##1}}}
+\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{0.89,0.00,0.00}{##1}}}
+\@namedef{PY@tok@ge}{\let\PY@it=\textit}
+\@namedef{PY@tok@gs}{\let\PY@bf=\textbf}
+\@namedef{PY@tok@ges}{\let\PY@bf=\textbf\let\PY@it=\textit}
+\@namedef{PY@tok@gp}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@gt}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\@namedef{PY@tok@err}{\def\PY@bc##1{{\setlength{\fboxsep}{\string -\fboxrule}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}}
+\@namedef{PY@tok@kc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kd}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kr}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@bp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@fm}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@vc}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vg}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vi}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vm}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sa}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sb}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sc}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@dl}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s2}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sh}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s1}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@mb}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mf}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mh}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mi}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@il}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mo}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb.
+    \makeatletter
+        \newbox\Wrappedcontinuationbox
+        \newbox\Wrappedvisiblespacebox
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}}
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}}
+        \newcommand*\Wrappedcontinuationindent {3ex }
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox}
+        % Take advantage of the already applied Pygments mark-up to insert
+        % potential linebreaks for TeX processing.
+        %        {, <, #, %, $, ' and ": go to next line.
+        %        _, }, ^, &, >, - and ~: stay at end of broken line.
+        % Use of \textquotesingle for straight quote.
+        \newcommand*\Wrappedbreaksatspecials {%
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}%
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}%
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}%
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}%
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}%
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}%
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}%
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}%
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}%
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}%
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}%
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}%
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}%
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}%
+        }
+        % Some characters . , ; ? ! / are not pygmentized.
+        % This macro makes them "active" and they will insert potential linebreaks
+        \newcommand*\Wrappedbreaksatpunct {%
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}%
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}%
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}%
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}%
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}%
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}%
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}%
+            \catcode`\.\active
+            \catcode`\,\active
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active
+            \lccode`\~`\~
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+
+    % prompt
+    \makeatletter
+    \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
+    \makeatother
+    \newcommand{\prompt}[4]{
+        {\ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}}
+    }
+    
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+\usepackage[brazil]{babel}
+\renewcommand{\contentsname}{Sumário}
+\renewcommand{\listfigurename}{Lista de Figuras}
+\renewcommand{\listtablename}{Lista de Tabelas}
+\renewcommand{\figurename}{Figura}
+\renewcommand{\tablename}{Tabela}
+\renewcommand{\refname}{Referências}
+
+\begin{document}
+    
+    
+    
+    
+
+    
+    \begin{titlepage}
+    \centering
+
+    % 1. Logotipo do IF Goiano Local
+    \includegraphics[width=0.15\textwidth]{logo_urutai.png}
+
+    \vspace{1cm}
+
+    % 2. Cabecalho Institucional
+    {\small \textbf{INSTITUTO FEDERAL GOIANO} \\}
+    {\small \textbf{CAMPUS URUTAÍ} \\}
+    {\footnotesize NÚCLEO DE INFORMÁTICA \\}
+    {\footnotesize ESPECIALIZAÇÃO EM INTELIGÊNCIA ARTIFICIAL APLICADA A DADOS CORPORATIVOS \\}
+    \vspace{2cm}
+
+    {\Large \MakeUppercase{Leonardo Maximino Bernardo} \par}
+    \vspace{4.5cm}
+
+    {\Large \textbf{\MakeUppercase{AcolheMente Escolar PB: Motor de Inferência Lógico para Apoio à Gestão Escolar na Priorização Responsável de Acolhimento em Saúde Mental}} \par}
+
+    \vfill
+
+    {\large Urutaí, maio de 2026 \par}
+\end{titlepage}
+
+    \begin{titlepage}
+    \centering
+
+    % 1. Cabecalho Institucional Simples
+    {\small \textbf{INSTITUTO FEDERAL GOIANO} \\}
+    {\small CAMPUS URUTAÍ \\}
+    {\footnotesize Núcleo de Informática \\}
+    {\footnotesize Pós-Graduação \textit{Lato Sensu} em Inteligência Artificial Aplicada a Dados Corporativos \\}
+
+    \vspace{1.2cm}
+
+    {\Large \textbf{Trabalho de Conclusão da Trilha de Aprendizagem I} \\}
+    {\large \textit{Inteligência Artificial Simbólica e Busca} \\}
+
+    \vspace{1.5cm}
+
+    {\Large \textbf{AcolheMente Escolar PB} \\}
+    \vspace{0.3cm}
+    {\large Motor de Inferência Lógico para Apoio à Gestão Escolar \\
+    na Priorização Responsável de Acolhimento em Saúde Mental}
+
+    \vspace{1.5cm}
+
+    {\large \textbf{Autor:} Leonardo Maximino Bernardo \\}
+    {\normalsize \textbf{Orientação:} Corpo docente da Trilha I --- IF Goiano}
+
+    \vfill
+
+    {\large Urutaí --- GO \\}
+    {\large Maio de 2026}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+\listoffigures
+\newpage
+
+
+    \section{Apresentação do Aluno e
+Contexto}\label{apresentauxe7uxe3o-do-aluno-e-contexto}
+
+\begin{quote}
+Leonardo Maximino Bernardo é professor de Física da rede pública
+estadual da Paraíba desde 2020, com mais de 15 anos de experiência em
+docência nos níveis médio e superior. Doutor em Ciência e Engenharia de
+Materiais pela Universidade Federal da Paraíba, sua trajetória acadêmica
+combina modelagem computacional avançada e uma crescente atuação em
+ciência de dados e inteligência artificial.
+\end{quote}
+
+\begin{quote}
+Ao longo de sua formação, atuou como pesquisador na UFPB, desenvolvendo
+rotinas de cálculo e algoritmos para análise de grandes volumes de dados
+de simulação numérica de solidificação de ligas metálicas, extraindo
+padrões quantitativos para publicações acadêmicas. Essa experiência
+consolidou habilidades de pensamento analítico, resolução de problemas
+complexos e comunicação científica que informam diretamente sua prática
+docente e sua abordagem em projetos de inteligência artificial.
+\end{quote}
+
+\begin{quote}
+Atualmente, além da docência em Física, cursa Pós-Graduação \emph{Lato
+Sensu} em Inteligência Artificial Aplicada pelo Instituto Federal Goiano
+e possui formação em Ciência de Dados pelo Unipê. Sua \emph{stack}
+tecnológica inclui Python, JavaScript, SQL, \emph{frameworks} como
+Django e React, e ferramentas de análise como Pandas, Scikit-learn e
+NetworkX. Possui certificações em desenvolvimento \emph{back-end} com
+Node.js, Harvard CS50 e aceleração global de desenvolvimento de
+software.
+\end{quote}
+
+\begin{quote}
+O presente trabalho nasce da intersecção entre sua vivência como
+professor de escola pública estadual na Paraíba --- onde testemunha
+diariamente demandas crescentes de acolhimento em saúde mental de
+adolescentes --- e seu domínio técnico em modelagem computacional e
+lógica formal. A escolha do domínio de saúde mental escolar reflete o
+compromisso de aplicar inteligência artificial de forma ética,
+explicável e governada em um contexto de vulnerabilidade social, onde
+erros tecnológicos podem ter consequências humanas graves.
+\end{quote}
+
+    \section{Introdução e Definição do
+Problema}\label{introduuxe7uxe3o-e-definiuxe7uxe3o-do-problema}
+
+\begin{quote}
+A saúde mental de adolescentes no Brasil atravessa um momento crítico.
+Dados da Pesquisa Nacional de Saúde do Escolar --- PeNSE 2024 (IBGE,
+2024) --- revelam que parcela significativa dos estudantes de 13 a 17
+anos reporta sentimentos persistentes de tristeza, solidão e
+desesperança, com índices particularmente preocupantes na região
+Nordeste e, especificamente, no estado da Paraíba. O relatório da
+Organização Mundial da Saúde (WHO, 2022) confirma essa tendência global:
+transtornos mentais respondem por uma proporção crescente da carga de
+doença entre jovens, e a maioria dos casos permanece sem qualquer forma
+de acolhimento adequado.
+\end{quote}
+
+\begin{quote}
+No contexto da escola pública estadual paraibana, a demanda por
+acolhimento em saúde mental frequentemente supera a capacidade de
+resposta da equipe pedagógica e psicossocial. Professores, coordenadores
+e orientadores educacionais enfrentam o desafio de identificar, dentre
+centenas de estudantes, aqueles que necessitam de atenção prioritária
+--- sem dispor de ferramentas estruturadas para essa tarefa. O resultado
+é uma dependência excessiva de percepções individuais, sujeitas a viés
+cognitivo, fadiga decisória e inconsistência entre turnos e unidades
+escolares. Essa lacuna não é trivial: a ausência de priorização
+sistemática pode significar que um adolescente em situação de risco
+grave não receba acolhimento em tempo hábil.
+\end{quote}
+
+\begin{quote}
+Ao mesmo tempo, a adoção acrítica de tecnologias de inteligência
+artificial nesse domínio apresenta riscos igualmente sérios. Sistemas
+baseados em aprendizado de máquina ou IA generativa, embora poderosos em
+outros contextos, introduzem opacidade decisória incompatível com o
+rigor ético exigido quando se trata de menores de idade em situação de
+vulnerabilidade (Jobin; Ienca; Vayena, 2019). A Lei Geral de Proteção de
+Dados --- LGPD (Brasil, 2018) --- e o Estatuto da Criança e do
+Adolescente --- ECA (Brasil, 1990) --- impõem salvaguardas rigorosas
+para o tratamento de dados sensíveis de menores, incluindo o direito à
+explicação de decisões automatizadas. Um modelo de ``caixa preta'' que
+classifique ou ranqueie estudantes por risco psicológico seria, no
+mínimo, juridicamente temerário e, no limite, eticamente inaceitável.
+\end{quote}
+
+\begin{quote}
+Diante desse cenário, o presente trabalho propõe o \textbf{AcolheMente
+Escolar PB}: um Sistema Baseado em Conhecimento que utiliza Lógica
+Proposicional com Inferência por Resolução para apoiar --- e nunca
+substituir --- a gestão escolar na priorização responsável de
+acolhimento em saúde mental. A escolha por lógica simbólica
+determinística não é uma limitação técnica, mas uma decisão de
+\emph{design} ético: garante explicabilidade total, rastreabilidade de
+cada conclusão e ausência de qualquer linguagem diagnóstica clínica
+(Russell; Norvig, 2022).
+\end{quote}
+
+\textbf{Problema central:} Como apoiar a gestão escolar de escolas
+públicas estaduais da Paraíba na priorização sistemática de acolhimento
+em saúde mental de adolescentes, utilizando inteligência artificial
+explicável, sem produzir diagnósticos clínicos, sem violar a LGPD ou o
+ECA, e sem substituir o julgamento humano profissional?
+
+\textbf{Objetivo geral:} Desenvolver e validar um motor de inferência
+por resolução, baseado em lógica proposicional e fundamentado em dados
+oficiais da PeNSE 2024, para apoiar a priorização de acolhimento em
+saúde mental escolar no estado da Paraíba.
+
+\textbf{Objetivos específicos:} 1. Modelar o domínio em 7 variáveis
+proposicionais (4 entradas nucleares, 2 entradas contextuais e 1 saída
+inferida), ancoradas em variáveis da PeNSE 2024. 2. Formalizar 6 regras
+de inferência em Forma Normal Conjuntiva e implementar motor de
+resolução determinístico. 3. Validar o motor com cenários sintéticos
+representativos e comparar com \emph{baseline} manual. 4. Garantir
+conformidade integral com LGPD, ECA e Programa Saúde na Escola (Brasil,
+2007). 5. Documentar explicabilidade, limitações e perspectivas de
+evolução com rigor acadêmico.
+
+    \section{Metodologia e Escolha da Técnica de
+IA}\label{metodologia-e-escolha-da-tuxe9cnica-de-ia}
+
+\begin{quote}
+O AcolheMente Escolar PB é, em sua essência, um Sistema Baseado em
+Conhecimento --- uma classe de sistemas de inteligência artificial que
+codifica explicitamente o conhecimento de especialistas humanos em
+regras formais e utiliza mecanismos de inferência para derivar
+conclusões a partir de fatos observados (Brachman; Levesque, 2004).
+Diferentemente de abordagens estatísticas ou conexionistas, um SBC não
+``aprende'' a partir de dados brutos: opera sobre uma base de
+conhecimento construída deliberadamente por engenheiros do conhecimento
+em colaboração com especialistas do domínio.
+\end{quote}
+
+\begin{quote}
+A técnica específica adotada é a \textbf{Lógica Proposicional com
+Inferência por Resolução}. Trata-se de um formalismo da lógica clássica
+no qual o conhecimento é representado por proposições atômicas e
+conectivos lógicos. A inferência é realizada por meio do método de
+resolução, um procedimento correto e refutacionalmente completo para a
+lógica proposicional (Genesereth; Nilsson, 1987). O método opera sobre
+cláusulas em Forma Normal Conjuntiva: para verificar se uma conclusão
+\(A\) pode ser derivada de uma base de conhecimento \(KB\), adiciona-se
+a negação da conclusão (\(\neg A\)) ao conjunto de cláusulas e aplica-se
+repetidamente a regra de resolução, buscando derivar a cláusula vazia
+--- o que constitui prova por contradição de que \(KB \models A\).
+\end{quote}
+
+\begin{quote}
+Foram consideradas e descartadas alternativas como Lógica de Primeira
+Ordem (complexidade desnecessária para 7 variáveis binárias), Redes
+Bayesianas (exigiriam distribuições de probabilidade inestimáveis),
+Árvores de Decisão (dependem de dados rotulados inexistentes), Redes
+Neurais (incompatíveis com explicabilidade total) e IA Generativa (sem
+garantias de determinismo).
+\end{quote}
+
+\begin{quote}
+Conforme argumentam Russell e Norvig (2022), a escolha da representação
+do conhecimento deve ser guiada pelas propriedades do domínio, e não
+pela sofisticação da técnica. No caso do AcolheMente Escolar PB, a
+lógica proposicional é a ferramenta \emph{correta}, não uma ferramenta
+\emph{limitada}.
+\end{quote}
+
+\begin{quote}
+O princípio de \emph{human-in-the-loop} é inegociável. A variável de
+saída \(A\) é um sinal para o profissional humano, não uma decisão
+final.
+\end{quote}
+
+\subsection{Arquitetura de Dados, Proveniência e
+Governança}\label{arquitetura-de-dados-proveniuxeancia-e-governanuxe7a}
+
+\begin{quote}
+O AcolheMente opera com arquitetura rigorosa de proveniência de dados em
+três camadas mutuamente exclusivas. A separação não é apenas técnica: é
+um requisito de governança que impede contaminação cruzada entre fontes
+de naturezas distintas.
+\end{quote}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1053}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1228}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2632}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2456}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2632}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Tier
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Fonte
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Uso Permitido
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Uso Proibido
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Justificativa
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+TIER\_A & PeNSE 2024 (IBGE) & EDA, motivação, variáveis & Inferência
+individual & Pesquisa populacional \\
+TIER\_B & Cenários sintéticos & Validação do motor & Representar alunos
+reais & Controle determinístico \\
+TIER\_C & Dataset externo & Benchmark metodológico & Conclusão sobre
+PB/BR & Sem validade regional \\
+\end{longtable}
+}
+
+\begin{quote}
+\textbf{Merge entre tiers é estritamente proibido.} Os dados da PeNSE
+\textbf{não alimentam diretamente o motor de inferência} para
+classificação individual: a PeNSE é pesquisa populacional, não sistema
+de acompanhamento escolar ativo. O motor é validado por cenários
+sintéticos determinísticos (TIER\_B), enquanto a PeNSE sustenta a
+justificativa epidemiológica e a modelagem conceitual (TIER\_A).
+\end{quote}
+
+\begin{quote}
+A LGPD (Brasil, 2018) classifica dados de saúde de menores como dados
+pessoais sensíveis. O AcolheMente atende \emph{by design}: não processa
+dados pessoais identificáveis, opera sobre indicadores agregados
+anonimizados, toda conclusão é rastreável e não produz decisões
+automatizadas sobre indivíduos. O ECA (Brasil, 1990) veda qualquer forma
+de rotulagem de crianças e adolescentes.
+\end{quote}
+
+\subsection{Representação do Conhecimento: 7 Variáveis
+Proposicionais}\label{representauxe7uxe3o-do-conhecimento-7-variuxe1veis-proposicionais}
+
+\begin{quote}
+A modelagem do domínio resultou em 7 variáveis proposicionais --- 4
+entradas nucleares, 2 entradas contextuais e 1 saída inferida:
+\end{quote}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1042}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1250}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.4792}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2917}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Var
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Tipo
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Semântica Operacional
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Fontes PeNSE
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+E & Nuclear & Sofrimento emocional recorrente & B12004, B12005,
+B12007 \\
+B & Nuclear & Baixo apoio socioafetivo percebido & B12003, B07004 \\
+V & Nuclear & Indicador crítico de desvalor da vida & B12008 \\
+S & Nuclear & Sinal autorreferido de autoagressão & B12009 \\
+A & Nuclear & Acolhimento humano prioritário (saída) & Inferida \\
+C & Contextual & Contexto comportamental agravante & B03010C, B03006B \\
+I & Contextual & Insuficiência institucional de resposta & E01P60,
+E01P117 \\
+\end{longtable}
+}
+
+\begin{quote}
+As variáveis contextuais \textbf{nunca inferem A isoladamente} --- este
+é um \emph{guardrail} lógico fundamental.
+\end{quote}
+
+\subsection{Base de Conhecimento: 6 Regras
+R1--R6}\label{base-de-conhecimento-6-regras-r1r6}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2258}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.6129}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1613}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Regra
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Forma Implicativa
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+CNF
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+R1 & \(S \rightarrow A\) & \(\neg S \lor A\) \\
+R2 & \(V \land E \rightarrow A\) & \(\neg V \lor \neg E \lor A\) \\
+R3 & \(E \land B \rightarrow A\) & \(\neg E \lor \neg B \lor A\) \\
+R4 & \(V \land B \rightarrow A\) & \(\neg V \lor \neg B \lor A\) \\
+R5 & \(E \land B \land C \rightarrow A\) &
+\(\neg E \lor \neg B \lor \neg C \lor A\) \\
+R6 & \(V \land I \rightarrow A\) & \(\neg V \lor \neg I \lor A\) \\
+\end{longtable}
+}
+
+\begin{quote}
+A conversão para CNF segue a equivalência
+\(p \rightarrow q \equiv \neg p \lor q\) e sua generalização conjuntiva.
+\end{quote}
+
+    \section{Implementação Acadêmica e Motores
+Equivalentes}\label{implementauxe7uxe3o-acaduxeamica-e-motores-equivalentes}
+
+\begin{quote}
+A implementação segue princípios de modularidade e testabilidade. A
+arquitetura separa três responsabilidades: representação das cláusulas
+CNF, mecanismo de resolução e interface de validação com cenários
+sintéticos. O motor de inferência foi implementado em Python puro, sem
+dependências externas.
+\end{quote}
+
+\begin{quote}
+O projeto mantém duas versões do motor, ambas matematicamente
+equivalentes. A versão de produção (\texttt{src/acolhemente/motor.py})
+possui arquitetura modular com camadas de abstração e integração com o
+grafo de explicabilidade. A versão acadêmica
+(\texttt{appendices/motor\_resolucao\_acolhemente.py}), apresentada a
+seguir, é uma simplificação didática com menos de 100 linhas, sem
+dependências externas, com comentários explicativos em português. A
+simplificação é didática, não matemática: as regras R1--R6, a CNF e a
+variável de saída \(A\) são idênticas em ambas as versões.
+\end{quote}
+
+\begin{quote}
+A seguir, cada apêndice é salvo via \texttt{\%\%writefile} e em seguida
+executado para demonstração.
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Celula Colab — execucao reservada ao Google Colab]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Celula Colab — execucao reservada ao Google Colab]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Celula Colab — execucao reservada ao Google Colab]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+======================================================================
+REGRAS R1-R6: Forma Implicativa e CNF
+======================================================================
+  R1: S -> A                     CNF: \textasciitilde{}S OR A
+  R2: V AND E -> A               CNF: \textasciitilde{}V OR \textasciitilde{}E OR A
+  R3: E AND B -> A               CNF: \textasciitilde{}E OR \textasciitilde{}B OR A
+  R4: V AND B -> A               CNF: \textasciitilde{}V OR \textasciitilde{}B OR A
+  R5: E AND B AND C -> A         CNF: \textasciitilde{}E OR \textasciitilde{}B OR \textasciitilde{}C OR A
+  R6: V AND I -> A               CNF: \textasciitilde{}V OR \textasciitilde{}I OR A
+
+======================================================================
+DEMONSTRACAO: Motor de Inferencia por Resolucao
+======================================================================
+Cenario                            A  Regras acionadas
+----------------------------------------------------------------------
+  Cenario Nulo                   NAO  --
+  S isolado (R1)                 SIM  R1
+  V+E (R2)                       SIM  R2
+  E+B (R3)                       SIM  R3
+  V+B (R4)                       SIM  R4
+  E+B+C (R5)                     SIM  R3, R5
+  V+I (R6)                       SIM  R6
+  C isolado (guardrail)          NAO  --
+  I isolado (guardrail)          NAO  --
+  C+I (guardrail duplo)          NAO  --
+  Todas verdadeiras              SIM  R1, R2, R3, R4, R5, R6
+
+Motor de resolucao: CORRETO e REFUTACIONALMENTE COMPLETO
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Celula Colab — execucao reservada ao Google Colab]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+================================================================================
+VALIDACAO EXAUSTIVA: 14 Cenarios Sinteticos
+================================================================================
+Cenario                        Esperado   Obtido   Status  Regras
+--------------------------------------------------------------------------------
+  Cenario Nulo                      NAO      NAO       OK  --
+  S isolado (R1)                    SIM      SIM       OK  R1
+  V+E (R2)                          SIM      SIM       OK  R2
+  E+B (R3)                          SIM      SIM       OK  R3
+  V+B (R4)                          SIM      SIM       OK  R4
+  E+B+C (R5)                        SIM      SIM       OK  R3, R5
+  V+I (R6)                          SIM      SIM       OK  R6
+  C isolado (guardrail)             NAO      NAO       OK  --
+  I isolado (guardrail)             NAO      NAO       OK  --
+  C+I (guardrail duplo)             NAO      NAO       OK  --
+  Todas verdadeiras                 SIM      SIM       OK  R1, R2, R3, R4, R5,
+R6
+  E isolado                         NAO      NAO       OK  --
+  B isolado                         NAO      NAO       OK  --
+  V isolado                         NAO      NAO       OK  --
+
+================================================================================
+Total: 14 cenarios, 0 falha(s)
+
+RESULTADO: TODOS OS CENARIOS PASSARAM
+    \end{Verbatim}
+
+    \subsubsection{Nota sobre R5 e subsunção
+lógica}\label{nota-sobre-r5-e-subsunuxe7uxe3o-luxf3gica}
+
+\begin{quote}
+A regra R5 (\texttt{E\ ∧\ B\ ∧\ C\ →\ A}) é logicamente subsumida pela
+regra R3 (\texttt{E\ ∧\ B\ →\ A}): sempre que R5 é verdadeira, R3 também
+é verdadeira, pois \texttt{E=1} e \texttt{B=1} já bastam para R3.
+Portanto, R5 nunca é a \emph{única} regra que aciona A. Mesmo assim, R5
+é \textbf{mantida} na base de conhecimento por três razões: (1)
+enriquece a explicação ao profissional humano, incluindo o fator
+contextual C; (2) prepara a base para futuras versões com lógica fuzzy;
+(3) não introduz falsos positivos. A validação exaustiva abaixo confirma
+que em nenhum dos 64 cenários R5 altera o resultado.
+\end{quote}
+
+Referência:
+\texttt{docs/adr/ADR-v3\_3-r5-subsuncao-e-validacao-exaustiva.md}
+
+    \subsubsection{Nota metodológica de
+governança}\label{nota-metodoluxf3gica-de-governanuxe7a}
+
+A PeNSE é utilizada como referência epidemiológica e ancoragem
+conceitual para escolha das variáveis proposicionais, não como entrada
+operacional do motor de inferência individual.
+
+A variável A é saída inferida, não variável nuclear observada.
+
+A regra R5 é logicamente subsumida por R3: quando E, B e C são
+verdadeiros, E e B já bastam para acionar R3. R5 é mantida como marcador
+explicativo contextual, sem alterar o resultado decisório.
+
+A comparação entre baseline manual e motor lógico é uma rubrica
+qualitativa, não experimento empírico com profissionais da escola.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Validação exaustiva 2\^{}6 = 64 combinações
+Total testado: 64
+Falhas: 0
+A=SIM: 50
+A=NÃO: 14
+R5 sem R3: 0
+CSV salvo em: validacao\_exaustiva\_64.csv
+Status: APROVADO
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Celula Colab — execucao reservada ao Google Colab]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Celula Colab — execucao reservada ao Google Colab]
+    \end{Verbatim}
+
+    \section{Resultados e Comparações}\label{resultados-e-comparauxe7uxf5es}
+
+\begin{quote}
+O motor foi validado com o conjunto exaustivo de \(2^6 = 64\)
+combinações possíveis das variáveis de entrada. Para cada cenário,
+verificou-se se a conclusão do motor está correta em relação às regras
+formais, quais regras foram acionadas e se a rastreabilidade é completa.
+\end{quote}
+
+\begin{quote}
+Os resultados confirmam o comportamento esperado em todos os cenários
+testados. Quando nenhuma variável é verdadeira (cenário nulo), \(A\) não
+é inferida, demonstrando ausência de falsos positivos. A variável \(S\)
+(autoagressão) é suficiente para acionar o acolhimento (R1). As
+variáveis contextuais (\(C\), \(I\), \(C+I\)), quando verdadeiras
+isoladamente, \textbf{não acionam} \(A\), confirmando o \emph{guardrail}
+arquitetural.
+\end{quote}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}lllllllll@{}}
+\toprule\noalign{}
+Cenário & E & B & V & S & C & I & A & Regra(s) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Nulo & 0 & 0 & 0 & 0 & 0 & 0 & NÃO & --- \\
+S isolado & 0 & 0 & 0 & 1 & 0 & 0 & SIM & R1 \\
+V+E & 1 & 0 & 1 & 0 & 0 & 0 & SIM & R2 \\
+E+B & 1 & 1 & 0 & 0 & 0 & 0 & SIM & R3 \\
+V+B & 0 & 1 & 1 & 0 & 0 & 0 & SIM & R4 \\
+E+B+C & 1 & 1 & 0 & 0 & 1 & 0 & SIM & R3, R5 \\
+V+I & 0 & 0 & 1 & 0 & 0 & 1 & SIM & R6 \\
+C isolado & 0 & 0 & 0 & 0 & 1 & 0 & NÃO & --- \\
+I isolado & 0 & 0 & 0 & 0 & 0 & 1 & NÃO & --- \\
+Todas & 1 & 1 & 1 & 1 & 1 & 1 & SIM & R1--R6 \\
+\end{longtable}
+}
+
+\subsubsection{\texorpdfstring{Comparação: \emph{Baseline} Manual
+vs.~Motor
+Lógico}{Comparação: Baseline Manual vs.~Motor Lógico}}\label{comparauxe7uxe3o-baseline-manual-vs.-motor-luxf3gico}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Critério & Manual & Motor Lógico \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Transparência & Baixa & Total \\
+Consistência & Variável & Determinística \\
+Explicabilidade & Verbal & Formal (CNF) \\
+Rastreabilidade & Nenhuma & Regra por regra \\
+Fadiga decisória & Presente & Ausente \\
+Nuance qualitativa & Alta & Nenhuma \\
+\end{longtable}
+}
+
+\subsection{Explicabilidade}\label{explicabilidade}
+
+\begin{quote}
+A explicabilidade é um requisito ético, jurídico e pedagógico
+simultaneamente. O AcolheMente implementa explicabilidade
+\textbf{intrínseca}: a lógica proposicional é, por definição,
+transparente. Cada variável tem semântica clara, cada regra tem
+antecedentes e consequente explícitos, e cada conclusão pode ser
+rastreada à cláusula CNF que a originou.
+\end{quote}
+
+\begin{quote}
+Ribeiro, Singh e Guestrin (2016) definem explicabilidade como a
+capacidade de um sistema de apresentar, em termos compreensíveis, as
+razões que levaram a uma determinada conclusão. No AcolheMente, a
+explicação \emph{é} o modelo --- não há gap entre o que o sistema faz e
+o que o sistema diz que faz.
+\end{quote}
+
+\begin{quote}
+A distinção entre explicabilidade intrínseca e \emph{post-hoc} é
+particularmente relevante no domínio de saúde mental escolar. O ECA
+(Brasil, 1990) exige proteção integral de crianças e adolescentes, o que
+inclui proteção contra classificação automatizada opaca. A LGPD (Brasil,
+2018) garante transparência no tratamento de dados.
+\end{quote}
+
+\subsection{Discussão Crítica}\label{discussuxe3o-cruxedtica}
+
+\begin{quote}
+O AcolheMente demonstra que é possível aplicar inteligência artificial
+em um domínio sensível com explicabilidade total, determinismo e
+conformidade jurídica. A escolha por lógica proposicional é precisamente
+adequada ao escopo do problema.
+\end{quote}
+
+\begin{quote}
+\textbf{Limitações reconhecidas:} A lógica proposicional não modela
+gradações, incertezas ou relações temporais. A qualidade das conclusões
+depende da alimentação correta das variáveis de entrada. O motor não
+aprende com novos dados. A validação foi computacional, não em ambiente
+escolar real.
+\end{quote}
+
+\begin{quote}
+\textbf{Riscos:} Falso conforto tecnológico (equipe escolar reduz
+atenção qualitativa), viés de construção (regras refletem julgamento dos
+engenheiros), risco de medicalização do espaço escolar.
+\end{quote}
+
+\begin{quote}
+A contribuição do projeto reside na demonstração de que rigor técnico e
+responsabilidade ética podem coexistir --- e de que, em domínios de alto
+risco humano, a transparência é mais valiosa que a complexidade.
+\end{quote}
+
+    \section{Perspectiva de Evolução do
+Trabalho}\label{perspectiva-de-evoluuxe7uxe3o-do-trabalho}
+
+\begin{quote}
+A arquitetura do AcolheMente Escolar PB foi concebida para permitir
+evolução incremental, mas essa evolução não é governada pela lógica do
+``mais complexo é melhor''. Qualquer avanço técnico deve ser precedido
+por validações éticas e institucionais proporcionais ao risco que a
+mudança introduz.
+\end{quote}
+
+\begin{quote}
+O caminho mais natural de evolução é o refinamento do próprio motor
+simbólico, sem abandonar o paradigma determinístico. A incorporação de
+novas variáveis --- frequência escolar, participação em atividades
+extracurriculares, indicadores de convivência familiar --- poderia
+enriquecer a modelagem sem comprometer a transparência. Essa expansão,
+entretanto, não é trivial: cada nova variável dobra o espaço
+combinatório de estados, exigindo revisão integral das regras e
+revalidação dos cenários.
+\end{quote}
+
+\begin{quote}
+Uma evolução particularmente promissora é a transição para lógica
+\emph{fuzzy}, com graus de pertinência entre 0 e 1, permitindo modelar
+gradações de sofrimento emocional e apoio social. A definição das
+funções de pertinência exigiria calibração empírica com dados
+longitudinais e validação com profissionais de psicologia escolar
+(Russell; Norvig, 2022).
+\end{quote}
+
+\begin{quote}
+Em horizonte mais distante, modelos híbridos poderiam integrar módulos
+de \emph{machine learning} para tarefas específicas, mantendo o motor
+simbólico como camada de governança e explicabilidade. Nessa
+arquitetura, nenhuma conclusão do módulo estatístico seria apresentada à
+equipe escolar sem passar pelo crivo das regras lógicas (Jobin; Ienca;
+Vayena, 2019).
+\end{quote}
+
+\begin{quote}
+A utilização de redes neurais profundas permanece uma hipótese
+estritamente teórica, condicionada a aprovação por comitê de ética,
+conformidade demonstrável com LGPD (Brasil, 2018) e ECA (Brasil, 1990),
+e base longitudinal com volume e qualidade suficientes.
+\end{quote}
+
+\begin{quote}
+Qualquer evolução deve ser acompanhada de piloto institucional, formação
+continuada, comitê de governança de IA e avaliação de impacto. O
+\emph{roadmap} prevê integração com os fluxos do Programa Saúde na
+Escola (Brasil, 2007).
+\end{quote}
+
+\begin{quote}
+Versões futuras devem implementar monitoramento contínuo de viés e
+auditoria humana periódica das regras por comitê multidisciplinar. O
+risco de medicalização da escola deve ser permanentemente monitorado.
+\end{quote}
+
+\begin{quote}
+É necessário resistir à tentação de equiparar sofisticação algorítmica a
+melhoria do projeto. A simplicidade do motor proposicional é uma
+\emph{feature} a ser preservada enquanto as condições éticas, jurídicas
+e institucionais para abordagens mais complexas não estiverem plenamente
+atendidas.
+\end{quote}
+
+\begin{quote}
+Independentemente da evolução técnica, o compromisso fundamental
+permanece inalterável: o sistema nunca diagnosticará condições clínicas.
+Esse compromisso não é uma restrição técnica: é a razão de ser do
+projeto.
+\end{quote}
+
+    \section{Conclusões}\label{conclusuxf5es}
+
+\begin{quote}
+O presente trabalho demonstrou a viabilidade de aplicar inteligência
+artificial simbólica --- especificamente, lógica proposicional com
+inferência por resolução --- ao domínio sensível de saúde mental
+escolar. O AcolheMente Escolar PB, motor de inferência com 7 variáveis
+proposicionais e 6 regras em Forma Normal Conjuntiva, oferece uma
+contribuição técnica e metodológica ao debate sobre IA responsável em
+contextos educacionais.
+\end{quote}
+
+\begin{quote}
+\textbf{Contribuição técnica:} Formalização de domínio complexo em
+lógica proposicional, demonstrando que problemas reais de apoio à
+decisão podem ser modelados com técnicas simbólicas; motor de resolução
+determinístico validado contra todos os \(2^6\) cenários possíveis;
+\emph{pipeline} reprodutível com testes automatizados.
+\end{quote}
+
+\begin{quote}
+\textbf{Contribuição metodológica:} Arquitetura de governança de dados
+em três \emph{tiers}, \emph{guardrails} de não diagnóstico,
+\emph{human-in-the-loop} inegociável, conformidade demonstrável com
+LGPD, ECA e PSE.
+\end{quote}
+
+\begin{quote}
+\textbf{Contribuição escolar:} Ferramenta de apoio à gestão que reduz a
+dependência de percepções individuais, com mecanismo de explicabilidade
+que permite auditar cada decisão.
+\end{quote}
+
+\begin{quote}
+Os limites são reconhecidos: expressividade restrita, dependência de
+alimentação humana correta, validação limitada a cenários sintéticos e
+risco de falso conforto tecnológico. Esses limites não são falhas de
+\emph{design}: são consequências deliberadas de um sistema que prioriza
+segurança, transparência e cautela.
+\end{quote}
+
+\begin{quote}
+A maturidade de um projeto de IA aplicada a populações vulneráveis não
+se mede pela complexidade do modelo, mas pela robustez de sua
+governança. O AcolheMente Escolar PB demonstra que é possível ser
+tecnicamente rigoroso e eticamente responsável --- e que, em domínios de
+alto risco humano, essa combinação não é opcional.
+\end{quote}
+
+    \section{Referências
+Bibliográficas}\label{referuxeancias-bibliogruxe1ficas}
+
+\begin{quote}
+BRACHMAN, R. J.; LEVESQUE, H. J. \textbf{Knowledge Representation and
+Reasoning}. San Francisco: Morgan Kaufmann, 2004.
+\end{quote}
+
+\begin{quote}
+BRASIL. Lei nº 8.069, de 13 de julho de 1990 --- Estatuto da Criança e
+do Adolescente (ECA). Disponível em:
+https://www.planalto.gov.br/ccivil\_03/leis/L8069.htm. Acesso em: 20
+maio 2026.
+\end{quote}
+
+\begin{quote}
+BRASIL. Decreto nº 6.286, de 5 de dezembro de 2007 --- Programa Saúde na
+Escola (PSE). Disponível em:
+https://www.planalto.gov.br/ccivil\_03/\_ato2007-2010/2007/decreto/d6286.htm.
+Acesso em: 20 maio 2026.
+\end{quote}
+
+\begin{quote}
+BRASIL. Lei nº 13.709, de 14 de agosto de 2018 --- Lei Geral de Proteção
+de Dados Pessoais (LGPD). Disponível em:
+https://www.planalto.gov.br/ccivil\_03/\_ato2015-2018/2018/lei/L13709.htm.
+Acesso em: 20 maio 2026.
+\end{quote}
+
+\begin{quote}
+GENESERETH, M. R.; NILSSON, N. J. \textbf{Logical Foundations of
+Artificial Intelligence}. San Mateo: Morgan Kaufmann, 1987.
+\end{quote}
+
+\begin{quote}
+INSTITUTO BRASILEIRO DE GEOGRAFIA E ESTATÍSTICA. \textbf{Pesquisa
+Nacional de Saúde do Escolar --- PeNSE 2024}. Rio de Janeiro: IBGE,
+2024. Disponível em:
+https://www.ibge.gov.br/estatisticas/sociais/educacao/9134-pesquisa-nacional-de-saude-do-escolar.html.
+Acesso em: 20 maio 2026.
+\end{quote}
+
+\begin{quote}
+JOBIN, A.; IENCA, M.; VAYENA, E. The global landscape of AI ethics
+guidelines. \textbf{Nature Machine Intelligence}, v. 1, p.~389--399,
+2019.
+\end{quote}
+
+\begin{quote}
+RIBEIRO, M. T.; SINGH, S.; GUESTRIN, C. ``Why Should I Trust You?'':
+Explaining the Predictions of Any Classifier. In: \textbf{Proceedings of
+the 22nd ACM SIGKDD International Conference on Knowledge Discovery and
+Data Mining}, p.~1135--1144. ACM, 2016.
+\end{quote}
+
+\begin{quote}
+RUSSELL, S.; NORVIG, P. \textbf{Inteligência Artificial: uma abordagem
+moderna}. 4. ed.~Rio de Janeiro: GEN LTC, 2022.
+\end{quote}
+
+\begin{quote}
+WORLD HEALTH ORGANIZATION. \textbf{World mental health report:
+transforming mental health for all}. Geneva: WHO, 2022. Disponível em:
+https://www.who.int/publications/i/item/9789240049338. Acesso em: 20
+maio 2026.
+\end{quote}
+
+    \newpage
+\makeatletter
+\renewcommand{\@chapapp}{Apêndice}
+\makeatother
+\appendix
+
+\subsection{Apêndice A: Símbolos Proposicionais do
+AcolheMente}\label{apuxeandice-a-suxedmbolos-proposicionais-do-acolhemente}
+
+\label{apendice:simbolos} \textgreater{} Código-fonte completo no
+arquivo \texttt{simbolos\_acolhemente.py} (salvo via
+\texttt{\%\%writefile} acima).
+
+\subsection{Apêndice B: Regras Lógicas e
+CNF}\label{apuxeandice-b-regras-luxf3gicas-e-cnf}
+
+\label{apendice:regras} \textgreater{} Código-fonte completo no arquivo
+\texttt{regras\_acolhemente.py} (salvo via \texttt{\%\%writefile}
+acima).
+
+\subsection{Apêndice C: Motor de Inferência por
+Resolução}\label{apuxeandice-c-motor-de-inferuxeancia-por-resoluuxe7uxe3o}
+
+\label{apendice:motor} \textgreater{} Código-fonte completo no arquivo
+\texttt{motor\_resolucao\_acolhemente.py} (salvo via
+\texttt{\%\%writefile} acima).
+
+\subsection{Apêndice D: Cenários Sintéticos de
+Validação}\label{apuxeandice-d-cenuxe1rios-sintuxe9ticos-de-validauxe7uxe3o}
+
+\label{apendice:cenarios} \textgreater{} Código-fonte completo no
+arquivo \texttt{cenarios\_sinteticos\_acolhemente.py} (salvo via
+\texttt{\%\%writefile} acima).
+
+\subsection{Apêndice E: Grafo de
+Explicabilidade}\label{apuxeandice-e-grafo-de-explicabilidade}
+
+\label{apendice:grafo} \textgreater{} Código-fonte completo no arquivo
+\texttt{grafo\_explicabilidade\_acolhemente.py} (salvo via
+\texttt{\%\%writefile} acima).
+
+\subsection{Apêndice F: Gerador de Tabelas de
+Resultados}\label{apuxeandice-f-gerador-de-tabelas-de-resultados}
+
+\label{apendice:tabelas} \textgreater{} Código-fonte completo no arquivo
+\texttt{gerar\_tabelas\_resultados.py} (salvo via \texttt{\%\%writefile}
+acima).
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+
+\newpage
+\addcontentsline{toc}{section}{Referências}
+\bibliographystyle{plain}
+\bibliography{referencias}
+\end{document}
