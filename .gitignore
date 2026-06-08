@@ -49,10 +49,12 @@ htmlcov/
 *.deb
 
 # ---------------------------------------------------------------
-# Versoes academicas intermediarias (manter apenas v2 e v3_2)
+# Versões acadêmicas intermediárias (manter apenas v3_3 canônica)
 # ---------------------------------------------------------------
+academic_abntex2_attempt_v2/
 academic_abntex2_attempt_v3/
 academic_abntex2_attempt_v3_1/
+academic_abntex2_attempt_v3_2/
 
 # ---------------------------------------------------------------
 # Scripts temporarios de build/fix (raiz do projeto)
@@ -77,5 +79,3 @@ preview_notebook.md
 Trabalho_Trilha_I_AcolheMente_PB.pdf
 logo_urutai.png
 update_cover.py
-academic_abntex2_attempt_v3/
-academic_abntex2_attempt_v3_1/
