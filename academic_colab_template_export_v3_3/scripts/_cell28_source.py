@@ -205,6 +205,42 @@ for i, (py_file, titulo, label) in enumerate(apendices_info):
         f'\\lstinputlisting[language=Python, caption={{{titulo}.}}, label={{{label}}}]{{{py_file}}}\n\n'
     )
 
+# Apendice G: Declaracao de Uso de IA (Diretrizes CAPES)
+heading_g = 'Apêndice G --- Declaração de Uso de Inteligência Artificial'
+bloco_apendices += (
+    f'\\section*{{{heading_g}}}\n'
+    f'\\addcontentsline{{toc}}{{section}}{{{heading_g}}}\n'
+    '\n'
+    'Este trabalho acadêmico contou com o uso de ferramentas de Inteligência Artificial generativa '
+    '(\\textit{Antigravity/Modelos de Linguagem Avançados}) exclusivamente como apoio instrumental, '
+    'em conformidade com as diretrizes da CAPES (Brasil) para transparência no uso de IA em produções acadêmicas. '
+    'A utilização deu-se em dois eixos:\n'
+    '\n'
+    '\\begin{enumerate}\n'
+    '  \\item \\textbf{Engenharia de Software Assistida:} apoio na automação de pipelines, '
+    'refatoração de código limpo (\\textit{clean code}), geração de \\textit{boilerplates} para testes de contrato (TDD) '
+    'e formatação de scripts \\LaTeX.\n'
+    '  \\item \\textbf{Revisão Formal:} apoio à revisão ortográfica, à estruturação de tópicos '
+    'e à adequação do texto às normas da ABNT.\n'
+    '\\end{enumerate}\n'
+    '\n'
+    'Ressalta-se que a Inteligência Artificial \\textbf{não foi utilizada como autora do trabalho}, '
+    'nem como substituta da elaboração intelectual do discente. Todas as escolhas metodológicas, '
+    'desenho arquitetural, engenharia de \\textit{guardrails}, concepção das regras de negócio (R1--R6), '
+    'interpretações teóricas e conclusões acadêmicas são de inteira responsabilidade do autor humano. '
+    'A formulação do modelo lógico proposicional e as salvaguardas de conformidade com a LGPD e o ECA '
+    'são concepções exclusivamente humanas.\n'
+    '\n'
+    'O conteúdo submetido ao apoio da ferramenta passou por revisão crítica, conferência minuciosa '
+    '(via \\textit{quality gates} e testes de contrato) e validação humana, com o objetivo de assegurar '
+    'a correção das informações, a coerência argumentativa, a conformidade com as regras da ABNT '
+    'e a adequação acadêmica do texto final.\n'
+    '\n'
+    'Assim, o uso da IA neste trabalho teve caráter estritamente instrumental, limitado ao suporte '
+    'arquitetural de \\textit{software}, linguístico, estrutural e normativo, '
+    '\\textbf{sem transferência de autoria ou de responsabilidade acadêmica}.\n\n'
+)
+
 # Remover bloco de apendices existente (gerado pelo nbconvert)
 if '\\appendix' in conteudo:
     # Tudo entre \appendix e \end{document}
