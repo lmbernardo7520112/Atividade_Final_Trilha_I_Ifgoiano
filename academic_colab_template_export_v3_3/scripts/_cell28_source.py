@@ -44,6 +44,30 @@ for py in py_files:
     shutil.copy2(src, f"{build_dir}/{py}")
     print(f"  Copiado: {py}")
 
+# 2b. Baixa e copia as figuras referenciadas no texto (do repositorio GitHub)
+GITHUB_RAW = "https://raw.githubusercontent.com/lmbernardo7520112/Atividade_Final_Trilha_I_Ifgoiano/main/academic_abntex2_attempt_v3_3/figures"
+figure_files = [
+    "fluxo_proveniencia_dados.png",
+    "cenarios_ativacao_regras.png",
+    "comparacao_baseline_motor.png",
+    "grafo_regras_7vars.png",
+]
+import urllib.request
+for fig in figure_files:
+    dest_content = f"/content/{fig}"
+    dest_build = f"{build_dir}/{fig}"
+    if not os.path.exists(dest_content):
+        try:
+            url = f"{GITHUB_RAW}/{fig}"
+            urllib.request.urlretrieve(url, dest_content)
+            print(f"  Baixado: {fig}")
+        except Exception as e:
+            print(f"  AVISO: Nao foi possivel baixar {fig}: {e}")
+            print(f"         O PDF sera gerado sem esta figura.")
+    if os.path.exists(dest_content):
+        shutil.copy2(dest_content, dest_build)
+        print(f"  Copiado para build: {fig}")
+
 # 3. Sanitiza caracteres acentuados nos .py para compatibilidade com listings/xelatex
 for py in py_files:
     path = f"{build_dir}/{py}"
@@ -107,6 +131,18 @@ conteudo = conteudo.replace('temp\\_limpo', '')
 
 # Remover nocaption
 conteudo = re.sub(r'.*nocaption.*\n?', '', conteudo)
+
+# Reescrever caminhos /content/ para caminhos locais (build_dir)
+conteudo = conteudo.replace('/content/', '')
+
+# Remover inputenc/fontenc (incompativeis com xelatex, usar fontspec)
+conteudo = re.sub(r'\\usepackage\[.*?\]\{inputenc\}', '', conteudo)
+conteudo = re.sub(r'\\usepackage\[.*?\]\{fontenc\}', '', conteudo)
+if '\\usepackage{fontspec}' not in conteudo:
+    conteudo = conteudo.replace(
+        '\\documentclass[11pt]{article}',
+        '\\documentclass[11pt]{article}\n\\usepackage{fontspec}'
+    )
 
 # Data dinamica
 if '\\today' in conteudo:
